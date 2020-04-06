@@ -87,3 +87,34 @@ sequences_tidy_taxa %T>%
   {print(nrow(.))} %>%  # ca. 239 **taxa** sequenced
   filter(n_markers > 1) %>%
   nrow()  # 130 of which have > 1 marker
+
+# Visualise sequence availability by taxon
+theme_set(theme_classic())
+marker_names_ordered <- sequences_tidy_taxa %>%
+  select(ETS, ITS, rbcL, rps16, trnLF) %>%
+  map_dbl(sum) %>%
+  sort(decreasing = TRUE) %>%
+  names()
+sequences_tidy_taxa %<>%
+  select(-n_markers) %>%
+  gather(marker_name, available, ETS:trnLF) %>%
+  mutate(
+    marker_name = factor(marker_name, levels = marker_names_ordered),
+    available   = (available == 1),
+    genus       = str_extract(taxon, "[a-zA-Z]+")
+  )
+sequences_plot <- ggplot(sequences_tidy_taxa) +
+  aes(marker_name, taxon, fill = genus, alpha = available) +
+  geom_tile() +
+  labs(x = "Marker sequenced?") +
+  scale_alpha_manual(values = c(0, 1)) +
+  theme(
+    axis.text.y     = element_text(hjust = 0),
+    axis.title.y    = element_blank(),
+    legend.position = "none"
+  )
+ggsave(
+  "sequence-availability/sequences-by-taxon.pdf",
+  sequences_plot,
+  width = 5, height = 30
+)
