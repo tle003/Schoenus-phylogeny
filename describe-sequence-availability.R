@@ -2,8 +2,10 @@ library(tidyverse)
 library(magrittr)
 
 # Import Tammy and Ruan's data
-tle <- read_csv("2020-04-03_specimen-tot-nodups_tle.csv")
-rvm <- read_csv("2020-04-02_sequences-tidy-by-voucher_rvm.csv")
+tle <-
+  read_csv("sequence-availability/2020-04-03_specimen-tot-nodups_tle.csv")
+rvm <-
+  read_csv("sequence-availability/2020-04-02_sequences-tidy-by-voucher_rvm.csv")
 
 # Tidy both our datasets (make columns names the same, etc.)
 tle %<>%
@@ -27,15 +29,19 @@ sequences_tidy <-
     {ifelse(str_detect(., "^[0-9]{3}$"), paste0("TE2016_", .), .)} %>%
     {ifelse(str_detect(., "^[0-9]{4}$"), paste("Muasya", .), .)}
   ) %>%
-  group_by(taxon, voucher) %>%
+  distinct() %>%
   # Score markers available as 1, unavailable as 0
   mutate_at(vars(c("ETS", "ITS", "rbcL", "rps16", "trnLF")),
     ~ifelse(is.na(.), 0, .)
   ) %>%
+  group_by(taxon, voucher) %>%
+  summarise_at(vars(c("ETS", "ITS", "rbcL", "rps16", "trnLF")),
+    ~ifelse(sum(.) > 0, 1, 0)
+  ) %>%
   # Sum up number of markers available per voucher
   mutate(n_markers = ETS + ITS + rps16 + trnLF + rbcL) %>%
   arrange(taxon, voucher)
-write_csv(sequences_tidy, "sequences-by-voucher.csv")
+write_csv(sequences_tidy, "sequence-availability/sequences-by-voucher.csv")
 
 # Recalculate n_markers by taxa
 sequences_tidy_taxa <- sequences_tidy %>%
@@ -46,18 +52,20 @@ sequences_tidy_taxa <- sequences_tidy %>%
   ) %>%
   arrange(taxon) %>%
   mutate(n_markers = ETS + ITS + rbcL + rps16 + trnLF)
-write_csv(sequences_tidy_taxa, "sequences-by-taxon.csv")
+write_csv(sequences_tidy_taxa, "sequence-availability/sequences-by-taxon.csv")
 
 # Check for specimens (vouchers) that have differing dets in the 2 matrices
 # (to be continued)
 sequences_tidy_det_check <- sequences_tidy %>%
   ungroup() %>%
-  arrange(voucher) %>%
+  select(taxon, voucher) %>%
+  distinct() %>%
+  arrange(voucher, taxon) %>%
   group_by(voucher) %>%
-  summarise(n_dets = n(), taxa = paste(taxon, collapse = ", ")) %>%
-  arrange(desc(n_dets), voucher) %>%
+  summarise(n_dets = n(), taxa = paste(unique(taxon), collapse = ", ")) %>%
+  arrange(desc(n_dets)) %>%
   filter(n_dets > 1, voucher != "?")
-write_csv(sequences_tidy_det_check, "dets-to-check.csv")
+write_csv(sequences_tidy_det_check, "sequence-availability/dets-to-check.csv")
 
 # Useful statistics:
 sequences_tidy %>%
