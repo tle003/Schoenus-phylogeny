@@ -1,0 +1,469 @@
+Species,Specimen,Voucher,ETS,ITS,rbcL,rps16,trn,Total-markers
+Anthelepis paludosa,Ant_paludosa-KW9858,Wilson 9858,0,0,0,0,1,1
+Baumea arthrophylla,Bau_arthrophylla-AK289619,AK289619,0,1,0,0,0,1
+Baumea arthrophylla,Bau_arthrophylla-AK289627,AK289627,0,1,0,0,0,1
+Baumea articulata,Bau_articulata-AK84529,AK284529,0,1,0,0,0,1
+Baumea articulata,Bau_articulata-BES21-2007,Besnard 21-2007,0,0,1,0,0,1
+Capeobolus brevicaulis,Cap_brevicaulis-209,TE2016_209,1,0,0,0,0,1
+Capeobolus brevicaulis,Cap_brevicaulis-M1238,Muasya 1238,0,0,1,0,0,1
+Capeobolus brevicaulis,Cap_brevicaulis-V646,Verboom 646,1,1,1,0,1,4
+Carpha alpina,Car_alpina-AK287909,AF307909,0,0,1,0,0,1
+Carpha alpina,Car_alpina-AK289109,AK289109,0,1,0,0,0,1
+Carpha alpina,Car_alpina-BR1888C,Bruhl 1888C,0,1,0,0,0,1
+Carpha alpina,Car_alpina-PUL5088,Pullen 5088,0,1,0,0,0,1
+Carpha alpina,Car_alpina-XZ13,Zhang 13 & Wilson,0,0,0,0,1,1
+Carpha capitellata var. bracteosa,Car_capiellata-M4759,Muasya 4759,1,0,0,0,0,1
+Carpha capitellata,Car_capitellata-JB1718,JB1718,0,0,0,0,1,1
+Carpha capitellata,Car_capitellata-M4759,Muasya 4759,0,0,0,1,0,1
+Carpha capitellata var. bracteosa,Car_capitellata_bracteosa-M4759,Muasya 4759,0,0,1,0,0,1
+Carpha glomerata,Car_glomerata-M1176,Muasya 1176,0,0,1,1,0,2
+Carpha glomerata,Car_glomerata-M5863,Muasya 5863,1,1,0,0,0,2
+Carpha nitens,Car_nitens-KEW11893,KEW11893,0,0,0,0,1,1
+Carpha rodwayi,Car_rodwayi-BR1881B,Bruhl 1881B,0,1,0,0,0,1
+Carpha rodwayi,Car_rodwayi-BR1890B,Bruhl 1890B,0,1,0,0,0,1
+Carex diandra,Carex_diandra-B0223,B0223,0,0,1,0,0,1
+Carex diandra,Carex_diandra-MK525410,MK525410,0,0,1,0,0,1
+Caustis blakei var. blakei,Cau_blakei-BR2431,Bruhl 2431,0,1,0,0,0,1
+Caustis blakei,Cau_blakei-Br2046,Bruhl 2046,1,0,0,0,0,1
+Caustis blakei subsp. Blakei,Cau_blakei-TEL12780,Telford 12780,0,0,0,0,1,1
+Caustis blakei var. macrantha,Cau_blakei_macrantha-BR2046,Bruhl 2046,0,1,0,0,0,1
+Caustis dioica,Cau_dioica-Ch2225,Chase 2225,1,0,0,1,0,2
+Caustis dioica,Cau_dioica-Y12976,Y12976,0,0,1,0,0,1
+Caustis blakei,Cau_flexuosa-BR2046,Bruhl 2046,0,0,1,0,0,1
+Caustis flexuosa,Cau_flexuosa-BR2052,Bruhl 2052,0,1,0,0,0,1
+Caustis flexuosa,Cau_flexuosa-BR2583,Bruhl 2583,0,1,0,0,0,1
+Caustis flexuosa,Cau_flexuosa-COV9239,Coveny 9239,0,0,1,0,0,1
+Caustis flexuosa,Cau_flexuosa-HOD2052,Hodgon 2052,0,0,0,0,1,1
+Tetraria borneensis,Cos_borneensis-A9876,Anderson 9876,1,0,0,0,1,2
+Costularia fragilis,Cos_fragilis-MCK41617,McKee41617,0,0,1,0,0,1
+Costularia fragilis,Cos_fragilis-WEB14967,Webster & R. Hildreth 14967,1,1,0,0,1,3
+Costularia hornei,Cos_hornei-Sen7107,Senterre & E.Henriette 7107,1,0,0,0,1,2
+Costularia laxa,Cos_lax-RAK3033,Rakotovao 3033,0,1,0,0,1,2
+Costularia laxa,Cos_laxa-G2706,Gautier & Chantelain,0,0,0,0,1,1
+Costularia leucocarpa,Cos_leucocarpa-L2010-0140,Larridon 2010-0140,0,0,0,1,0,1
+Costularia leucocarpa,Cos_leucocarpa-L2010-0237,Larridon et a. 2010-0237,0,1,0,0,1,2
+Costularia melicoides,Cos_melicoides-LAM5257,Lam & Meeuse 5257,0,1,0,0,1,2
+Costularia melleri,Cos_melleri-L2010-0249,Larridon et a. 2010-0249,0,1,0,0,1,2
+Costularia natalensis,Cos_natalensis-BROW531,Browning 531,0,1,0,0,1,2
+Costularia natalensis,Cos_natalensis-Br531,Browning 531,1,0,0,0,0,1
+Costularia natalensis,Cos_natalensis-RE1754,Reid 1754,0,0,1,0,0,1
+Costularia natalensis,Cos_natalensis-V773,Verboom 773,1,1,1,0,1,4
+Costularia nervosa,Cos_nervosa-J2378,T.Jaffre 2378,1,0,0,0,1,2
+Costularia nervosa,Cos_nervosa-JAF2378,T. Jaffre 2378,0,1,0,0,0,1
+Costularia nervosa,Cos_nervosa-KW9939,KW9939,0,0,0,0,1,1
+Costularia pantopoda var.  baronii,Cos_pantopoda_baronii-L2010-0139,Larridon et al. 2010-0139,0,0,1,1,0,2
+Costularia pantopoda var.  baronii,Cos_pantopoda_baronii-L2010-0153,Larridon et a. 2010-0153,0,1,0,0,1,2
+Costularia pantopoda var. pantopoda,Cos_pantopoda_pantopoda-L2010-0144,Larridon et a. 2010-0144,0,1,1,0,1,3
+Costularia pantopoda var. robusta,Cos_pantopoda_robusta-RAZA431,L.J. Razafitsalama 531,0,1,0,0,1,2
+Costularia purpurea,Cos_purpurea-ARM74,Armand 74,0,1,0,0,0,1
+Costularia xipholepis,Cos_xipholepis-SENT6964,Senterre & E. Henriette 6964,0,1,0,0,1,2
+Costularia xyridioides,Cos_xyridioides-BR3260,Bruhl 3260,0,1,0,0,1,2
+Cyathocoma bachmanii,Cya_bachmanii-Brow835,Browning 835,0,0,0,0,1,1
+Cyathocoma hexandra,Cya_hexandra-V648,Verboom 648,1,0,0,0,1,2
+Cyathochaeta avenacea,Cyath_avenacea-V1248,Verboom 1248,0,0,1,0,0,1
+Cyathochaeta diandra,Cyath_diandra-KW9468,Wilson 9468,1,0,0,0,0,1
+Cyathochaeta diandra,Cyath_diandra-W,Wilson et al.,0,0,1,0,0,1
+Cyanthochaeta diandra,Cyath_diandra-XZ24,XZ24,0,0,0,0,1,1
+Cyathochaeta avenacea,Cyatho_avenacea-V1248,Verboom 1248,1,0,0,1,0,2
+Eleocharis diandra,Ele_diandra-BIS,Bissell,0,0,1,0,0,1
+Evandra aristata,Eva_aristata-B5356,Barrett 5356,0,1,0,0,0,1
+Evandra aristata,Eva_aristata-BR2108,Bruhl 2108,0,1,0,0,0,1
+Evandra aristata,Eva_aristata-KW8974,Wilson 8974,1,0,0,0,0,1
+Evandra pauciflora,Eva_pauciflora-MACF2684,Macfarlane 2684,0,0,0,0,1,1
+Gahnia baniensis,Gah_ban-SIM,Simpson s.n.,0,0,1,0,0,1
+Gahnia baniensis,Gah_baniensis-S2737,Simpson 2737,0,0,1,0,1,2
+Gahnia setifolia,Gah_setifolia-AK288670,AK288670,0,1,0,0,0,1
+Gahnia sieberiana,Gah_sieberiana-KW9913,KW9913,0,0,0,0,1,1
+Gahnia trifida,Gah_trifida-G3904,Gibson 3904,0,0,0,0,1,1
+Gahnia trifida,Gah_trifida-V1228,Verboom 1228,0,0,0,1,0,1
+Gahnia tristis,Gah_tristis-Hir20361,Hirahara 20361,0,1,1,0,0,2
+Gahnia tristis,Gah_tristis-Sh885,Shaw 885,1,0,0,1,0,2
+Gahnia tristis,Gah_tristis-V1228,Verboom 1228,0,0,1,0,0,1
+Gahnia xanthocarpa,Gah_xanthocarpa-AK289506,AK289506,0,1,0,0,0,1
+Gymnoschoenus anceps,Gym_anceps-BR2110,Bruhl 2110,0,0,0,0,1,1
+Gymnoschoenus sphaerocephalus,Gym_sphaerocephalus-AY725945,AY725945,0,0,1,0,0,1
+Gymnoschoenus sphaerocephalus,Gym_sphaerocephalus-XZ,"Zhang , Bruhl & Hodgson",0,0,0,0,1,1
+Lepidosperma diurnum,Lep_diurnum-B4124,Barrett 4124,0,1,0,0,0,1
+Lepidosperma effusum,Lep_effusum-B4100,Barrett 4100,0,1,0,0,0,1
+Lepidosperma ferricola,Lep_ferricola-B2499,Barrett & Ujetz 2499,0,0,0,0,1,1
+Lepidosperma forsythii,Lep_forsythii-NORTH,North s.n.,0,1,0,0,0,1
+Lepidosperma gahnioides,Lep_gahnioides-CR6011,Craig 6011,0,1,0,0,0,1
+Lepidosperma gladiatum,Lep_gladiatum-HOD723,"Hodgon 723, Buhl & Hodgon",0,0,0,0,1,1
+Lepidosperma laterale,Lep_laterale-BR2048,"Bruhl 2048, Telford, Fatemi",0,0,0,0,1,1
+Lepidosperma laterale,Lep_longitudinale-HOD345,Hodgon 345,0,1,0,0,0,1
+Lepidosperma longitudinale,Lep_longitudinale-V1236,Verboom 1236,1,0,1,1,0,3
+Lepidosperma pubisquameum,Lep_pubisquameum-CRAN16366,Cranfield 16366,0,1,0,0,0,1
+Lepidosperma rostratum,Lep_rostratum-KEIGH,Keighery & Keighery s.n.,0,0,0,0,1,1
+Lepidosperma tetraquetrum,Lep_tetraquetrum-DAV9510,Davis 9510,0,1,0,0,0,1
+Lepidosperma tortuosum,Lep_tortuosum-C17470,Coveny 17470,1,0,0,1,0,2
+Lepidosperma tortuosum,Lep_tortuosus-BR2357,Bruhl 2357,0,1,0,0,0,1
+Machaerina angustifolia,Mac_angustifolia-MOR1253,Morden 1253,0,1,0,0,0,1
+Machaerina austrobrasiliensis,Mac_austrobrasiliensis-TREV858,Trevisan 858,0,0,0,0,1,1
+Machaerina gunnii,Mac_gunnii-BR2600,Bruhl 2600,0,0,0,0,1,1
+Machaerina iridifolia,Mac_iridifolia-AHPENG1742,Ah-Peng 1742,0,0,1,1,0,2
+Machaerina mariscoides,Mac_mariscoides-JO9195,Johns 9195,0,0,1,0,0,1
+Machaerina mariscoides var. meyenii,Mac_mariscoides-MOR1263,Morden 1263,0,1,0,0,0,1
+Machaerina mariscoides var. meyenii,Mac_mariscoides-REY098,Reynolds 098,0,1,0,0,0,1
+Machaerina rubiginosa,Mac_rubiginosa-Br1859,Bruhl 1859,1,0,0,0,0,1
+Machaerina rubiginosa,Mac_rubiginosa-Hoshino19254,Hoshino 19254,0,1,1,0,0,2
+Machaerina rubiginosa,Mac_rubiginosa-W9456,Wilson 9456,0,0,1,0,0,1
+Mesomelaena graciliceps,Mes_graciliceps-B5028,"Barrett, Sandiford & Rathbone RLB 5028",0,0,0,0,1,1
+Mesomelaena tetragona,Mes_tetragona-Ch2227,Chase 2227,0,0,0,1,0,1
+Mesomelaena tetragona,Mes_tetragona-Y12949,Y12949,0,0,1,0,0,1
+Morelotia gahniiformis,Mor_gahniiformis-HER1197,Herbst 1197,0,0,1,0,0,1
+Morelotia gahniiformis,Mor_gahniiformis-MOR2117,Morden 2117,0,1,0,0,1,2
+Neesenbeckia punctoria,Nee_punctoria-BR1731,Bruhl 1731,0,1,0,0,0,1
+Neesenbeckia punctoria,Nee_punctoria-M6375,Muasya 6375,0,0,0,1,0,1
+Neesenbeckia punctoria,Nee_punctoria-V650,Verboom 650,1,0,1,0,1,3
+Oreobolus distichus,Ore_distichus-BR1870,Bruhl 1870,0,1,0,0,0,1
+Oreobolus distichus,Ore_distichus-C5373,Coveny 5373,1,0,0,0,0,1
+Oreobolus furcatus,Ore_furcatus-CARL21111,Calquist 21111,0,1,0,0,0,1
+Oreobolus furcatus,Ore_furcatus-MOR1861,Morden 1861,0,1,0,0,0,1
+Oreobolus kuekenthalii,Ore_kuekenthalii-SIM2659,Simpson 2659,0,1,0,0,0,1
+Oreobolus kuekenthalii,Ore_kuekenthalii-Y12972,Y12972,0,0,1,0,0,1
+Oreobolus obtusangulus,Ore_obtusangulus-BR2237,Bruhl 237,0,1,0,0,0,1
+Oreobolus obtusangulus,Ore_obtusangulus-MOORE2817,Moore 2817,0,1,0,0,0,1
+Oreobolus oligocephalus,Ore_oligocephalus-BR1889A,Bruhl 1889A,0,1,0,0,1,2
+Oreobolus oxycarpus,Ore_oxycarpus-BL18320,Blake 18320,0,1,0,0,0,1
+Oreobolus pectinatus,Ore_pectinatus-AF307927,AF307927,0,0,1,0,0,1
+Oreobolus pectinatus,Ore_pectinatus-AK289108,AK289108,0,1,0,0,0,1
+Oreobolus pectinatus,Ore_pectinatus-MEL6528,Melville & Connor 6528,1,1,0,0,1,3
+Oreobolus pumilio,Ore_pumilio-BR1879C,Bruhl 1879C,0,1,0,0,1,2
+Oreobolus strictus,Ore_strictus-Mc143395,McMillaan 143395,0,0,0,0,1,1
+Ptilothrix deusta,Pti_deusta-BR2055,Bruhl 2055,0,1,0,0,0,1
+Ptilothrix deusta,Pti_deusta-COV17471,Coveny R.G. 17471,0,0,1,0,0,1
+Ptilothrix deusta,Pti_deusta-G46,Gibbs 46,1,0,0,0,0,1
+Ptilothrix deusta,Pti_deusta-XZ1,"Zhang 1, Bruhl, Copeland & Knox",0,0,0,0,1,1
+Reedia spathacea,Ree_spathacea-HOD740,Hodgon 740 & Bruhl,0,0,0,0,1,1
+Reedia spathacea,Ree_spathacea-MWC35634,MWC 35634,0,0,1,0,0,1
+Rhynchospora pungens,Rhy_pungens-BR2278,"Bruhl 2278, Guaglianone, Guarise & Sotelo",0,0,0,0,1,1
+Rhynchospora rugosa subsp. Brownii,Rhy_rugosa-V616,Verboom 616,0,0,0,0,1,1
+Tetraria arundinacea,Tet_arundinacea-W9935,Wilson 9935,0,0,0,0,1,1
+Tetraria bromoides,Tet_bromoides-V641,Verboom 641,0,0,1,0,0,1
+Tetraria burmanni,Tet_burmanni-V1219,Verboom 1219,1,0,0,0,1,2
+Tetraria capillacea,Tet_capillacea-327,TE2016_327,0,0,0,1,1,2
+Tetraria capillacea,Tet_capillacea-V1313,Verboom 1313,0,0,0,0,1,1
+Tetraria capillaris,Tet_capillaris-AK286807,AK286807,0,1,0,0,0,1
+Tetraria capillaris,Tet_capillaris-BR2106,Bruhl 2106 & Watson,0,0,0,0,1,1
+Tetraria capillaris,Tet_capillaris-BR2414,Bruhl 2414,0,1,0,0,1,2
+Tetraria capillaris,Tet_capillaris-BR2484,Bruhl 2484,0,1,0,0,1,2
+Tetraria capillaris,Tet_capillaris-W9464,Wilson 9464,1,0,1,0,0,2
+Tetraria cernua,Tet_cernua-V707,Verboom 707,1,0,0,1,0,2
+Tetraria compressa,Tet_compressa-V653,Verboom 653,1,0,1,0,1,3
+Tetraria crinifolia,Tet_crinifolia-V638,Verboom 638,0,0,1,0,0,1
+Tetraria eximia,Tet_eximia-V647,Verboom 647,1,0,1,0,1,3
+Tetraria eximia,Tet_eximia-V720,Verboom 720,0,0,1,0,0,1
+Tetraria fasciata,Tet_fasciata-305,TE2016_305,1,0,1,1,0,3
+Tetraria fasciata,Tet_fasciata-313,TE2016_313,0,0,1,1,0,2
+Tetraria fasciata,Tet_fasciata-314,TE2016_314,0,0,1,0,0,1
+Tetraria fasciata,Tet_fasciata-M6478,Muasya 6478,0,0,0,1,0,1
+Tetraria fasciata,Tet_fasciata-V644,Verboom 644,1,0,0,0,1,2
+Tetraria ferruginea,Tet_ferruginea-V527,Verboom 527,1,0,0,0,1,2
+Tetraria fimbriolata,Tet_fimbriolata-V533,Verboom 533,1,0,0,0,1,2
+Tetraria flexuosa,Tet_flexuosa-V505,Verboom 505,1,0,1,0,1,3
+Tetraria fourcadei,Tet_fourcadei-V633,Verboom 633,1,0,0,0,1,2
+Tetraria involucrata,Tet_involucrata-BEL33,Balele K. 33,0,0,1,0,0,1
+Tetraria involucrata,Tet_involucrata-V661,Verboom 661,1,0,1,0,1,3
+Tetraria maculata,Tet_maculata-V528,Verboom 528,0,0,0,0,1,1
+Tetraria cf. microstachys,Tet_microstachys-V513,Verboom 513,0,0,1,0,0,1
+Tetraria microstachys,Tet_microstachys-V640,Verboom 640,1,0,1,0,1,3
+Tetraria nigrovaginata,Tet_nigrovaginata-V500,Verboom 500,1,0,1,0,1,3
+Tetraria pleosticha,Tet_pleosticha-V639,Verboom 639,1,0,0,0,0,1
+Tetraria pubescens,Tet_pubescens-V651,Verboom 651,1,0,0,0,0,1
+Tetraria pygmaea,Tet_pygmaea-V1276,Verboom 1276,1,0,0,0,1,2
+Tetraria raynaliana,Tet_raynaliana-KW9940,Wilson 9940,0,0,0,0,1,1
+Tetraria secans,Tet_secans-V658,Verboom 658,1,0,1,0,1,3
+Tetraria spiralis,Tet_spiralis-V719,Verboom 719,1,0,0,0,0,1
+Tetraria thermalis,Tet_thermalis-V643,Verboom 643,1,0,1,0,1,3
+Tetraria triangularis,Tet_triangularis-BRIT321,Britton 321,0,0,1,0,0,1
+Tetraria triangularis,Tet_triangularis-BRIT322,Britton 322,0,0,1,0,0,1
+Tetraria triangularis,Tet_triangularis-BRIT354,Britton 354,0,0,1,0,0,1
+Tetraria triangularis,Tet_triangularis-BRIT359,Britton 359,0,0,1,1,0,2
+Tetraria triangularis,Tet_triangularis-V518,Verboom 518,1,0,0,0,1,2
+Tetraria ustulata,Tet_ustulata-V501,Verboom 501,0,0,1,0,1,2
+Tetraria ustulata,Tet_ustulata-V664,Verboom 664,1,0,1,0,0,2
+Tetrariopsis octandra,Tetr_octandra-B5050,Barrett RLB 5050,0,0,0,0,1,1
+Tetrariopsis octandra,Tetr_octandra-V1242,Verboom 1242,0,0,1,1,0,2
+Trianoptiles capensis,Tria_capensis-M3160,Muasya 3160,1,0,0,1,1,3
+Trianoptiles solitaria,Tria_solitaria-Br1756,Bruhl 1756,0,0,0,0,1,1
+Trianoptiles solitaria,Tria_solitaria-Hosk1765,Hosking 1765,0,0,0,0,1,1
+Tricostularia aphylla,Tric_aphylla-B2753,Barrett RLB 2753,0,0,0,0,1,1
+Tricostularia aphylla,Tric_aphylla-KEIGH5082,Keighery & Gibson 5082,0,0,0,0,1,1
+Tricostularia exsul,Tric_exsul-B4389,"Barrett, Moody & McQuoid RLB 4389",0,0,0,0,1,1
+Tricostularia neesii,Tric_neesii-B5020,Barrett 5020,0,1,0,0,0,1
+Tricostularia paludosa,Tric_paludosa-BR2655,Bruhl 2655,0,0,0,0,1,1
+Tricostularia pauciflora,Tric_pauciflora-G53,Gibbs 53,1,0,0,0,0,1
+Tricostularia pauciflora,Tric_pauciflora-KW9910,Wilson 9910,0,0,0,0,1,1
+Tricostularia undulata,Tric_undulata-KW9681,Wilson 9681,0,0,0,0,1,1
+Tricostularia undulata,Tric_undulata-KW9699,Wilson 9699,0,0,0,0,1,1
+Schoenus acuminatus,acuminatus-B5340,Barrett 5340,0,1,0,0,0,1
+Schoenus adnatus c.f.,adnatus-V1144,Verboom 1144,1,0,1,1,0,3
+Schoenus albovaginatus,albovaginatus-vm2,van Mazijk 002,0,0,1,0,0,1
+Schoenus apogon var. caespitans,apogon-AK308178,AK308178,0,1,0,0,0,1
+Schoenus apogon var. apogon,apogon-B5172,Barrett 5172,0,1,0,0,0,1
+Schoenus apogon var. apogon,apogon-B5225,Barrett 5225,0,1,0,0,0,1
+Schoenus apogon var. apogon,apogon-B5230,Barrett 5230,0,1,0,0,0,1
+Schoenus apogon,apogon-BR1860,Bruhl 1860 & Quinn,0,0,0,0,1,1
+Schoenus apogon var. apogon,apogon-BR2515,Bruhl 2515,0,1,0,0,0,1
+Schoenus apogon var. apogon,apogon-BR2746A,Bruhl 2746A,0,1,0,0,0,1
+Schoenus apogon,apogon-CHR552946,Courtney 552946,0,0,1,0,0,1
+Schoenus apogon var. apogon,apogon-COPE4361,Copeland 4361,0,1,0,0,0,1
+Schoenus apogon var. apogon,apogon-DUR2291,Duretto 291,0,1,0,0,0,1
+Schoenus apogon var. apogon,apogon-G126,Gibbs 126,0,1,0,0,0,1
+Schoenus apogon var. apogon,apogon-G35,Gibbs 35,0,1,0,0,0,1
+Schoenus apogon,apogon-Hoshino18971,Hoshino 18971,0,0,1,0,0,1
+Schoenus arenicola,arenicola-269,TE2016_269,1,0,1,0,0,2
+Schoenus arenicola,arenicola-320,TE2016_320,1,0,1,1,0,3
+Schoenus arenicola,arenicola-H989,Helme 2989,0,0,0,0,1,1
+Schoenus armeria,armeria-B5260,Barrett 5260,0,1,0,0,0,1
+Schoenus armeria,armeria-B5855,Barrett 5855,0,1,0,0,0,1
+Schoenus armeria,armeria-B5898,Barrett 5898,0,1,0,0,0,1
+Schoenus aureus,aureus-245,TE2016_245,0,0,1,0,0,1
+Schoenus aureus,aureus-336,TE2016_336,0,0,1,0,1,2
+Schoenus aureus,aureus-337,TE2016_337,0,0,1,0,0,1
+Schoenus auritus,auritus-193,TE2016_193,1,0,1,0,0,2
+Schoenus auritus,auritus-244,TE2016_244,1,0,1,0,1,3
+Schoenus auritus,auritus-245,TE2016_245,0,0,0,1,0,1
+Schoenus auritus,auritus-306,TE2016_306,1,0,0,0,0,1
+Schoenus auritus,auritus-307,TE2016_307,1,0,0,0,0,1
+Schoenus auritus x cuspidatus,auritus-cuspidatus-198,TE2016_198,1,0,0,0,0,1
+Schoenus badius,badius-B5269A,Barrett 5269A,0,1,0,0,0,1
+Schoenus bifidus,bifidus-B5878,Barrett 5878,0,1,0,0,0,1
+Schoenus bifidus,bifidus-H784,Hodgon 784,0,1,0,0,0,1
+Schoenus bifidus,bifidus-V1249,Verboom 1249,0,0,0,1,1,2
+Schoenus bolusii,bolusii-308,TE2016_308,1,0,0,0,0,1
+Schoenus bolusii,bolusii-324,TE2016_324,0,0,1,0,0,1
+Schoenus bolusii,bolusii-V520,Verboom 520,1,0,1,0,1,3
+Schoenus bolusii,bolusii-V606,Verboom 606,1,0,1,0,1,3
+Schoenus bolusii x cuspidatus,bolusii-cuspidatus-317,TE2016_317,1,0,1,1,1,4
+Schoenus breviculmis,breviculmis-B5141,Barrett 5141,0,1,0,0,0,1
+Schoenus breviculmis,breviculmis-B5191,Barrett 5191,0,1,0,0,0,1
+Schoenus breviculmis,brevifolius-BR1861,Bruhl 1861,0,1,0,0,0,1
+Schoenus breviculmis,brevifolius-G75,Gibbs 75,0,1,0,0,0,1
+Schoenus brevifolius,brevifolius-KAT19875,Katsuyama 19875,0,1,0,0,0,1
+Schoenus brevifolius,brevifolius-OGA0265,OGA0265,0,0,0,0,1,1
+Schoenus brevisetis,brevisetis-B4337,Barrett & Moody RLB 4337,0,0,0,0,1,1
+Schoenus brunnescens,brunnescens-221,TE2016_221,1,0,0,0,0,1
+Schoenus brunnescens,brunnescens-322,TE2016_322,1,0,0,1,0,2
+Schoenus apogon var. caespitans,caespitans-AK281020,AK281020,0,1,0,0,0,1
+Schoenus apogon var. caespitans,caespitans-AK288575,AK288575,0,1,0,0,0,1
+Schoenus apogon var. caespitans,caespitans-G131,Gibbs 131,0,1,0,0,0,1
+Schoenus apogon var. caespitans,caespitans-G132,Gibbs 132,0,1,0,0,0,1
+Schoenus caespititius,caespititius-B5608,Barrett 5608,0,1,0,0,0,1
+Schoenus caespititius,caespititius-BR2104,Bruhl 2104 & Watson,0,0,0,0,1,1
+Schoenus caespititius,caespititius-V1255,Verboom 1255,1,0,0,1,1,3
+Schoenus calcatus,calcatus-B5414,Barrett 5414,0,1,0,0,0,1
+Schoenus calceolus,calceolus-120,TE2016_120,1,0,1,0,0,2
+Schoenus calceolus,calceolus-126,TE2016_126,0,0,1,0,0,1
+Schoenus calostachyus,calostachyus-CANB583285,CANB583285,0,1,0,0,0,1
+Schoenus calostachyus,calostachyus-G117,Gibbs 117,0,1,0,0,0,1
+Schoenus calostachyus,calostachyus-MUS542,Musili 542,0,1,0,0,0,1
+Schoenus carsei,carsei-AK284567,AK284567,0,1,0,0,0,1
+Schoenus centralis,centralis-CANB583338,CANB583338,0,1,0,0,0,1
+Schoenus clandestinus,cladestinus-B5765,Barrett 5765,0,1,0,0,0,1
+Schoenus clandestinus,clandestinus-B3363,Barrett RLB 3363,0,0,0,0,1,1
+Schoenus clandestinus,clandestinus-B5267,Barrett 5267,0,1,0,0,0,1
+Schoenus clandestinus,clandestinus-B5283,Barrett 5283,0,1,0,0,0,1
+Schoenus compactus,compactus-310,TE2016_310,1,0,1,1,0,3
+Schoenus compactus,compactus-311,TE2016_311,1,0,1,1,0,3
+Schoenus compactus,compactus-V614,Verboom 614,1,0,1,1,1,4
+Schoenus compar,compar-232,TE2016_232,1,0,0,1,0,2
+Schoenus compar,compar-352,TE2016_352,0,0,1,0,1,2
+Schoenus compar,compar-362,TE2016_362,0,0,1,0,1,2
+Schoenus compar,compar-V549,Verboom 549,1,0,1,0,1,3
+Schoenus comparoides,comparoides-325,TE2016_325,0,0,1,0,0,1
+Schoenus comparoides,comparoides-333,TE2016_333,0,0,1,0,1,2
+Schoenus complanatus,complanatus-339,TE2016_339,0,0,1,0,0,1
+Schoenus complanatus,complanatus-341,TE2016_341,0,0,1,0,0,1
+Schoenus nitens var. concinnus,concinnus-AK256164,AK256164,0,1,0,0,0,1
+Schoenus nitens var. concinnus,concinnus-AK308197,AK308197,0,1,0,0,0,1
+Schoenus nitens var. concinnus,concinnus-G125,Gibbs 125,0,1,0,0,0,1
+Schoenus nitens var. concinnus,concinnus-G140,Gibbs 140,0,1,0,0,0,1
+Schoenus crassiculmis,crassiculmis-298,TE2016_298,1,0,0,1,0,2
+Schoenus crassiculmis,crassiculmis-338,TE2016_338,0,0,1,0,0,1
+Schoenus crassus,crassus-312,TE2016_312,0,0,1,0,0,1
+Schoenus crassus,crassus-321,TE2016_321,1,0,0,0,0,1
+Schoenus crassus,crassus-330,TE2016_330,0,0,1,0,0,1
+Schoenus crassus,crassus-354,TE2016_354,0,0,1,0,0,1
+Schoenus crassus,crassus-V507,Verboom 507,1,0,1,0,1,3
+Schoenus curvifolius,curvifolius-B4174,Barrett 4174,0,1,0,0,0,1
+Schoenus curvifolius,curvifolius-B5379,Barrett 5370,0,1,0,0,0,1
+Schoenus curvifolius,curvifolius-V1240,Verboom 1240,1,0,1,1,1,4
+Schoenus cuspidatus,cuspidatus-182,TE2016_182,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-198,TE2016_198,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-221,TE2016_221,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-235,TE2016_235,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-248,TE2016_248,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-253,TE2016_253,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-255,TE2016_255,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-256,TE2016_256,1,0,1,0,0,2
+Schoenus cuspidatus,cuspidatus-265,TE2016_265,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-278,TE2016_278,1,0,1,0,0,2
+Schoenus cuspidatus,cuspidatus-284,TE2016_284,0,0,1,1,0,2
+Schoenus cuspidatus,cuspidatus-298,TE2016_298,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-303,TE2016_303,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-321,TE2016_321,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-322,TE2016_322,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-334,TE2016_334,0,0,1,0,0,1
+Schoenus cuspidatus,cuspidatus-335,TE2016_335,0,0,1,0,0,1
+Schoenus deformis,defomis-B5164,Barrett 5164,0,1,0,0,0,1
+Schoenus discifer,discifer-B5322,Barrett 5322,0,1,0,0,0,1
+Schoenus discifer,discifer-B5330,Barrett 5330,0,1,0,0,0,1
+Schoenus discifer,discifer-B5346,Barrett 5346,0,1,0,0,0,1
+Schoenus discifer,discifer-B5877,Barrett 5877,0,1,0,0,0,1
+Schoenus dregeanus,dregeanus-204,TE2016_204,1,0,1,0,1,3
+Schoenus dregeanus,dregeanus-213,TE2016_213,1,0,0,0,0,1
+Schoenus efoliatus,efoliatus-B5327,Barrett 5327,0,1,0,0,0,1
+Schoenus efoliatus,efoliatus-B5341,Barrett 5341,0,1,0,0,0,1
+Schoenus efoliatus,efoliatus-CANB51037,CANB51037,0,1,0,0,0,1
+Schoenus efoliatus,efoliatus-V1235,Verboom 1235,1,0,1,1,1,4
+Schoenus ericetorum,ericetorum-G38C,Gibbs 38C,0,1,0,0,0,1
+Schoenus ericetorum,ericetorum-HOD377,Hodgon 377,0,0,0,0,1,1
+Schoenus ericetorum,ericetorum-KW10575,Wilson 10575,0,1,0,0,0,1
+Schoenus exilis,exilis-189,TE2016_189,1,0,0,0,0,1
+Schoenus exilis,exilis-192,TE2016_192,1,0,1,0,0,2
+Schoenus exilis,exilis-293,TE2016_293,1,0,0,0,0,1
+Schoenus exilis,exilis-V623,Verboom 623,1,0,1,0,1,3
+Schoenus falcatus,falcatus-B4730,Barrett 4730,0,1,0,0,0,1
+Schoenus falcatus,falcatus-B4739,Barrett RLB 4730,0,0,0,0,1,1
+Schoenus ferrugineus,ferrugineus-RBGE227,RBGE227,0,1,0,0,0,1
+Schoenus ferrugineus,ferrugineus-SCFESD04-190713,SCFESD04-190713,0,0,1,0,0,1
+Schoenus ferrugineus,ferrugineus-SCFESD06-190713,SCFESD06-190713,0,0,1,0,0,1
+Schoenus ferrugineus,ferrugineus-SCFESD08-190713,SCFESD08-190713,0,0,1,0,0,1
+Schoenus ferrugineus,ferrugineus-SCFESD17-250699,SCFESD17-250699,0,0,1,0,0,1
+Schoenus fluitans,fluitans-AK289622,AK289622,0,1,0,0,0,1
+Schoenus galpinii,galpinii-235,TE2016_235,1,0,0,0,1,2
+Schoenus graciliculmis,graciliculmis-255,TE2016_255,1,0,0,0,0,1
+Schoenus gracillimus,gracillimus-206,TE2016_206,1,0,1,1,0,3
+Schoenus gracillimus,gracillimus-V636,Verboom 636,1,0,1,0,1,3
+Schoenus graminifolius,graminifolius-282,TE2016_282,1,0,1,1,1,4
+Schoenus graminifolius,graminifolius-283,TE2016_283,1,0,1,0,0,2
+Schoenus grandiflorus,grandiflorus-B3364,Barrett 3364,1,0,0,0,0,1
+Schoenus grandiflorus,grandiflorus-KW8847,Wilson 8847,0,1,0,0,1,2
+Schoenus griffinianus,griffinianus-B5253,Barrett 5253,0,1,0,0,0,1
+Schoenus humilis,humilis-B5955,Barrett 5955,0,1,0,0,0,1
+Schoenus imberbis,imberbis-MUS531B,Musili 531B,0,1,0,0,0,1
+Schoenus indutus,indutus-KEI9578,Keighery 9578,0,1,0,0,0,1
+Schoenus insolitus,insolitus-B5246,Barrett 5246,0,1,0,0,0,1
+Schoenus kennyi,kennyi-BR2060,Bruhl 2060,0,1,0,0,0,1
+Schoenus laevigatus,laevigatus-B5345,Barrett 5345,0,1,0,0,0,1
+Schoenus lanatus,lanatus-B5319,Barrett 5319,0,1,0,0,0,1
+Schoenus lanatus,lanatus-B5352,Barrett 5352,0,1,0,0,0,1
+Schoenus latelaminatus,latelaminatus-CANB9611213,CANB9611213,0,1,0,0,0,1
+Schoenus lepidosperma,lepidosperma-B5221,Barrett 5221,0,1,0,0,0,1
+Schoenus lepidosperma,lepidosperma-BR2369,Bruhl 2369,0,0,0,0,1,1
+Schoenus lepidosperma subsp. pachylepis,lepidosperma-G40A,Gibbs 40A,0,1,0,0,0,1
+Schoenus lepidosperma,lepidosperma-G96,Gibbs 96,0,1,0,0,0,1
+Schoenus ligulatus,ligulatus-115,TE2016_115,0,0,1,0,0,1
+Schoenus ligulatus,ligulatus-189,TE2016_189,0,0,1,0,0,1
+Schoenus ligulatus,ligulatus-195,TE2016_195,1,0,1,0,0,2
+Schoenus ligulatus,ligulatus-V508,Verboom 508,0,0,1,1,1,3
+Schoenus limosus,limosus-243,TE2016_243,1,0,1,0,1,3
+Schoenus limosus,limosus-247,TE2016_247,1,0,1,1,0,3
+Schoenus loreus,loreus-253,TE2016_253,1,0,0,0,0,1
+Schoenus loreus,loreus-262,TE2016_262,1,0,0,1,0,2
+Schoenus lucidus,lucidus-342,TE2016_342,0,0,1,0,0,1
+Schoenus lucidus,lucidus-343,TE2016_343,0,0,1,0,0,1
+Schoenus lymansmithii,lymansmithii-TREV946,Trevisan 946,0,0,0,0,1,1
+Schoenus maschalinus,machalinus-AK308199,AK308199,0,1,0,0,0,1
+Schoenus maschalinus,maschalinus-G135,Gibbs 135,0,1,0,0,0,1
+Schoenus maschalinus,maschalinus-G95,Gibbs 95,0,1,0,0,0,1
+Schoenus megacarpus,megacarpus-219,TE2016_219,0,0,1,1,0,2
+Schoenus megacarpus,megacarpus-223,TE2016_223,1,0,1,1,0,3
+Schoenus megacarpus,megacarpus-227,TE2016_227,0,0,1,1,1,3
+Schoenus melanostachys,melanostachys-G109,Gibbs 109,0,1,0,0,0,1
+Schoenus melanostachys,melanostachys-M535,Musili 535,0,1,0,0,0,1
+Schoenus minutulus,minutulus-B5249,Barrett 5249,0,1,0,0,0,1
+Schoenus minutulus,minutulus-B5616,Barrett 5616,0,1,0,0,0,1
+Schoenus moorei,morrei-G36,Gibbs 36,0,1,0,0,0,1
+Schoenus nanus,nanus-B5146,Barrett 5146,0,1,0,0,0,1
+Schoenus nanus,nanus-B5167,Barrett 5167,0,1,0,0,0,1
+Schoenus nanus,nanus-B5404,Barrett 5404,0,1,0,0,0,1
+Schoenus nanus,nanus-B5873,Barrett 5873,0,1,0,0,0,1
+Schoenus nanus,nanus-B5891,Barrett 5891,0,1,0,0,0,1
+Schoenus neocaledonicus,neocaledonicus-BR3250,Bruhl 3250,1,0,0,0,1,2
+Schoenus neocaledonicus,neocaledonicus-BR3263,Bruhl 3263,1,0,0,0,1,2
+Schoenus neovillosus,neovillosus-207,TE2016_207,1,0,1,0,1,3
+Schoenus nigricans,nigricans-230,TE2016_230,1,0,0,0,0,1
+Schoenus nigricans,nigricans-BES31-2007,Besnard 31-2007,0,0,1,0,0,1
+Schoenus nigricans,nigricans-De4616,DeDecker 4616,0,0,0,0,1,1
+Schoenus nigricans,nigricans-E3382,Edmondson 3382,0,0,0,1,1,2
+Schoenus nigricans,nigricans-Ha,Haase et al. s.n.,0,1,0,0,0,1
+Schoenus nigricans,nigricans-NMW3150,NMW 3150,0,0,1,0,0,1
+Schoenus nigricans,nigricans-NMW3151,NMW 3151,0,0,1,0,0,1
+Schoenus nigricans,nigricans-NMW842,NMW 842,0,0,1,0,0,1
+Schoenus nigricans,nigricans-S2670,Simpson 2670,0,0,0,0,1,1
+Schoenus nitens var. nitens,nitens-AK254225,AK254225,0,1,0,0,0,1
+Schoenus nitens var. nitens,nitens-B5156,Barrett 5156,0,1,0,0,0,1
+Schoenus nitens,nitens-G133,Gibbs 133,1,1,0,0,1,3
+Schoenus nitens var. nitens,nitens-G134,Gibbs 134,0,1,0,0,0,1
+Schoenus obtusifolius,obtusifolius-B5348,Barrett 5348,0,1,0,0,0,1
+Schoenus obtusifolius,obtusifolius-B5501,Barrett 5501,0,1,0,0,0,1
+Schoenus odontocarpus,odontocarpus-B5405,Barrett 5405,0,1,0,0,0,1
+Schoenus ornithopodioides,ornithopodioides-MUS539,Musili 539,0,1,0,0,0,1
+Schoenus pauciflorus,pauciflorus-AK284668,AK284668,0,1,0,0,0,1
+Schoenus pauciflorus,pauciflorus-AK308193,AK308193,0,1,0,0,0,1
+Schoenus pauciflorus,pauciflorus-AK308194,AK308194,0,1,0,0,0,1
+Schoenus pauciflorus,pauciflorus-G142,Gibbs 142,0,1,0,0,0,1
+Schoenus pennisetis,pennisetis-V1237,Verboom 1237,1,0,1,1,1,4
+Schoenus pictus,pictus-202,TE2016_202,1,0,1,1,0,3
+Schoenus pictus,pictus-203,TE2016_203,0,0,1,1,0,2
+Schoenus pictus,pictus-229,TE2016_229,1,0,1,1,1,4
+Schoenus pictus,pictus-289,TE2016_289,0,0,0,0,1,1
+Schoenus pictus,pictus-V524,Verboom 524,1,0,1,0,1,3
+Schoenus pleiostemoneus,pleiostemoneus-B5605,Barrett 5605,0,1,0,0,0,1
+Schoenus pleiostemoneus,pliostemoneus-CANB583280,CANB583280,0,1,0,0,0,1
+Schoenus plumosus,plumosus-B5874,Barrett 5874,0,1,0,0,0,1
+Schoenus pseudoloreus,pseudoloreus-211,TE2016_211,0,0,1,0,0,1
+Schoenus pseudoloreus,pseudoloreus-290,TE2016_290,1,0,1,1,0,3
+Schoenus pseudoloreus,pseudoloreus-V515,Verboom 515,1,0,1,0,1,3
+Schoenus pygmaeus,pygmaeus-BU17167,Buchanan 17167,0,1,0,0,0,1
+Schoenus quadrangularis,quadrangularis-196,TE2016_196,0,0,1,1,1,3
+Schoenus quadrangularis,quadrangularis-356,TE2016_356,0,0,1,0,1,2
+Schoenus quadrangularis,quadrangularis-387,TE2016_356,0,0,0,1,0,1
+Schoenus quartziticus,quartziticus-331,TE2016_331,0,0,1,0,1,2
+Schoenus quartziticus,quartziticus-332,TE2016_332,0,0,1,0,1,2
+Schoenus racemosus,racemosus-B5179,Barrett 5179,0,1,0,0,0,1
+Schoenus racemosus,racemosus-B5189,Barrett 5189,0,1,0,0,0,1
+Schoenus racemosus,racemosus-B5434,Barrett 5434,0,1,0,0,0,1
+Schoenus racemosus,racemosus-B5476,Barrett 5476,0,1,0,0,0,1
+Schoenus rigens,rigens-B5234,Barrett 5234,1,0,0,0,1,2
+Schoenus rigens,rigens-B5234A,Barrett 5234A,0,1,0,0,0,1
+Schoenus rigens,rigens-B5767,Barrett 5767,0,1,0,0,0,1
+Schoenus rigens,rigens-CANB583395,CANB583395,0,1,0,0,0,1
+Schoenus scabripes,scabripes-KW7935,Wilson 7935,0,1,0,0,0,1
+Schoenus sculptus,sculptus-B5287,Barrett 5287,0,1,0,0,0,1
+Schoenus sculptus,sculptus-B5406,Barrett 5406,0,1,0,0,0,1
+Schoenus selinae,selinae-258,TE2016_258,0,0,1,0,0,1
+Schoenus selinae,selinae-287,TE2016_287,0,0,1,1,0,2
+Schoenus selinae,selinae-289,TE2016_289,0,0,1,0,0,1
+Schoenus selinae,selinae-300,TE2016_300,0,0,1,0,1,2
+Schoenus selinae,selinae-301,TE2016_301,0,0,1,0,0,1
+Schoenus selinae,selinae-mn01,MN 01,0,0,0,1,0,1
+Schoenus sesquispiculus,sesquispiculus-B5401,Barrett 5401,0,1,0,0,0,1
+Schoenus sparteus,sparteus-KW9691,Wilson 9691,0,0,0,0,1,1
+Schoenus sparteus,sparteus-MUS541,Musili 541,0,1,0,0,0,1
+Schoenus subaphyllus,subaphyllus-B5137,Barrett 5137,0,1,0,0,0,1
+Schoenus subaphyllus,subaphyllus-G114,Gibbs 114,0,1,0,0,0,1
+Schoenus subfascicularis,subfascicularis-B5236,Barrett 5236,0,1,0,0,0,1
+Schoenus subflavus,subflavus-B5409,Barrett 5409,0,1,0,0,0,1
+Schoenus subflavus,subflavus-B5858,Barrett 5858,0,1,0,0,0,1
+Schoenus subflavus,subflavus-B5900,Barrett 5900,0,1,0,0,0,1
+Schoenus sublateralis,sublateralis-B5331,Barrett 5331,0,1,0,0,0,1
+Schoenus sublateralis,sublateralis-B5343,Barrett 5343,0,1,0,0,0,1
+Schoenus sublaxus,sublaxus-KW9016,Wilson 9016,0,1,0,0,0,1
+Schoenus submarginalis,submarginalis-335,TE2016_335,0,0,0,1,0,1
+Schoenus submicrostachyus,submicrostachyus-B4280,Barrett 4280,0,1,0,0,0,1
+Schoenus tendo,tendo-AK294548,AK294548,0,1,0,0,0,1
+Schoenus tendo var. triander,tendo-BR3252,Bruhl 3252,1,0,0,0,1,2
+Schoenus tenellus,tenellus-B5309,Barrett 5309,0,1,0,0,0,1
+Schoenus tenellus,tenellus-B5312,Barrett 5312,0,1,0,0,0,1
+Schoenus thedae,thedae-B1578,Barrett & Barrett MDB 1578,0,0,0,0,1,1
+Schoenus triticoides,triticoides-279,TE2016_279,1,0,1,0,1,3
+Schoenus triticoides,triticoides-281,TE2016_281,1,0,1,0,0,2
+Schoenus turbinatus,turbinatus-G80A,Gibbs 80A,0,1,0,0,0,1
+Schoenus turbinatus,turbinatus-LM35,McLaughlin 35 & Wilson,0,0,0,0,1,1
+Schoenus unispiculatus,unispiculatus-B5295,Barrett 5295,0,1,0,0,0,1
+Schoenus vaginatus,vaginatus-BR2751,Bruhl 2751,0,1,0,0,0,1
+Schoenus variicellae,variicellae-B5872,Barrett 5872,0,1,0,0,0,1
+Schoenus yarrabensis,yarrabensis-MOR275,Thompson MOR275 (BRI AQ 570842),0,1,0,0,0,1
