@@ -1,3 +1,8 @@
+# First attempt at collating available sequence data
+# for Schoenus (Cyperaceae, Tribe Schoeneae)
+
+# Ruan van Mazijk, 2020
+
 library(tidyverse)
 library(magrittr)
 
