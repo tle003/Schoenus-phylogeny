@@ -85,7 +85,7 @@ richness <- occ_spdf_cropped %>%
   as_tibble() %>%
   group_by(QDGC) %>%
   summarise(richness = length(unique(species))) %>%
-  filter(!is.na(QDGC))
+  filter(!is.na(QDGC))  # NOTE: only 1 species occurs in an NA QDGC
 
 richness$QDGC_lon <- NA
 richness$QDGC_lat <- NA
@@ -103,7 +103,6 @@ for (i in 1:nrow(richness)) {
       ]
     ))
 }
-# FIXME/NOTE: NA QDGC (with richness 18) might be islands?
 
 # Note:
 max(richness$richness)
