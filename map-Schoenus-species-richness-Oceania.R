@@ -1,5 +1,5 @@
 # Map Schoenus (Cyperaceae, Tribe Schoeneae) species richness in
-# quarter degree grid cells in Australia & New Zealand
+# quarter degree grid cells in Oceania
 
 # Ruan van Mazijk, 2020
 
@@ -16,21 +16,24 @@ library(tidyverse)  # Data wrangling
 # Schoenus occurrence records & neat column headings
 occ <- read_csv("Schoenus-Australia-records-2020-06-04/Schoenus-Australia-records-2020-06-04.csv")
 headings <- read_csv("Schoenus-Australia-records-2020-06-04/headings.csv")
+# Larsen et al. (2009) QDGC for Oceania
+QDGC <- readOGR("qdgc_oceania", layer = "qdgc_02_oceania")
 
-# Larsen et al. (2009) QDGC, for Australia & New Zealand
-QDGC_AUS <- readOGR("qdgc_aus", layer = "qdgc_02_aus")
-QDGC_NZL <- readOGR("qdgc_nzl", layer = "qdgc_02_nzl")
-QDGC <- rbind(QDGC_AUS, QDGC_NZL)
-# Have a look (WARNING: takes a while)
-#plot(QDGC)
-
-# Australia & New Zealand borders
-border_AUS <- readOGR("border_AUS", layer = "GID_0")
-border_NZL <- readOGR("border_NZL", layer = "GID_0")
-border <- rbind(border_AUS, border_NZL)
-# Have a look (WARNING: takes a while)
-#plot(border)
-# Lots of stray islands...
+# Oceanian countries' borders
+border_AUS <- getData("GADM", country = "AUS", level = 0)  # Australia
+border_IDN <- getData("GADM", country = "IDN", level = 0)  # Indonesia
+border_MYS <- getData("GADM", country = "MYS", level = 0)  # Malaysia
+border_NZL <- getData("GADM", country = "NZL", level = 0)  # New Zealand
+border_PNG <- getData("GADM", country = "PNG", level = 0)  # Papua New Guinea
+border_PHL <- getData("GADM", country = "PHL", level = 0)  # Phillipines
+border <- rbind(
+  border_AUS,
+  border_IDN,
+  border_MYS,
+  border_NZL,
+  border_PNG,
+  border_PHL
+)
 
 # Crop to focus on the mainlands (NOTE: takes a while)
 border_cropped <- crop(border, QDGC)
@@ -140,24 +143,24 @@ richness_map_bw <- richness_map +
 # (as PDFs & PNGs)
 
 ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL_colour.pdf",
+  "maps/Schoenus-species-richness-Oceania_colour.pdf",
   richness_map_colour,
   width = 6, height = 4
 )
 ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL_colour.png",
+  "maps/Schoenus-species-richness-Oceania_colour.png",
   richness_map_colour,
   width = 6, height = 4,
   dpi = 300
 )
 
 ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL_bw.pdf",
+  "maps/Schoenus-species-richness-Oceania_bw.pdf",
   richness_map_bw,
   width = 6, height = 4
 )
 ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL_bw.png",
+  "maps/Schoenus-species-richness-Oceania_bw.png",
   richness_map_bw,
   width = 6, height = 4,
   dpi = 300
