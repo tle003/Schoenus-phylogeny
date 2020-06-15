@@ -107,7 +107,7 @@ for (i in 1:nrow(richness)) {
 
 # Note:
 max(richness$richness)
-# 38 is richest square
+# 34 is richest square
 
 # Plot maps --------------------------------------------------------------------
 
