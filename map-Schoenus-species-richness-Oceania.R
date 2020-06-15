@@ -11,9 +11,9 @@ library(raster)     # Country borders, other GIS functions
 library(tidyverse)  # Data wrangling
 
 # Import data ------------------------------------------------------------------
-# (NOTE: not in repository)
 
 # Schoenus occurrence records & neat column headings
+# (NOTE: not in repository)
 occ <- read_csv("Schoenus-Australia-records-2020-06-04/Schoenus-Australia-records-2020-06-04.csv")
 headings <- read_csv("Schoenus-Australia-records-2020-06-04/headings.csv")
 # Larsen et al. (2009) QDGC for Oceania
