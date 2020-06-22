@@ -25,7 +25,8 @@ QDGC <- readOGR("qdgc_oceania", layer = "qdgc_02_oceania")
 # Australia & New Zealand borders
 border_AUS <- readOGR("border_AUS", layer = "GID_0")
 border_NZL <- readOGR("border_NZL", layer = "GID_0")
-border <- rbind(border_AUS, border_NZL)
+border_NCL <- getData("GADM", country = "NCL", level = 0)
+border <- rbind(border_AUS, border_NZL, border_NCL)
 # Have a look (WARNING: takes a while)
 #plot(border)
 # Lots of stray islands...
