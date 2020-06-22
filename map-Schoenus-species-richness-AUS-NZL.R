@@ -17,10 +17,8 @@ library(tidyverse)  # Data wrangling
 occ <- read_csv("Schoenus-Australia-records-2020-06-04/Schoenus-Australia-records-2020-06-04.csv")
 headings <- read_csv("Schoenus-Australia-records-2020-06-04/headings.csv")
 
-# Larsen et al. (2009) QDGC, for Australia & New Zealand
-QDGC_AUS <- readOGR("qdgc_aus", layer = "qdgc_02_aus")
-QDGC_NZL <- readOGR("qdgc_nzl", layer = "qdgc_02_nzl")
-QDGC <- rbind(QDGC_AUS, QDGC_NZL)
+# Larsen et al. (2009) QDGC for Oceania
+QDGC <- readOGR("qdgc_oceania", layer = "qdgc_02_oceania")
 # Have a look (WARNING: takes a while)
 #plot(QDGC)
 
