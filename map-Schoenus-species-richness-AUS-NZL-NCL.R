@@ -25,7 +25,7 @@ QDGC <- readOGR("qdgc_oceania", layer = "qdgc_02_oceania")
 # Australia & New Zealand borders
 border_AUS <- readOGR("border_AUS", layer = "GID_0")
 border_NZL <- readOGR("border_NZL", layer = "GID_0")
-border_NCL <- getData("GADM", country = "NCL", level = 0)
+border_NCL <- readOGR("border_NCL", layer = "GID_0")
 border <- rbind(border_AUS, border_NZL, border_NCL)
 # Have a look (WARNING: takes a while)
 #plot(border)
@@ -140,24 +140,24 @@ richness_map_bw <- richness_map +
 # (as PDFs & PNGs)
 
 ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL_colour.pdf",
+  "maps/Schoenus-species-richness-AUS-NZL-NCL_colour.pdf",
   richness_map_colour,
   width = 6, height = 4
 )
 ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL_colour.png",
+  "maps/Schoenus-species-richness-AUS-NZL-NCL_colour.png",
   richness_map_colour,
   width = 6, height = 4,
   dpi = 300
 )
 
 ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL_bw.pdf",
+  "maps/Schoenus-species-richness-AUS-NZL-NCL_bw.pdf",
   richness_map_bw,
   width = 6, height = 4
 )
 ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL_bw.png",
+  "maps/Schoenus-species-richness-AUS-NZL-NCL_bw.png",
   richness_map_bw,
   width = 6, height = 4,
   dpi = 300
