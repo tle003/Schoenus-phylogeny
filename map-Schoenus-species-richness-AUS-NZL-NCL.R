@@ -110,7 +110,7 @@ max(richness$richness)
 # Set ggplot2 theme
 theme_set(theme_bw())
 
-richness_map <- ggplot(richness) +
+oceania_plot <- ggplot(richness) +
   aes(QDGC_lon, QDGC_lat, fill = richness) +
   geom_tile() +
   geom_polygon(
@@ -119,47 +119,11 @@ richness_map <- ggplot(richness) +
     colour = "black", fill = NA, size = 0.25
   ) +
   coord_equal() +
-  scale_x_continuous(breaks = c(110, 120, 130, 140, 150, 160, 170, 180)) +
-  labs(x = "Longitude (º)", y = "Latitude (º)") +
-  theme(legend.position = "top")
-
-# Make maps in both colour & black-&-white
-richness_map_colour <- richness_map +
   scale_fill_viridis_c(
     name = bquote(italic("Schoenus")*" species richness"),
     direction = -1,
-    breaks = c(5, 15, 25, 34)
-  )
-richness_map_bw <- richness_map +
-  scale_fill_gradient(
-    name = bquote(italic("Schoenus")*" species richness"),
-    low = "grey90", high = "black",
-    breaks = c(5, 15, 25, 34)
-  )
-
-# Save maps --------------------------------------------------------------------
-# (as PDFs & PNGs)
-
-ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL-NCL_colour.pdf",
-  richness_map_colour,
-  width = 6, height = 4
-)
-ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL-NCL_colour.png",
-  richness_map_colour,
-  width = 6, height = 4,
-  dpi = 300
-)
-
-ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL-NCL_bw.pdf",
-  richness_map_bw,
-  width = 6, height = 4
-)
-ggsave(
-  "maps/Schoenus-species-richness-AUS-NZL-NCL_bw.png",
-  richness_map_bw,
-  width = 6, height = 4,
-  dpi = 300
-)
+    breaks = c(5, 15, 25, 34),
+    limits = c(0, 34)
+  ) +
+  xlab("Longitude (º)") +
+  theme(axis.title.y = element_blank())

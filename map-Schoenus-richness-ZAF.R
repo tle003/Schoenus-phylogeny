@@ -66,7 +66,7 @@ max(richness$richness)
 # Set ggplot2 theme
 theme_set(theme_bw())
 
-ggplot(richness) +
+south_africa_plot <- ggplot(richness) +
   aes(QDGC_lon, QDGC_lat, fill = richness) +
   geom_tile() +
   geom_polygon(
