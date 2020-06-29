@@ -6,7 +6,6 @@
 # Load packages ----------------------------------------------------------------
 
 library(rgdal)      # Shapefile I/O
-library(sp)         # Map projections, other GIS functions
 library(raster)     # Country borders, other GIS functions
 library(tidyverse)  # Data wrangling
 
