@@ -81,4 +81,4 @@ ggplot(richness) +
     breaks = c(5, 15, 25, 34), limits = c(0, 34)
   ) +
   labs(x = "Longitude (º)", y = "Latitude (º)") +
-  theme(legend.position = "top")
+  theme(legend.position = "none")
