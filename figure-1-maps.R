@@ -83,6 +83,8 @@ richness <- occ_spdf_cropped %>%
   summarise(richness = length(unique(species))) %>%
   filter(!is.na(QDGC))  # NOTE: only 1 species occurs in an NA QDGC
 
+# Add lon/lat of QDGC-midpoints to data frame ----------------------------------
+
 richness$QDGC_lon <- NA
 richness$QDGC_lat <- NA
 for (i in 1:nrow(richness)) {
