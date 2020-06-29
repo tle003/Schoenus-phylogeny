@@ -119,6 +119,8 @@ oceania_plot <- ggplot(richness) +
     colour = "black", fill = NA, size = 0.25
   ) +
   coord_equal() +
+  scale_x_continuous(breaks = c(120, 140, 160, 180)) +
+  scale_y_continuous(breaks = c(0, -20, -40)) +
   scale_fill_viridis_c(
     name = bquote(italic("Schoenus")*" species richness"),
     direction = -1,

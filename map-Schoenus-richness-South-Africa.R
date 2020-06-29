@@ -75,6 +75,8 @@ south_africa_plot <- ggplot(richness) +
     colour = "black", fill = NA, size = 0.25
   ) +
   coord_equal() +
+  scale_x_continuous(breaks = c(20, 25, 30)) +
+  scale_y_continuous(breaks = c(-25, -30, -35)) +
   scale_fill_viridis_c(
     direction = -1,
     breaks = c(5, 15, 25, 34),
