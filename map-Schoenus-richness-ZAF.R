@@ -76,9 +76,9 @@ south_africa_plot <- ggplot(richness) +
   ) +
   coord_equal() +
   scale_fill_viridis_c(
-    name = bquote(italic("Schoenus")*" species richness"),
     direction = -1,
-    breaks = c(5, 15, 25, 34), limits = c(0, 34)
+    breaks = c(5, 15, 25, 34),
+    limits = c(0, 34)
   ) +
   labs(x = "Longitude (º)", y = "Latitude (º)") +
   theme(legend.position = "none")
