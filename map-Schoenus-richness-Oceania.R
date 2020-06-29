@@ -122,7 +122,7 @@ oceania_plot <- ggplot(richness) +
   scale_x_continuous(breaks = c(120, 140, 160, 180)) +
   scale_y_continuous(breaks = c(0, -20, -40)) +
   scale_fill_viridis_c(
-    name = bquote(italic("Schoenus")*" species richness"),
+    name = "No. species\nper QDGC",
     direction = -1,
     breaks = c(5, 15, 25, 34),
     limits = c(0, 34)
