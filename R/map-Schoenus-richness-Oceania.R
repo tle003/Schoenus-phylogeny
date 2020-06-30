@@ -110,6 +110,10 @@ for (i in 1:nrow(richness)) {
 max(richness$richness)
 # 34 is richest square
 
+# Export data ------------------------------------------------------------------
+
+write_csv(richness, "Schoenus-occurence-data/OceaniaSchoenus_grid_cell_freq.csv")
+
 # Plot maps --------------------------------------------------------------------
 
 # Set ggplot2 theme
