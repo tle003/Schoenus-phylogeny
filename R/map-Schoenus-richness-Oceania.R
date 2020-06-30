@@ -13,18 +13,18 @@ library(tidyverse)  # Data wrangling
 
 # Schoenus occurrence records & neat column headings
 # (NOTE: not in repository)
-occ <- read_csv("Schoenus-occurence-data/Schoenus-Australia-records-2020-06-04/Schoenus-Australia-records-2020-06-04.csv")
-headings <- read_csv("Schoenus-occurence-data/Schoenus-Australia-records-2020-06-04/headings.csv")
+occ <- read_csv("data/occurence-data/Schoenus-Australia-records-2020-06-04/Schoenus-Australia-records-2020-06-04.csv")
+headings <- read_csv("data/occurence-data/Schoenus-Australia-records-2020-06-04/headings.csv")
 
 # Larsen et al. (2009) QDGC for Oceania
-QDGC <- readOGR("qdgc_oceania", layer = "qdgc_02_oceania")
+QDGC <- readOGR("data/shapefiles/qdgc_oceania", layer = "qdgc_02_oceania")
 # Have a look (WARNING: takes a while)
 #plot(QDGC)
 
 # Australia & New Zealand borders
-border_AUS <- readOGR("border_AUS", layer = "GID_0")
-border_NZL <- readOGR("border_NZL", layer = "GID_0")
-border_NCL <- readOGR("border_NCL", layer = "GID_0")
+border_AUS <- readOGR("data/shapefiles/border_AUS", layer = "GID_0")
+border_NZL <- readOGR("data/shapefiles/border_NZL", layer = "GID_0")
+border_NCL <- readOGR("data/shapefiles/border_NCL", layer = "GID_0")
 border <- rbind(border_AUS, border_NZL, border_NCL)
 # Have a look (WARNING: takes a while)
 #plot(border)

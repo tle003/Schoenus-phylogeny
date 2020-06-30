@@ -12,13 +12,13 @@ library(tidyverse)  # Data wrangling
 # Import data ------------------------------------------------------------------
 
 # South African Schoenus richness in QDGC (from Tammy Elliott)
-richness <- read_csv("Schoenus-occurence-data/SASchoenus_grid_cell_freq.csv")
+richness <- read_csv("data/Schoenus-South-Africa-QDGC-richness.csv")
 
 # Larsen et al. (2009) QDGC for South Africa
-QDGC <- readOGR("qdgc_zaf", layer = "qdgc_02_zaf")
+QDGC <- readOGR("data/shapefiles/qdgc_zaf", layer = "qdgc_02_zaf")
 
 # South African border
-border_ZAF <- readOGR("border_ZAF", layer = "GID_0")
+border_ZAF <- readOGR("data/shapefiles/border_ZAF", layer = "GID_0")
 
 # Tidy data --------------------------------------------------------------------
 
