@@ -1,4 +1,6 @@
-library(patchwork)
+# Ruan van Mazijk, 2020
+
+library(patchwork)  # Figure panelling
 
 source("R/map-Schoenus-richness-Oceania.R")
 source("R/map-Schoenus-richness-South-Africa.R")
