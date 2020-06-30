@@ -1,7 +1,7 @@
 library(patchwork)
 
-source("map-Schoenus-richness-Oceania.R")
-source("map-Schoenus-richness-South-Africa.R")
+source("R/map-Schoenus-richness-Oceania.R")
+source("R/map-Schoenus-richness-South-Africa.R")
 
 both_plots <- south_africa_plot + oceania_plot
 
