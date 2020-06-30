@@ -1,6 +1,4 @@
-## Title:  Schoenus world map
-### Name: Tammy Elliott
-### Date: June 12, 2020
+# Tammy Elliott and Ruan van Mazijk, 2020
 
 
 # Load the required libraries.
@@ -46,7 +44,7 @@ Sch.map.sums.names<-data.frame(names=rownames(Sch.map.sums), Sch.map.sums)
 colnames(Sch.map.sums.names)<-c("LEVEL3_COD","Count")
 
 #Read map
-map.shp <- readOGR(dsn="/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/Maps/wgsrpd-master/level3", 
+map.shp <- readOGR(dsn="/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/Maps/wgsrpd-master/level3",
 	layer="level3", stringsAsFactors = FALSE)
 map.shp.df<-fortify(map.shp, region="LEVEL3_COD")
 	glimpse(map.shp)
@@ -83,7 +81,7 @@ my.cols <- c("#FFFFFF","#FBF3F2","#FAEFEE","#F8EBEA","#F7E7E6","#F6E3E2", "#F5E0
 
 map <-ggplot() +
   geom_polygon(data = level3.map.data.merge, aes(fill = factor(Count.y), group=group, x=long, y=lat), color = "grey30", lwd=0.1) +
-  theme_void()  
+  theme_void()
 
 #Get a vector of counts
 count.vector<-sort(unique(sch.map.merge$Count.y))
@@ -96,7 +94,7 @@ map3<-map2  +
 	theme(legend.key.width=unit(0.04,"inch"),legend.key.height=unit(0.10,"inch")) +
 	theme(legend.title=element_text(size=7),
 	legend.text=element_text(size=5)) +
-	theme(legend.position=c(0.035,0.5)) 
+	theme(legend.position=c(0.035,0.5))
 
 #Print for publication size
 dev.new(width=4.5, height=3.2)
@@ -109,7 +107,7 @@ map4<-map2  +
 	theme(legend.key.width=unit(0.1,"inch"),legend.key.height=unit(0.2,"inch")) +
 	theme(legend.title=element_text(size=10),
 	legend.text=element_text(size=8)) +
-	theme(legend.position=c(0.035,0.6)) 
+	theme(legend.position=c(0.035,0.6))
 
 dev.new()
 pdf("Schoenus.world.pdf", width=12, height=9)
