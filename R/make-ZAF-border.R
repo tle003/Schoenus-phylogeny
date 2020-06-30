@@ -1,5 +1,3 @@
-# Warning: this script will take a few hours to execute
-
 # Ruan van Mazijk, 2020
 
 # Load packages ----------------------------------------------------------------
