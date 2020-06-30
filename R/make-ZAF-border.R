@@ -22,7 +22,7 @@ border_ZAF <- ms_simplify(border_ZAF, keep = 0.001)
 # Export final border ----------------------------------------------------------
 
 writeOGR(
-  border_ZAF, "border_ZAF",
+  border_ZAF, "data/shapefiles/border_ZAF",
   layer = names(border_ZAF)[[1]],
   driver = "ESRI Shapefile"
 )

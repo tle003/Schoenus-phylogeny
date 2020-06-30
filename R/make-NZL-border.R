@@ -12,7 +12,7 @@ library(rmapshaper)
 # Import data ------------------------------------------------------------------
 
 # Larsen et al. (2009) QDGC for New Zealand
-QDGC_NZL <- readOGR("qdgc_nzl", layer = "qdgc_02_nzl")
+QDGC_NZL <- readOGR("data/shapefiles/qdgc_oceania", layer = "qdgc_02_oceania")
 
 # New Zealand border
 border_NZL <- getData("GADM", country = "NZL", level = 0)
@@ -28,7 +28,7 @@ border_NZL <- ms_simplify(border_NZL, keep = 0.001)
 # Export final border ----------------------------------------------------------
 
 writeOGR(
-  border_NZL, "border_NZL",
+  border_NZL, "data/shapefiles/border_NZL",
   layer = names(border_NZL)[[1]],
   driver = "ESRI Shapefile"
 )

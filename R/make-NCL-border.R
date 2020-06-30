@@ -22,7 +22,7 @@ border_NCL <- ms_simplify(border_NCL, keep = 0.001)
 # Export final border ----------------------------------------------------------
 
 writeOGR(
-  border_NCL, "border_NCL",
+  border_NCL, "data/shapefiles/border_NCL",
   layer = names(border_NCL)[[1]],
   driver = "ESRI Shapefile"
 )

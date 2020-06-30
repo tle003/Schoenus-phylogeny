@@ -12,7 +12,7 @@ library(rmapshaper)
 # Import data ------------------------------------------------------------------
 
 # Larsen et al. (2009) QDGC for Australia
-QDGC_AUS <- readOGR("qdgc_aus", layer = "qdgc_02_aus")
+QDGC_AUS <- readOGR("data/shapefiles/qdgc_oceania", layer = "qdgc_02_oceania")
 
 # Australia border
 border_AUS <- getData("GADM", country = "AUS", level = 0)
@@ -28,7 +28,7 @@ border_AUS <- ms_simplify(border_AUS, keep = 0.001)
 # Export final border ----------------------------------------------------------
 
 writeOGR(
-  border_AUS, "border_AUS",
+  border_AUS, "data/shapefiles/border_AUS",
   layer = names(border_AUS)[[1]],
   driver = "ESRI Shapefile"
 )
