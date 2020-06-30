@@ -1,5 +1,5 @@
 # Map Schoenus (Cyperaceae, Tribe Schoeneae) species richness in
-# quarter degree grid cells in Australia, New Caledonia and New Zealand
+# quarter degree grid cells in Australia, New Zealand and New Caledonia
 
 # Ruan van Mazijk, 2020
 
