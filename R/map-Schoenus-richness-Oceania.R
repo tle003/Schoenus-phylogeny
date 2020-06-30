@@ -14,10 +14,13 @@ library(tidyverse)  # Data wrangling
 # Schoenus richness in QDGC
 richness <- read_csv("data/Schoenus-Oceania-richness.csv")
 
-# Australia & New Zealand borders
+# Borders
 border_AUS <- readOGR("data/shapefiles/border_AUS", layer = "GID_0")
 border_NZL <- readOGR("data/shapefiles/border_NZL", layer = "GID_0")
 border_NCL <- readOGR("data/shapefiles/border_NCL", layer = "GID_0")
+
+# Tidy borders -----------------------------------------------------------------
+
 border <- rbind(border_AUS, border_NZL, border_NCL)
 # Have a look (WARNING: takes a while)
 #plot(border)
