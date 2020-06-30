@@ -57,6 +57,11 @@ occ_tidy <- occ %>%
   select(species, latitude, longitude)
 # Have a look
 occ_tidy
+#ggplot(occ_tidy) +
+#  aes(longitude, latitude) +
+#  geom_point(alpha = 0.25) +
+#  xlim(110, 180) +
+#  coord_equal()
 
 # Collate species richness in grid-cells ---------------------------------------
 
