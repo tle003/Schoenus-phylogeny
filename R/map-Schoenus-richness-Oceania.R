@@ -30,7 +30,7 @@ border <- rbind(border_AUS, border_NZL, border_NCL)
 main_extent <-extent(110, 180, -50, 0)
 border_cropped <- crop(border, main_extent)
 
-# Plot maps --------------------------------------------------------------------
+# Plot map ---------------------------------------------------------------------
 
 # Set ggplot2 theme
 theme_set(theme_bw())

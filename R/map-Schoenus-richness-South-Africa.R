@@ -17,7 +17,7 @@ richness <- read_csv("data/Schoenus-South-Africa-richness.csv")
 # South African border
 border_ZAF <- readOGR("data/shapefiles/border_ZAF", layer = "GID_0")
 
-# Plot maps --------------------------------------------------------------------
+# Plot map ---------------------------------------------------------------------
 
 # Set ggplot2 theme
 theme_set(theme_bw())
