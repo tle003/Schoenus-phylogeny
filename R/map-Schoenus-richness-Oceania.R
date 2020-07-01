@@ -7,7 +7,7 @@
 
 library(rgdal)      # Shapefile I/O
 library(raster)     # Country borders, other GIS functions
-library(tidyverse)  # Data wrangling
+library(tidyverse)  # Data wrangling, figures
 
 # Import data ------------------------------------------------------------------
 
