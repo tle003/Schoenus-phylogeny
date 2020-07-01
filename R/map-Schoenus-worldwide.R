@@ -1,27 +1,10 @@
 # Tammy Elliott and Ruan van Mazijk, 2020
 
+# Load packages ----------------------------------------------------------------
 
-# Load the required libraries.
-library(sp)
-library(rJava)
-require(raster)
-require(dismo)
-library(rgdal)
-library(maptools)
-library(rgeos)
-library(tidyverse)
-library(caret)
-require(caret)
-library(faraway)
-library(olsrr)
-library(SSDM)
-library(gridExtra)
-library(RColorBrewer)
-library(ggplot2)
-library(sf)
-library(dplyr)
-library(mapproj)
-library(rgeos)
+library(rgdal)      # Shapefile I/O
+library(raster)     # Country borders, other GIS functions
+library(tidyverse)  # Data wrangling, figures
 
 # Import data ------------------------------------------------------------------
 
