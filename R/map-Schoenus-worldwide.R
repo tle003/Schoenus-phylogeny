@@ -47,61 +47,36 @@ TDWG_level3_df <-merge(TDWG_level3, TDWG_level3_df, by = "id", all = TRUE)
 
 # Plot maps --------------------------------------------------------------------
 
-my_colours <- c(
-  "#FFFFFF",
-  "#FBF3F2",
-  "#FAEFEE",
-  "#F8EBEA",
-  "#F7E7E6",
-  "#F6E3E2",
-  "#F5E0DE",
-  "#F5E0DE",
-  "#F0D0CD",
-  "#ECC4C1",
-  "#E8B9B5",
-  "#E6B1AD",
-  "#D2736B",
-  "#C9584E",
-  "#B31205"
+# Set ggplot2 theme
+theme_set(theme_bw())
+
+# Define a red gradient manually for now
+red_gradient <- c(
+  "#FFFFFF", "#FBF3F2", "#FAEFEE", "#F8EBEA", "#F7E7E6",
+  "#F6E3E2", "#F5E0DE", "#F5E0DE", "#F0D0CD", "#ECC4C1",
+  "#E8B9B5", "#E6B1AD", "#D2736B", "#C9584E", "#B31205"
 )
 
 # Get a vector of counts
 count_vector <- sort(unique(TDWG_level3_df$Count_y))
 
-worldwide_plot <- ggplot() +
+#worldwide_plot <-
+ggplot() +
   geom_polygon(data = TDWG_level3_df,
     aes(
       fill  = factor(Count_y),
-      group = group,
+    size   = 0.1
       x     = long,
       y     = lat
     ),
     color   = "grey30",
-    lwd     = 0.1
   ) +
-  scale_fill_manual(name = "Count",
-    values = my_colours,
+  coord_equal() +
+  scale_fill_manual(name = "No. species",
+    values = red_gradient,
     breaks = count_vector
   ) +
-  theme_void()
-worldwide_plot
-
-# Format the map
-worldwide_plot +
-  theme(
-    legend.key.width  = unit(0.04, "inch"),
-    legend.key.height = unit(0.10, "inch"),
-    legend.title      = element_text(size = 7),
-    legend.text       = element_text(size = 5),
-    legend.position   = c(0.035, 0.5)
-  )
-
-# Formate the map (v2)
-worldwide_plot +
-  theme(
-    legend.key.width  = unit(0.1, "inch"),
-    legend.key.height = unit(0.2, "inch"),
-    legend.title      = element_text(size = 10),
-    legend.text       = element_text(size = 8),
-    legend.position   = c(0.035, 0.6)
-  )
+  scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
+  scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
+  labs(x = "Longitude (º)", y = "Latitude (º)")
+#worldwide_plot
