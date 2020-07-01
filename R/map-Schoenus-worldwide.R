@@ -45,6 +45,23 @@ colnames(TDWG_level3_df) <- c("id", "Count_x", "Count_y")
 TDWG_level3 <- fortify(TDWG, region = "LEVEL3_COD")
 TDWG_level3_df <- merge(TDWG_level3, TDWG_level3_df, by = "id", all = TRUE)
 
+# Tidy data some more
+TDWG_level3_df <- TDWG_level3_df %>%
+  as_tibble() %>%
+  select(long, lat, group, Count_y) %>%
+  rename(richness = Count_y) %>%
+  mutate(richness = ifelse(richness == 0, NA, richness)) %>%
+  mutate(richness =
+    case_when(
+      richness ==  1 ~ "1",
+      richness <= 11 ~ "2-11",
+      richness <= 21 ~ "12-21",
+      richness == 45 ~ "45",
+      richness == 62 ~ "62"
+    ) %>%
+    factor(levels = c("1", "2-11", "12-21", "45", "62"))
+  )
+
 # Plot maps --------------------------------------------------------------------
 
 # Set ggplot2 theme
@@ -52,25 +69,16 @@ theme_set(theme_bw())
 
 worldwide_plot <- ggplot() +
   geom_polygon(data = TDWG_level3_df,
-    aes(
-      x = long, y = lat, group = group,
-      fill = factor(
-        case_when(
-          Count_y ==  0 ~ "0",
-          Count_y ==  1 ~ "1",
-          Count_y <= 11 ~ "2-11",
-          Count_y <= 21 ~ "12-21",
-          Count_y == 45 ~ "45",
-          Count_y == 62 ~ "62"
-        ),
-        levels = c("0", "1", "2-11", "12-21", "45", "62")
-      )
-    ),
+    aes(x = long, y = lat, group = group, fill = richness),
     colour = "grey30",
     size   = 0.1
   ) +
   coord_equal() +
-  scale_fill_grey(name = "No. species", start = 1, end = 0) +
+  scale_fill_grey(
+    name = "No. species",
+    start = 0.9, end = 0.1,
+    na.translate = FALSE
+  ) +
   scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
   scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
   labs(x = "Longitude (º)", y = "Latitude (º)")
