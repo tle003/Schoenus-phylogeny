@@ -63,13 +63,10 @@ count_vector <- sort(unique(TDWG_level3_df$Count_y))
 #worldwide_plot <-
 ggplot() +
   geom_polygon(data = TDWG_level3_df,
-    aes(
-      fill  = factor(Count_y),
+    aes(x = long, y = lat, group = group, fill = factor(Count_y)),
+    fill  = factor(Count_y),
+    colour = "grey30",
     size   = 0.1
-      x     = long,
-      y     = lat
-    ),
-    color   = "grey30",
   ) +
   coord_equal() +
   scale_fill_manual(name = "No. species",
