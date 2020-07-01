@@ -14,6 +14,13 @@ TDWG <- readOGR("~/wgsrpd/level3", layer = "level3", stringsAsFactors = FALSE)
 
 # Tidy data --------------------------------------------------------------------
 
+colnames(Schoenus_worldwide)[1:4] <- c(
+  "species",
+  "authority",
+  "source",
+  "in_phylogeny"
+)
+
 # Give species names as rownames
 rownames(Schoenus_worldwide) <- Schoenus_worldwide$Species
 
@@ -25,6 +32,42 @@ Schoenus_worldwide_sums <- data.frame(
   LEVEL3_COD = rownames(Schoenus_worldwide_sums),
   Count      = Schoenus_worldwide_sums
 )
+colnames(Schoenus_worldwide_sums) <- c("LEVEL3_COD", "Count")
+
+# Calculate rowsums but only species in phylogeny
+Schoenus_in_phylogeny <- Schoenus_worldwide %>%
+  mutate(in_phylogeny = as.logical(in_phylogeny)) %>%
+  filter(in_phylogeny)
+Schoenus_in_phylogeny_sums <- as.data.frame(colSums(
+  Schoenus_in_phylogeny[, 5:ncol(Schoenus_in_phylogeny)]
+))
+Schoenus_in_phylogeny_sums <- data.frame(
+  LEVEL3_COD = rownames(Schoenus_in_phylogeny_sums),
+  Count      = Schoenus_in_phylogeny_sums
+)
+colnames(Schoenus_in_phylogeny_sums) <- c("LEVEL3_COD", "Count_in")
+
+# Calculate rowsums but only species not in phylogeny
+Schoenus_not_in_phylogeny <- Schoenus_worldwide %>%
+  mutate(in_phylogeny = as.logical(in_phylogeny)) %>%
+  filter(!in_phylogeny)
+Schoenus_not_in_phylogeny_sums <- as.data.frame(colSums(
+  Schoenus_not_in_phylogeny[, 5:ncol(Schoenus_not_in_phylogeny)]
+))
+Schoenus_not_in_phylogeny_sums <- data.frame(
+  LEVEL3_COD = rownames(Schoenus_not_in_phylogeny_sums),
+  Count      = Schoenus_not_in_phylogeny_sums
+)
+colnames(Schoenus_not_in_phylogeny_sums) <- c("LEVEL3_COD", "Count_not_in")
+
+# Merge counts (total, in phylogeny and not in phylogeny)
+Schoenus_worldwide_sums <-
+  full_join(Schoenus_in_phylogeny_sums, Schoenus_not_in_phylogeny_sums) %>%
+  full_join(Schoenus_worldwide_sums) %>%
+  mutate(
+    prop_in_phylogeny     = Count_in     / (Count_in + Count_not_in),
+    prop_not_in_phylogeny = Count_not_in / (Count_in + Count_not_in)
+  )
 
 # Create data frame for TDWG level 3 data
 TDWG_level3_df <- data.frame(
@@ -39,7 +82,9 @@ TDWG_level3_df <- merge(
   all = TRUE
 )
 TDWG_level3_df[is.na(TDWG_level3_df)] <- 0
-colnames(TDWG_level3_df) <- c("id", "Count_x", "Count_y")
+TDWG_level3_df <- TDWG_level3_df[, -2]
+colnames(TDWG_level3_df)[[1]] <- "id"
+colnames(TDWG_level3_df)[[4]] <- "Count"
 
 # Merge fortified shapefile with count data for each species
 TDWG_level3 <- fortify(TDWG, region = "LEVEL3_COD")
