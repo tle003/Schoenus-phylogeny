@@ -99,12 +99,12 @@ TDWG_level3_df_tidy <- TDWG_level3_df %>%
   mutate(richness =
     case_when(
       richness ==  1 ~ "1",
-      richness <= 11 ~ "2–11",
-      richness <= 21 ~ "12–21",
+      richness <= 11 ~ "2-11",
+      richness <= 21 ~ "12-21",
       richness == 45 ~ "45",
       richness == 62 ~ "62"
     ) %>%
-    factor(levels = c("62", "45", "12–21", "2–11", "1"))
+    factor(levels = c("62", "45", "12-21", "2-11", "1"))
   )
 
 # Plot maps --------------------------------------------------------------------
