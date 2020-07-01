@@ -91,9 +91,9 @@ TDWG_level3 <- fortify(TDWG, region = "LEVEL3_COD")
 TDWG_level3_df <- merge(TDWG_level3, TDWG_level3_df, by = "id", all = TRUE)
 
 # Tidy data some more
-TDWG_level3_df <- TDWG_level3_df %>%
+TDWG_level3_df_tidy <- TDWG_level3_df %>%
   as_tibble() %>%
-  select(long, lat, group, Count_y) %>%
+  select(long, lat, group, Count) %>%
   rename(richness = Count_y) %>%
   mutate(richness = ifelse(richness == 0, NA, richness)) %>%
   mutate(richness =
@@ -113,7 +113,7 @@ TDWG_level3_df <- TDWG_level3_df %>%
 theme_set(theme_bw() + theme(panel.grid = element_blank()))
 
 worldwide_plot <- ggplot() +
-  geom_polygon(data = TDWG_level3_df,
+  geom_polygon(data = TDWG_level3_df_tidy,
     aes(x = long, y = lat, group = group, fill = richness),
     colour = "grey30",
     size   = 0.1
