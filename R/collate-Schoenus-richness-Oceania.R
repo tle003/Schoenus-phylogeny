@@ -71,7 +71,7 @@ richness <- occ_spdf_cropped %>%
   as_tibble() %>%
   group_by(QDGC) %>%
   summarise(richness = length(unique(species))) %>%
-  filter(!is.na(QDGC))  # NOTE: no species actually occur in an NA QDGC
+  filter(!is.na(QDGC))  # NOTE: 1x NA QDGC w/ richness 8
 
 # Add lon/lat of QDGC-midpoints to data frame ----------------------------------
 
