@@ -13,7 +13,9 @@ occ <- read_csv("data/occurence-data/Schoenus-Australia-records-2020-06-04/Schoe
 headings <- read_csv("data/occurence-data/Schoenus-Australia-records-2020-06-04/headings.csv")
 
 # Larsen et al. (2009) QDGC for Oceania
-QDGC <- readOGR("data/shapefiles/qdgc_oceania", layer = "qdgc_02_oceania")
+QDGC_AUS <- readOGR("data/shapefiles/qdgc_aus", layer = "qdgc_02_aus")
+QDGC_NZL <- readOGR("data/shapefiles/qdgc_nzl", layer = "qdgc_02_nzl")
+QDGC <- rbind(QDGC_AUS, QDGC_NZL)
 # Have a look (WARNING: takes a while)
 #plot(QDGC)
 
