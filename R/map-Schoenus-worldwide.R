@@ -50,27 +50,27 @@ TDWG_level3_df <-merge(TDWG_level3, TDWG_level3_df, by = "id", all = TRUE)
 # Set ggplot2 theme
 theme_set(theme_bw())
 
-# Define a red gradient manually for now
-red_gradient <- c(
-  "#FFFFFF", "#FBF3F2", "#FAEFEE", "#F8EBEA", "#F7E7E6",
-  "#F6E3E2", "#F5E0DE", "#F5E0DE", "#F0D0CD", "#ECC4C1",
-  "#E8B9B5", "#E6B1AD", "#D2736B", "#C9584E", "#B31205"
-)
-
-# Get a vector of counts
-count_vector <- sort(unique(TDWG_level3_df$Count_y))
-
 worldwide_plot <- ggplot() +
   geom_polygon(data = TDWG_level3_df,
-    aes(x = long, y = lat, group = group, fill = factor(Count_y)),
+    aes(
+      x = long, y = lat, group = group,
+      fill = factor(
+        case_when(
+          Count_y ==  0 ~ "0",
+          Count_y ==  1 ~ "1",
+          Count_y <= 11 ~ "2-11",
+          Count_y <= 21 ~ "12-21",
+          Count_y == 45 ~ "45",
+          Count_y == 62 ~ "62"
+        ),
+        levels = c("0", "1", "2-11", "12-21", "45", "62")
+      )
+    ),
     colour = "grey30",
     size   = 0.1
   ) +
   coord_equal() +
-  scale_fill_manual(name = "No. species",
-    values = red_gradient,
-    breaks = count_vector
-  ) +
+  scale_fill_grey(name = "No. species", start = 1, end = 0) +
   scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
   scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
   labs(x = "Longitude (º)", y = "Latitude (º)")
