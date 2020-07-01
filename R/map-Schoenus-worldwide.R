@@ -138,8 +138,10 @@ n_spp_map <- ggplot() +
   ) +
   coord_equal() +
   scale_fill_viridis_c(
-    name = "No. species\nin phylogeny",
-    breaks = c(40, 30, 20, 10, 1)
+    name      = "No. species\nin phylogeny",
+    direction = -1,
+    breaks    = c(40, 30, 20, 10, 1),
+    na.value  = "white"
   ) +
   scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
   scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
