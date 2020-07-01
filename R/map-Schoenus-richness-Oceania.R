@@ -1,5 +1,5 @@
 # Map Schoenus (Cyperaceae, Tribe Schoeneae) species richness in
-# quarter degree grid cells in Australia, New Zealand and New Caledonia
+# quarter degree grid cells in Australia and New Zealand
 
 # Ruan van Mazijk, 2020
 
@@ -17,11 +17,10 @@ richness <- read_csv("data/Schoenus-Oceania-richness.csv")
 # Borders
 border_AUS <- readOGR("data/shapefiles/border_AUS", layer = "GID_0")
 border_NZL <- readOGR("data/shapefiles/border_NZL", layer = "GID_0")
-border_NCL <- readOGR("data/shapefiles/border_NCL", layer = "GID_0")
 
 # Tidy borders -----------------------------------------------------------------
 
-border <- rbind(border_AUS, border_NZL, border_NCL)
+border <- rbind(border_AUS, border_NZL)
 # Have a look (WARNING: takes a while)
 #plot(border)
 # Lots of stray islands...
