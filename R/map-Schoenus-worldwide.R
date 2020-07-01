@@ -43,7 +43,7 @@ colnames(TDWG_level3_df) <- c("id", "Count_x", "Count_y")
 
 # Merge fortified shapefile with count data for each species
 TDWG_level3 <- fortify(TDWG, region = "LEVEL3_COD")
-TDWG_level3_df <-merge(TDWG_level3, TDWG_level3_df, by = "id", all = TRUE)
+TDWG_level3_df <- merge(TDWG_level3, TDWG_level3_df, by = "id", all = TRUE)
 
 # Plot maps --------------------------------------------------------------------
 
