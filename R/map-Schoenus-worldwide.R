@@ -60,8 +60,7 @@ red_gradient <- c(
 # Get a vector of counts
 count_vector <- sort(unique(TDWG_level3_df$Count_y))
 
-#worldwide_plot <-
-ggplot() +
+worldwide_plot <- ggplot() +
   geom_polygon(data = TDWG_level3_df,
     aes(x = long, y = lat, group = group, fill = factor(Count_y)),
     fill  = factor(Count_y),
@@ -76,4 +75,3 @@ ggplot() +
   scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
   scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
   labs(x = "Longitude (º)", y = "Latitude (º)")
-#worldwide_plot
