@@ -62,7 +62,7 @@ occ_spdf$QDGC <- occ_spdf %>%
   as.character()
 
 # Crop to focus on the mainlands (NOTE: takes a while)
-main_extent <-extent(110, 180, -50, 0)
+main_extent <-extent(110, 180, -50, -10)
 occ_spdf_cropped <- crop(occ_spdf, main_extent)
 
 richness <- occ_spdf_cropped %>%

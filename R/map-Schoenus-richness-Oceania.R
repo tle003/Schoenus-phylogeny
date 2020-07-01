@@ -27,7 +27,7 @@ border <- rbind(border_AUS, border_NZL, border_NCL)
 # Lots of stray islands...
 
 # Crop to focus on the mainlands (NOTE: takes a while)
-main_extent <-extent(110, 180, -50, 0)
+main_extent <-extent(110, 180, -50, -10)
 border_cropped <- crop(border, main_extent)
 
 # Plot map ---------------------------------------------------------------------
@@ -44,8 +44,8 @@ oceania_plot <- ggplot(richness) +
     colour = "black", fill = NA, size = 0.25
   ) +
   coord_equal() +
-  scale_x_continuous(breaks = c(120, 140, 160, 180)) +
-  scale_y_continuous(breaks = c(0, -20, -40)) +
+  scale_x_continuous(breaks = c(115, 125, 135, 145, 155, 165, 175)) +
+  scale_y_continuous(breaks = c(-15, -25, -35, -45)) +
   scale_fill_viridis_c(
     name = "No. species\nper QDGC",
     direction = -1,
