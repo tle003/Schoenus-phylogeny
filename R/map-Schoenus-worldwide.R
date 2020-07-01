@@ -119,9 +119,8 @@ worldwide_plot <- ggplot() +
     size   = 0.1
   ) +
   coord_equal() +
-  scale_fill_grey(
-    name = "No. species",
-    start = 0.1, end = 0.9,
+  scale_fill_viridis_d(
+    name         = "No. species",
     na.translate = FALSE
   ) +
   scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
