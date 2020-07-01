@@ -128,4 +128,33 @@ worldwide_plot <- ggplot() +
   scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
   labs(y = "Latitude (º)", title = "Global richness (TDWG)") +
   theme(axis.title.x = element_blank())
+
+n_spp_map <- ggplot() +
+  geom_polygon(data = TDWG_level3_df %>%
+    mutate(Count_in = ifelse(Count == 0, NA, Count_in)),
+    aes(x = long, y = lat, group = group, fill = Count_in),
+    colour = "grey30",
+    size   = 0.1
+  ) +
+  coord_equal() +
+  scale_fill_viridis_c(
+    name = "No. species\nin phylogeny",
+    breaks = c(40, 30, 20, 10, 1)
+  ) +
+  scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
+  scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
+  labs(x = "Longitude (º)", y = "Latitude (º)") +
+  theme(axis.title.x = element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank())
+
+p_spp_map <- ggplot() +
+  geom_polygon(data = TDWG_level3_df %>%
+    mutate(prop_in_phylogeny = ifelse(Count == 0, NA, prop_in_phylogeny)),
+    aes(x = long, y = lat, group = group, fill = prop_in_phylogeny),
+    colour = "grey30",
+    size   = 0.1
+  ) +
+  coord_equal() +
+  scale_fill_viridis_c(name = "Prop. species\nin phylogeny") +
+  scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
+  scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
   labs(x = "Longitude (º)", y = "Latitude (º)")
