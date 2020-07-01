@@ -156,12 +156,18 @@ p_spp_map <- ggplot() +
   geom_polygon(
     data = TDWG_level3_df %>%
       mutate(prop_in_phylogeny = ifelse(Count == 0, NA, prop_in_phylogeny)) %>%
+      mutate(prop_in_phylogeny = prop_in_phylogeny * 100),
     aes(x = long, y = lat, group = group, fill = prop_in_phylogeny),
     colour = "grey30",
     size   = 0.1
   ) +
   coord_equal() +
-  scale_fill_viridis_c(name = "Prop. species\nin phylogeny") +
+  scale_fill_distiller(
+    name      = "% species\nin phylogeny",
+    palette   = "RdYlGn",
+    direction = 1,
+    na.value  = "white"
+  ) +
   scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
   scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
   labs(x = "Longitude (º)", y = "Latitude (º)")
