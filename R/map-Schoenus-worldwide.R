@@ -65,7 +65,7 @@ TDWG_level3_df <- TDWG_level3_df %>%
 # Plot maps --------------------------------------------------------------------
 
 # Set ggplot2 theme
-theme_set(theme_bw())
+theme_set(theme_bw() + theme(panel.grid = element_blank()))
 
 worldwide_plot <- ggplot() +
   geom_polygon(data = TDWG_level3_df,

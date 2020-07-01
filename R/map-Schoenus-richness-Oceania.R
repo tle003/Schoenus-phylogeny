@@ -33,7 +33,7 @@ border_cropped <- crop(border, main_extent)
 # Plot map ---------------------------------------------------------------------
 
 # Set ggplot2 theme
-theme_set(theme_bw())
+theme_set(theme_bw() + theme(panel.grid = element_blank()))
 
 oceania_plot <- ggplot(richness) +
   aes(QDGC_lon, QDGC_lat, fill = richness) +

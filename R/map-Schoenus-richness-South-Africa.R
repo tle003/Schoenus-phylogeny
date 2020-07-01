@@ -20,7 +20,7 @@ border_ZAF <- readOGR("data/shapefiles/border_ZAF", layer = "GID_0")
 # Plot map ---------------------------------------------------------------------
 
 # Set ggplot2 theme
-theme_set(theme_bw())
+theme_set(theme_bw() + theme(panel.grid = element_blank()))
 
 south_africa_plot <- ggplot(richness) +
   aes(QDGC_lon, QDGC_lat, fill = richness) +
