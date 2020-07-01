@@ -126,4 +126,6 @@ worldwide_plot <- ggplot() +
   ) +
   scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
   scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
+  labs(y = "Latitude (º)", title = "Global richness (TDWG)") +
+  theme(axis.title.x = element_blank())
   labs(x = "Longitude (º)", y = "Latitude (º)")
