@@ -99,12 +99,12 @@ TDWG_level3_df_tidy <- TDWG_level3_df %>%
   mutate(richness =
     case_when(
       richness ==  1 ~ "1",
-      richness <= 11 ~ "2-11",
-      richness <= 21 ~ "12-21",
+      richness <= 11 ~ "2–11",
+      richness <= 21 ~ "12–21",
       richness == 45 ~ "45",
       richness == 62 ~ "62"
     ) %>%
-    factor(levels = c("1", "2-11", "12-21", "45", "62"))
+    factor(levels = c("62", "45", "12–21", "2–11", "1"))
   )
 
 # Plot maps --------------------------------------------------------------------
@@ -121,7 +121,7 @@ worldwide_plot <- ggplot() +
   coord_equal() +
   scale_fill_grey(
     name = "No. species",
-    start = 0.9, end = 0.1,
+    start = 0.1, end = 0.9,
     na.translate = FALSE
   ) +
   scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
