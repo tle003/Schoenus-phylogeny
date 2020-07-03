@@ -114,18 +114,23 @@ theme_set(theme_bw() + theme(panel.grid = element_blank()))
 
 worldwide_plot <- ggplot() +
   geom_polygon(data = TDWG_level3_df_tidy,
-    aes(x = long, y = lat, group = group, fill = richness),
+    aes(x = long, y = lat, group = group, fill = richness, alpha = richness),
     colour = "grey30",
     size   = 0.1
   ) +
   coord_equal() +
-  scale_fill_viridis_d(
-    name         = "No. species",
-    na.translate = FALSE
-  ) +
+  scale_fill_viridis_d(na.translate = FALSE) +
+  scale_alpha_manual(values = c(1, 1, 1, 0.75, 0.5)) +
   scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
   scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90)) +
   labs(y = "Latitude (º)") +
+  guides(
+    fill = guide_legend(
+      title = "No. species",
+      override.aes = list(alpha = c(1, 1, 1, 0.75, 0.5))
+    ),
+    alpha = FALSE
+  ) +
   theme(
     axis.title.x = element_blank(),
     axis.text.x  = element_blank(),
