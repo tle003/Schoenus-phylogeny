@@ -15,8 +15,8 @@ library(tidyverse)  # Data wrangling, figures
 richness <- read_csv("data/Schoenus-Oceania-richness.csv")
 
 # Borders
-border_AUS <- readOGR("data/shapefiles/border_AUS", layer = "GID_0")
-border_NZL <- readOGR("data/shapefiles/border_NZL", layer = "GID_0")
+border_AUS <- getData("GADM", country = "AUS", level = 0)
+border_NZL <- getData("GADM", country = "NZL", level = 0)
 
 # Tidy borders -----------------------------------------------------------------
 

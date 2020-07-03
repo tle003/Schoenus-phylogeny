@@ -15,7 +15,7 @@ library(tidyverse)  # Data wrangling, figures
 richness <- read_csv("data/Schoenus-South-Africa-richness.csv")
 
 # South African border
-border_ZAF <- readOGR("data/shapefiles/border_ZAF", layer = "GID_0")
+border_ZAF <- getData("GADM", country = "ZAF", level = 0)
 
 # Plot map ---------------------------------------------------------------------
 
