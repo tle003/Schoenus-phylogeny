@@ -1,10 +1,10 @@
 # Ruan van Mazijk, 2020
 
-library(patchwork)  # Figure panelling
-
 source("R/map-Schoenus-worldwide.R")
 source("R/map-Schoenus-richness-South-Africa.R")
 source("R/map-Schoenus-richness-Oceania.R")
+
+library(patchwork)  # Figure panelling
 
 maps <-
   worldwide_plot /
