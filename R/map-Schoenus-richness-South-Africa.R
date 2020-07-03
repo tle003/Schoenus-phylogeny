@@ -38,5 +38,5 @@ south_africa_plot <- ggplot(richness) +
     breaks = c(5, 15, 25, 34),
     limits = c(0, 34)
   ) +
-  labs(x = "Longitude (º)", y = "Latitude (º)", title = "South Africa richness") +
+  labs(x = "Longitude (º)", y = "Latitude (º)") +
   theme(legend.position = "none")

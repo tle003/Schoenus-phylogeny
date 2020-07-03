@@ -51,5 +51,5 @@ oceania_plot <- ggplot(richness) +
     breaks = c(5, 15, 25, 34),
     limits = c(0, 34)
   ) +
-  labs(x = "Longitude (º)", title = "Australia, New Zealand richness") +
+  labs(x = "Longitude (º)") +
   theme(axis.title.y = element_blank())
