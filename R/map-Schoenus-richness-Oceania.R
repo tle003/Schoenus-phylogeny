@@ -40,7 +40,7 @@ oceania_plot <- ggplot(richness) +
   geom_polygon(
     data = border_cropped,
     aes(x = long, y = lat, group = group),
-    fill = NA, colour = "grey30", size = 0.2
+    fill = NA, colour = "grey30", size = 0.15
   ) +
   annotate("text", label = "(d)", x = 115, y = -13) +
   coord_equal() +

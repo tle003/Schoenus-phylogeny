@@ -28,7 +28,7 @@ south_africa_plot <- ggplot(richness) +
   geom_polygon(
     data = border_ZAF,
     aes(x = long, y = lat, group = group),
-    fill = NA, colour = "grey30", size = 0.2
+    fill = NA, colour = "grey30", size = 0.15
   ) +
   annotate("text", label = "(c)", x = 17, y = -23) +
   coord_equal() +
