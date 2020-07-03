@@ -26,7 +26,7 @@ border <- rbind(border_AUS, border_NZL)
 # Lots of stray islands...
 
 # Crop to focus on the mainlands
-main_extent <-extent(110, 180, -50, -10)
+main_extent <- extent(110, 180, -50, -10)
 border_cropped <- crop(border, main_extent)
 
 # Plot map ---------------------------------------------------------------------
