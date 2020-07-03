@@ -36,33 +36,6 @@ for (i in 1:nrow(QDGC)) {
 
 # Figure out which QDGC is outside of South Africa's borders -------------------
 
-# Fortify shapefile
-QDGC_qdgc <- fortify(QDGC, region = "qdgc")
-
-# Merge fortified shapefile with count data for each species
-QDGC_richness <- merge(
-  QDGC_qdgc,
-  QDGC %>%
-    as_tibble() %>%
-    rename(id = qdgc) %>%
-    select(-lon, -lat),
-  by = "id",
-  all = TRUE
-)
-# Have a look
-ggplot() +
-  geom_polygon(
-    data = QDGC_richness,
-    aes(x = long, y = lat, group = group, fill = richness)
-  ) +
-  scale_fill_viridis_c(direction = -1, na.value = "white") +
-  geom_polygon(
-    data = border_ZAF,
-    aes(x = long, y = lat, group = group),
-    colour = "black",
-    fill = NA
-  )
-
 # Query the QDGCs for their being within the South African border
 QDGC_over_ZAF <- QDGC %over% border_ZAF
 # Save that into the QDGC shapefile
@@ -78,6 +51,7 @@ QDGC@data <- QDGC@data %>%
   ))
 
 # Merge fortified shapefile with count data for each species
+QDGC_qdgc <- fortify(QDGC, region = "qdgc")
 QDGC_over_ZAF2 <- merge(
   QDGC_qdgc,
   QDGC %>%
