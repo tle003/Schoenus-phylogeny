@@ -150,8 +150,7 @@ proportion_sampled_plot <- ggplot() +
       mutate(prop_in_phylogeny = ifelse(Count == 0, NA, prop_in_phylogeny)) %>%
       mutate(prop_in_phylogeny = prop_in_phylogeny * 100),
     aes(x = long, y = lat, group = group, fill = prop_in_phylogeny),
-    colour = "grey30",
-    size   = 0.1
+    colour = "grey30", size = 0.1
   ) +
   coord_equal() +
   scale_fill_distiller(

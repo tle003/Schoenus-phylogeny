@@ -28,7 +28,7 @@ south_africa_plot <- ggplot(richness) +
   geom_polygon(
     data = border_ZAF,
     aes(x = long, y = lat, group = group),
-    colour = "black", fill = NA, size = 0.25
+    fill = NA, colour = "grey30", size = 0.2
   ) +
   coord_equal() +
   scale_x_continuous(
