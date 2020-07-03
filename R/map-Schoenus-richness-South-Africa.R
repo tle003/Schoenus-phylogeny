@@ -30,6 +30,7 @@ south_africa_plot <- ggplot(richness) +
     aes(x = long, y = lat, group = group),
     fill = NA, colour = "grey30", size = 0.2
   ) +
+  annotate("text", label = "(c)", x = 17, y = -23) +
   coord_equal() +
   scale_x_continuous(
     breaks = c(20, 25, 30),
