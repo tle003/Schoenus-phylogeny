@@ -31,12 +31,15 @@ south_africa_plot <- ggplot(richness) +
     colour = "black", fill = NA, size = 0.25
   ) +
   coord_equal() +
-  scale_x_continuous(breaks = c(20, 25, 30)) +
-  scale_y_continuous(breaks = c(-25, -30, -35)) +
+  scale_x_continuous(breaks = c(20, 25, 30),    labels = scales::label_math(expr = .x*"º")) +
+  scale_y_continuous(breaks = c(-25, -30, -35), labels = scales::label_math(expr = .x*"º")) +
   scale_fill_viridis_c(
     direction = -1,
     breaks = c(5, 15, 25, 34),
     limits = c(0, 34)
   ) +
-  labs(x = "Longitude (º)", y = "Latitude (º)") +
-  theme(legend.position = "none")
+  theme(
+    axis.title.y    = element_blank(),
+    axis.title.x    = element_blank(),
+    legend.position = "none"
+  )

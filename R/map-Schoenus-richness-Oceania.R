@@ -43,13 +43,15 @@ oceania_plot <- ggplot(richness) +
     colour = "black", fill = NA, size = 0.25
   ) +
   coord_equal() +
-  scale_x_continuous(breaks = c(115, 125, 135, 145, 155, 165, 175)) +
-  scale_y_continuous(breaks = c(-15, -25, -35, -45)) +
+  scale_x_continuous(breaks = c(115, 125, 135, 145, 155, 165, 175), labels = scales::label_math(expr = .x*"º")) +
+  scale_y_continuous(breaks = c(-15, -25, -35, -45),                labels = scales::label_math(expr = .x*"º")) +
   scale_fill_viridis_c(
     name = "No. species\nper QDGC",
     direction = -1,
     breaks = c(5, 15, 25, 34),
     limits = c(0, 34)
   ) +
-  labs(x = "Longitude (º)") +
-  theme(axis.title.y = element_blank())
+  theme(
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank()
+  )
