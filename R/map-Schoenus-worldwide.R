@@ -121,8 +121,15 @@ worldwide_plot <- ggplot() +
   coord_equal() +
   scale_fill_viridis_d(na.translate = FALSE) +
   scale_alpha_manual(values = c(1, 1, 1, 0.75, 0.5)) +
-  scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180)) +
-  scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90), labels = scales::label_math(expr = .x*"º")) +
+  scale_x_continuous(
+    breaks = seq(-180, 180, 60),
+    limits = c(-180, 180)
+  ) +
+  scale_y_continuous(
+    breaks = seq(-60, 90, 30),
+    limits = c(-60, 90),
+    labels = scales::label_math(expr = .x*"º")
+  ) +
   guides(
     fill = guide_legend(
       title = "No. species",
@@ -153,8 +160,16 @@ proportion_sampled_plot <- ggplot() +
     direction = 1,
     na.value  = "white"
   ) +
-  scale_x_continuous(breaks = seq(-180, 180, 60), limits = c(-180, 180), labels = scales::label_math(expr = .x*"º")) +
-  scale_y_continuous(breaks = seq(-60, 90, 30),   limits = c(-60, 90),   labels = scales::label_math(expr = .x*"º")) +
+  scale_x_continuous(
+    breaks = seq(-180, 180, 60),
+    limits = c(-180, 180),
+    labels = scales::label_math(expr = .x*"º")
+  ) +
+  scale_y_continuous(
+    breaks = seq(-60, 90, 30),
+    limits = c(-60, 90),
+    labels = scales::label_math(expr = .x*"º")
+  ) +
   theme(
     axis.title.y = element_blank(),
     axis.title.x = element_blank()
