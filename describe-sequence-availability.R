@@ -8,9 +8,9 @@ library(magrittr)
 
 # Import Tammy and Ruan's data
 tle <-
-  read_csv("sequence-availability/2020-04-03_specimen-tot-nodups_tle.csv")
+  read_csv("data/sequence-availability/2020-04-03_specimen-tot-nodups_tle.csv")
 rvm <-
-  read_csv("sequence-availability/2020-04-02_sequences-tidy-by-voucher_rvm.csv")
+  read_csv("data/sequence-availability/2020-04-02_sequences-tidy-by-voucher_rvm.csv")
 
 # Tidy both our datasets (make columns names the same, etc.)
 tle %<>%
@@ -46,7 +46,7 @@ sequences_tidy <-
   # Sum up number of markers available per voucher
   mutate(n_markers = ETS + ITS + rps16 + trnLF + rbcL) %>%
   arrange(taxon, voucher)
-write_csv(sequences_tidy, "sequence-availability/sequences-by-voucher.csv")
+write_csv(sequences_tidy, "data/sequence-availability/sequences-by-voucher.csv")
 
 # Recalculate n_markers by taxa
 sequences_tidy_taxa <- sequences_tidy %>%
@@ -57,7 +57,7 @@ sequences_tidy_taxa <- sequences_tidy %>%
   ) %>%
   arrange(taxon) %>%
   mutate(n_markers = ETS + ITS + rbcL + rps16 + trnLF)
-write_csv(sequences_tidy_taxa, "sequence-availability/sequences-by-taxon.csv")
+write_csv(sequences_tidy_taxa, "data/sequence-availability/sequences-by-taxon.csv")
 
 # Check for specimens (vouchers) that have differing dets in the 2 matrices
 # (to be continued)
@@ -70,7 +70,7 @@ sequences_tidy_det_check <- sequences_tidy %>%
   summarise(n_dets = n(), taxa = paste(unique(taxon), collapse = ", ")) %>%
   arrange(desc(n_dets)) %>%
   filter(n_dets > 1, voucher != "?")
-write_csv(sequences_tidy_det_check, "sequence-availability/dets-to-check.csv")
+write_csv(sequences_tidy_det_check, "data/sequence-availability/dets-to-check.csv")
 
 # Useful statistics:
 sequences_tidy %>%
@@ -119,7 +119,7 @@ sequences_plot <- ggplot(sequences_tidy_taxa) +
     legend.position = "none"
   )
 ggsave(
-  "sequence-availability/sequences-by-taxon.pdf",
+  "figures/sequences-by-taxon.pdf",
   sequences_plot,
   width = 5, height = 30
 )
