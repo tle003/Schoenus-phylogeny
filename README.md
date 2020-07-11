@@ -1,3 +1,5 @@
-# A phylogeny of _Schoenus_ L. (Cyperaceae, Tribe Schoeneae)
+# Assessing the biogeographic history and diversification patterns of the austral temperate genus _Schoenus_
 
-Here are publicly available data and code for a publication in prep.
+_Elliott, T.L., van Mazijk, R., Muthaphuli, N., Barrett, R.L., Wilson, K.L., Bruhl, J.J. and Muasya, A.M._
+
+This repository contains publicly available data and code for an article in preparation for publication in _Journal of Systematics and Evolution_
