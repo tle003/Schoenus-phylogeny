@@ -1,6 +1,9 @@
 # First attempt at collating available sequence data
 # for Schoenus (Cyperaceae, Tribe Schoeneae)
 
+# Merges Tammy and Ruan's records of available sequence data for Schoeneae
+# (files in folder data/sequence-availability)
+
 # Ruan van Mazijk, 2020
 
 library(tidyverse)
