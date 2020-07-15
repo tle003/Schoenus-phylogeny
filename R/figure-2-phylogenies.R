@@ -44,7 +44,7 @@ Schoenus_simpler_BS_plot <- ggtree(Schoenus_simpler) +
   scale_fill_grey(name = "BS (%)", start = 0, end = 1) +
   theme(legend.position = c(0.1, 0.9))
 
-tree_sample <- read.tree("data/phylogenies/2020-07-11_RAxML-HPC-reconstruction_03/RAxML_bootstrap.result")
+tree_sample <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
 
 set.seed(1234)
 tree_sample <- sample(tree_sample, 100)
