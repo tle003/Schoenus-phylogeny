@@ -5,7 +5,8 @@ library(tidyverse)
 library(ggtree)    # Multi-phylo plots
 # (Intalled with BiocManager::install("ggtree"))
 
-tree <- read.tree("data/phylogenies/2020-07-11_RAxML-HPC-reconstruction_03/RAxML_bipartitions.result")
+#remotes::install_github("joelnitta/jntools")
+library(jntools)  # ::get_tips_in_ape_plot_order()
 
 tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bipartitions.result")
 
@@ -57,7 +58,7 @@ for (i in 1:length(tree_sample)) {
   Schoenus_sample[[i]]$tip.label <- str_replace(Schoenus_sample[[i]]$tip.label, "Schoenus_", "S. ")
 }
 
-Schoenus_multitree_plot <- ggdensitree(Schoenus_sample, alpha = 0.05, jitter = 0) +
+Schoenus_multitree_plot <- ggdensitree(Schoenus_sample, alpha = 0.05, jitter = 0, tip.order = get_tips_in_ape_plot_order(Schoenus_simpler)) +
   xlim(0, 1.25) +
   geom_tiplab(aes(label = paste0('italic(\"', label, '\")')), parse = TRUE, size = 2.5)
 
