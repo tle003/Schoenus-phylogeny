@@ -23,12 +23,14 @@ Schoenus_BS_plot <- ggtree(Schoenus, ladderize = TRUE, right = TRUE, root.positi
   geom_tiplab(aes(label = paste0('italic(\"', label, '\")')), parse = TRUE, size = 2.5) +
   geom_nodepoint(aes(fill = as.numeric(label)), pch = 21, size = 2.5) +
   scale_fill_distiller(
+    limits = c(50, 100),
     name      = "BS (%)",
-    palette   = "RdYlGn",
+    palette   = "Greys",
     direction = 1,
-    na.value  = "white"
+    na.value  = "white",
+    labels = c("< 50", "60", "70", "80", "90", "100")
   ) +
-  theme(legend.position = c(0.1, 0.9))
+  theme(legend.position = c(0.9, 0.15), legend.text.align = 1)
 
 Schoenus_simpler <- Schoenus
 Schoenus_simpler$node.label <- Schoenus_simpler$node.label %>%
