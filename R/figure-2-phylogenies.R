@@ -17,7 +17,7 @@ Schoenus <- tree %>%
 Schoenus$tip.label <- str_replace(Schoenus$tip.label, "Schoenus_", "S. ")
 Schoenus$node.label <- as.numeric(Schoenus$node.label)
 
-Schoenus_BS_plot <- ggtree(Schoenus) +
+Schoenus_BS_plot <- ggtree(Schoenus, ladderize = TRUE, right = TRUE, root.position = 0.01) +
   xlim(0, 0.33) +
   geom_tiplab(aes(label = paste0('italic(\"', label, '\")')), parse = TRUE, size = 2.5) +
   geom_nodepoint(aes(fill = as.numeric(label)), pch = 21, size = 2.5) +
@@ -38,7 +38,7 @@ Schoenus_simpler$node.label <- Schoenus_simpler$node.label %>%
     TRUE     ~  "< 75"
   )}
 
-Schoenus_simpler_BS_plot <- ggtree(Schoenus_simpler) +
+Schoenus_simpler_BS_plot <- ggtree(Schoenus_simpler, ladderize = TRUE, right = TRUE, root.position = 0.01) +
   xlim(0, 0.33) +
   geom_tiplab(aes(label = paste0('italic(\"', label, '\")')), parse = TRUE, size = 2.5) +
   geom_nodepoint(aes(fill = factor(label, levels = c("100", ">= 75", "< 75"))), pch = 21, size = 2) +
