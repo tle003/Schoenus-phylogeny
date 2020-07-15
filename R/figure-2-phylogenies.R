@@ -74,7 +74,7 @@ Schoenus_multitree_plot <-
 ggsave(
   "figures/Schoenus_BS_plot.pdf",
   Schoenus_BS_plot,
-  width = 5, height = 10
+  width = 6, height = 12
 )
 ggsave(
   "figures/Schoenus_multitree_plot.pdf",
