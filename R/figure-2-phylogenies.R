@@ -37,17 +37,32 @@ Schoenus_simpler$node.label <- Schoenus_simpler$node.label %>%
   as.numeric() %>%
   {case_when(
     . == 100 ~   "100",
-    . >=  75 ~ ">= 75",
-    TRUE     ~  "< 75"
+    . >=  90 ~ ">= 90",
+    . >=  80 ~ ">= 80",
+    . >=  70 ~ ">= 70",
+    . >=  60 ~ ">= 60",
+    . >=  50 ~ ">= 50",
+    TRUE     ~  "< 50"
   )}
 
 Schoenus_simpler_BS_plot <- ggtree(Schoenus_simpler, ladderize = TRUE, right = TRUE, root.position = 0.01) +
   geom_rootedge(rootedge = 0.01) +
   xlim(0, 0.33) +
   geom_tiplab(aes(label = paste0('italic(\"', label, '\")')), parse = TRUE, size = 2.5) +
-  geom_nodepoint(aes(fill = factor(label, levels = c("100", ">= 75", "< 75"))), pch = 21, size = 2) +
+  geom_nodepoint(
+    aes(fill = factor(label, levels = c(
+        "100",
+      ">= 90",
+      ">= 80",
+      ">= 70",
+      ">= 60",
+      ">= 50",
+       "< 50"
+    ))),
+    pch = 21, size = 2
+  ) +
   scale_fill_grey(name = "BS (%)", start = 0, end = 1) +
-  theme(legend.position = c(0.1, 0.9))
+  theme(legend.position = c(0.9, 0.15))
 
 tree_sample <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
 
