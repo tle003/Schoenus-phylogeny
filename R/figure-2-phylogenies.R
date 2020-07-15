@@ -1,24 +1,58 @@
 # Ruan van Mazijk, 2020
 
-library(phytools)  # Importing trees
+# Load packages ----------------------------------------------------------------
+
 library(tidyverse)
+library(phytools)  # Importing trees
 library(ggtree)    # Multi-phylo plots
-# (Intalled with BiocManager::install("ggtree"))
+                   # (Intalled with BiocManager::install("ggtree"))
+library(jntools)   # For ::get_tips_in_ape_plot_order()
+                   # (Installed with remotes::install_github("joelnitta/jntools"))
 
-#remotes::install_github("joelnitta/jntools")
-library(jntools)  # ::get_tips_in_ape_plot_order()
+# Import data ------------------------------------------------------------------
 
+# RAxML-HPC reconstruction:
+# Best tree with nodes' bootstrap support values
 tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bipartitions.result")
+# Bootstrap sample (1000 + 8 trees)
+tree_sample <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
 
+# Tidy data --------------------------------------------------------------------
+
+# RAxML-HPC reconstruction:
+
+# Best tree:
+# Extract Schoenus
 Schoenus <- tree %>%
   drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
   ladderize()
-
+# Tidy tip labels
 Schoenus$tip.label <- str_replace(
   Schoenus$tip.label,
   "Schoenus_", "S. "
 )
+# Tidy node lables
 Schoenus$node.label <- as.numeric(Schoenus$node.label)
+
+# Bootstrap sample:
+# Sub-sample 100 tree
+set.seed(1234)
+tree_sample <- sample(tree_sample, 100)
+Schoenus_sample <- tree_sample
+for (i in 1:length(tree_sample)) {
+  Schoenus_sample[[i]] <- tree_sample[[i]] %>%
+    # Extract Schoenus from each tree
+    drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
+    # Ultrametricise each tree and make tree depth 1
+    compute.brlen()
+  # Tidy tip labels
+  Schoenus_sample[[i]]$tip.label <- str_replace(
+    Schoenus_sample[[i]]$tip.label,
+    "Schoenus_", "S. "
+  )
+}
+
+# Plots ------------------------------------------------------------------------
 
 root_length <- 0.01
 
@@ -43,22 +77,6 @@ Schoenus_BS_plot <-
   ) +
   theme(legend.position = c(0.9, 0.15), legend.text.align = 1)
 
-tree_sample <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
-
-set.seed(1234)
-tree_sample <- sample(tree_sample, 100)
-
-Schoenus_sample <- tree_sample
-for (i in 1:length(tree_sample)) {
-  Schoenus_sample[[i]] <- tree_sample[[i]] %>%
-    drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
-    compute.brlen()
-  Schoenus_sample[[i]]$tip.label <- str_replace(
-    Schoenus_sample[[i]]$tip.label,
-    "Schoenus_", "S. "
-  )
-}
-
 Schoenus_multitree_plot <-
   ggdensitree(Schoenus_sample,
     alpha     = 0.05,
@@ -70,6 +88,8 @@ Schoenus_multitree_plot <-
     parse = TRUE,
     size = 2.5
   )
+
+# Save plots -------------------------------------------------------------------
 
 ggsave(
   "figures/Schoenus_BS_plot.pdf",
