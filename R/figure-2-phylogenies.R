@@ -14,21 +14,35 @@ Schoenus <- tree %>%
   drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
   ladderize()
 
-Schoenus$tip.label <- str_replace(Schoenus$tip.label, "Schoenus_", "S. ")
+Schoenus$tip.label <- str_replace(
+  Schoenus$tip.label,
+  "Schoenus_", "S. "
+)
 Schoenus$node.label <- as.numeric(Schoenus$node.label)
 
-Schoenus_BS_plot <- ggtree(Schoenus, ladderize = TRUE, right = TRUE, root.position = 0.01) +
-  geom_rootedge(rootedge = 0.01) +
+root_length <- 0.01
+
+Schoenus_BS_plot <-
+  ggtree(Schoenus,
+    ladderize     = TRUE,
+    right         = TRUE,
+    root.position = root_length
+  ) +
+  geom_rootedge(rootedge = root_length) +
   xlim(0, 0.33) +
-  geom_tiplab(aes(label = paste0('italic(\"', label, '\")')), parse = TRUE, size = 2.5) +
+  geom_tiplab(
+    aes(label = paste0('italic(\"', label, '\")')),
+    parse = TRUE,
+    size = 2.5
+  ) +
   geom_nodepoint(aes(fill = as.numeric(label)), pch = 21, size = 2.5) +
   scale_fill_distiller(
-    limits = c(50, 100),
     name      = "BS (%)",
     palette   = "Greys",
     direction = 1,
     na.value  = "white",
-    labels = c("< 50", "60", "70", "80", "90", "100")
+    limits    = c(50, 100),
+    labels    = c("< 50", "60", "70", "80", "90", "100")
   ) +
   theme(legend.position = c(0.9, 0.15), legend.text.align = 1)
 
@@ -42,13 +56,31 @@ for (i in 1:length(tree_sample)) {
   Schoenus_sample[[i]] <- tree_sample[[i]] %>%
     drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
     compute.brlen()
-  Schoenus_sample[[i]]$tip.label <- str_replace(Schoenus_sample[[i]]$tip.label, "Schoenus_", "S. ")
+  Schoenus_sample[[i]]$tip.label <- str_replace(
+    Schoenus_sample[[i]]$tip.label,
+    "Schoenus_", "S. "
+  )
 }
 
-Schoenus_multitree_plot <- ggdensitree(Schoenus_sample, alpha = 0.05, jitter = 0, tip.order = get_tips_in_ape_plot_order(Schoenus_simpler)) +
+Schoenus_multitree_plot <-
+  ggdensitree(Schoenus_sample,
+    alpha     = 0.05,
+    tip.order = get_tips_in_ape_plot_order(Schoenus)
+  ) +
   xlim(0, 1.25) +
-  geom_tiplab(aes(label = paste0('italic(\"', label, '\")')), parse = TRUE, size = 2.5)
+  geom_tiplab(
+    aes(label = paste0('italic(\"', label, '\")')),
+    parse = TRUE,
+    size = 2.5
+  )
 
-ggsave("figures/Schoenus_BS_plot.pdf", Schoenus_BS_plot, width = 5, height = 10)
-ggsave("figures/Schoenus_simpler_BS_plot.pdf", Schoenus_simpler_BS_plot, width = 5, height = 10)
-ggsave("figures/Schoenus_multitree_plot.pdf", Schoenus_multitree_plot, width = 5, height = 10)
+ggsave(
+  "figures/Schoenus_BS_plot.pdf",
+  Schoenus_BS_plot,
+  width = 5, height = 10
+)
+ggsave(
+  "figures/Schoenus_multitree_plot.pdf",
+  Schoenus_multitree_plot,
+  width = 5, height = 10
+)
