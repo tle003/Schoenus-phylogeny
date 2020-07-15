@@ -36,13 +36,10 @@ Schoenus_BS_plot <-
     size = 2.5
   ) +
   geom_nodepoint(aes(fill = as.numeric(label)), pch = 21, size = 2.5) +
-  scale_fill_distiller(
-    name      = "BS (%)",
-    palette   = "Greys",
-    direction = 1,
-    na.value  = "white",
-    limits    = c(50, 100),
-    labels    = c("< 50", "60", "70", "80", "90", "100")
+  scale_fill_gradient(name = "BS (%)",
+    na.value  = "white", low = "white", high = "black",
+    limits = c(50, 100),
+    labels = c("< 50", "60", "70", "80", "90", "100")
   ) +
   theme(legend.position = c(0.9, 0.15), legend.text.align = 1)
 
