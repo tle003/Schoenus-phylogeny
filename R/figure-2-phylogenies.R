@@ -7,6 +7,8 @@ library(ggtree)    # Multi-phylo plots
 
 tree <- read.tree("data/phylogenies/2020-07-11_RAxML-HPC-reconstruction_03/RAxML_bipartitions.result")
 
+tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bipartitions.result")
+
 Schoenus <- tree %>%
   drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
   ladderize()
