@@ -1,3 +1,6 @@
+# Map Schoenus (Cyperaceae, Tribe Schoeneae) species richness and
+# sampling effort (Re: our phylogenetic analyses) in TDWG areas worldwide
+
 # Tammy Elliott and Ruan van Mazijk, 2020
 
 # Load packages ----------------------------------------------------------------

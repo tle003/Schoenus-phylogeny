@@ -6,27 +6,34 @@
 
 # Ruan van Mazijk, 2020
 
+# Load packages ----------------------------------------------------------------
+
 library(tidyverse)
 library(magrittr)
 
-# Import Tammy and Ruan's data
+# Import Tammy and Ruan's data -------------------------------------------------
+
 tle <-
   read_csv("data/sequence-availability/2020-04-03_specimen-tot-nodups_tle.csv")
 rvm <-
   read_csv("data/sequence-availability/2020-04-02_sequences-tidy-by-voucher_rvm.csv")
 
-# Tidy both our datasets (make columns names the same, etc.)
+# Tidy both our datasets -------------------------------------------------------
+# (make columns names the same, etc.)
+
 tle %<>%
   set_colnames(c(
     "taxon", "specimen", "voucher",
     "ETS", "ITS", "rbcL", "rps16", "trnLF", "n_markers_available"
   )) %>%
   select(-specimen, -n_markers_available)
+
 rvm %<>%
   mutate(taxon = str_replace_all(taxon, "_", " ")) %>%
   select(-n_markers_available)
 
-# Merge datasets
+# Merge datasets ---------------------------------------------------------------
+
 sequences_tidy <-
   full_join(tle, rvm) %>%
   # NOTE: Lots of double rows due to inconsistent voucher name standards
@@ -75,7 +82,8 @@ sequences_tidy_det_check <- sequences_tidy %>%
   filter(n_dets > 1, voucher != "?")
 write_csv(sequences_tidy_det_check, "data/sequence-availability/dets-to-check.csv")
 
-# Useful statistics:
+# Useful statistics ------------------------------------------------------------
+
 sequences_tidy %>%
   # Recalculate n_markers by voucher specimen **only**
   ungroup() %>%
@@ -91,18 +99,22 @@ sequences_tidy %>%
   {print(nrow(.))} %>%  # 468 **specimens** sequenced
   filter(n_markers > 1) %>%
   nrow()  # 160 of which have > 1 marker
+
 sequences_tidy_taxa %T>%
   {print(nrow(.))} %>%  # ca. 239 **taxa** sequenced
   filter(n_markers > 1) %>%
   nrow()  # 130 of which have > 1 marker
 
-# Visualise sequence availability by taxon
+# Visualise sequence availability by taxon -------------------------------------
+
 theme_set(theme_classic())
+
 marker_names_ordered <- sequences_tidy_taxa %>%
   select(ETS, ITS, rbcL, rps16, trnLF) %>%
   map_dbl(sum) %>%
   sort(decreasing = TRUE) %>%
   names()
+
 sequences_tidy_taxa %<>%
   select(-n_markers) %>%
   gather(marker_name, available, ETS:trnLF) %>%
@@ -111,6 +123,7 @@ sequences_tidy_taxa %<>%
     available   = (available == 1),
     genus       = str_extract(taxon, "[a-zA-Z]+")
   )
+
 sequences_plot <- ggplot(sequences_tidy_taxa) +
   aes(marker_name, taxon, fill = genus, alpha = available) +
   geom_tile() +
@@ -121,6 +134,9 @@ sequences_plot <- ggplot(sequences_tidy_taxa) +
     axis.title.y    = element_blank(),
     legend.position = "none"
   )
+
+# Save plot --------------------------------------------------------------------
+
 ggsave(
   "figures/sequences-by-taxon.pdf",
   sequences_plot,

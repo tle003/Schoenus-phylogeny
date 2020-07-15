@@ -1,3 +1,6 @@
+# Collate Schoenus (Cyperaceae, Tribe Schoeneae) species richness in
+# quarter degree grid cells in Australia and New Zealand
+
 # Ruan van Mazijk, 2020
 
 # Load packages ----------------------------------------------------------------
