@@ -34,6 +34,29 @@ Schoenus$tip.label <- str_replace(
 # Tidy node lables
 Schoenus$node.label <- as.numeric(Schoenus$node.label)
 
+####
+library(treeio)
+well_supported_nodes <- Schoenus %>%
+  as.treedata() %>%
+  as_tibble() %>%
+  filter(!str_detect(label, "S")) %>%
+  mutate(BS = as.numeric(label)) %>%
+  select(parent, node, BS) %>%
+  filter(BS >= 80, parent != node) %>%
+  mutate(n_spp = map_int(node, ~length(offspring(Schoenus, ., tiponly = TRUE)))) %>%
+  filter(n_spp < 40, n_spp > 3) %>%
+  #filter(!(parent %in% map(node, ~offspring(Schoenus, .)))) %>%
+  #filter(
+  #  map2_lgl(parent, node, ~ .y %in% offspring(Schoenus, .x))
+  #) %>%
+  pull(node)
+p <- ggtree(Schoenus, ladderize = TRUE, right = TRUE)
+for (i in seq_along(well_supported_nodes)) {
+  p <- p + geom_hilight(node = well_supported_nodes[[i]])
+}
+p
+####
+
 # Bootstrap sample:
 # Sub-sample 100 tree
 set.seed(1234)
