@@ -3,11 +3,11 @@
 # Load packages ----------------------------------------------------------------
 
 library(tidyverse)
-library(phytools)  # Importing trees
-library(ggtree)    # Multi-phylo plots
-                   # (Intalled with BiocManager::install("ggtree"))
-library(jntools)   # For ::get_tips_in_ape_plot_order()
-                   # (Installed with remotes::install_github("joelnitta/jntools"))
+library(phytools)   # Importing trees
+library(ggtree)     # Multi-phylo plots
+                    # (Intalled with BiocManager::install("ggtree"))
+library(jntools)    # For ::get_tips_in_ape_plot_order()
+                    # (Installed with remotes::install_github("joelnitta/jntools"))
 library(patchwork)  # Figure panelling
 
 # Import data ------------------------------------------------------------------
