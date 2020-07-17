@@ -108,7 +108,7 @@ Schoenus_BS_plot <-
 
 Schoenus_multitree_plot <-
   ggdensitree(Schoenus_sample,
-    alpha     = 0.05,
+    alpha     = 0.03,
     tip.order = get_tips_in_ape_plot_order(Schoenus)
   ) +
   geom_tiplab(
