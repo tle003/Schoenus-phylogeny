@@ -86,11 +86,12 @@ Schoenus_BS_plot <-
     root.position = root_length
   ) +
   geom_rootedge(rootedge = root_length) +
-  xlim(0, 0.33) +
+  xlim(0, 0.3625) +
   geom_tiplab(
     aes(label = paste0('italic(\"', label, '\")')),
     parse = TRUE,
-    size = 2.5
+    size  = 2.5,
+    align = TRUE
   ) +
   geom_nodepoint(aes(fill = as.numeric(label)), pch = 21, size = 2.5) +
   scale_fill_gradient(name = "BS (%)",
@@ -98,19 +99,27 @@ Schoenus_BS_plot <-
     limits = c(50, 100),
     labels = c("< 50", "60", "70", "80", "90", "100")
   ) +
-  theme(legend.position = c(0.9, 0.15), legend.text.align = 1)
+  theme(
+    legend.position = c(0.1, 0.15), legend.text.align = 1,
+    plot.margin = unit(c(0, 0, 0, 0), "cm")
+  )
 
 Schoenus_multitree_plot <-
   ggdensitree(Schoenus_sample,
     alpha     = 0.05,
     tip.order = get_tips_in_ape_plot_order(Schoenus)
   ) +
-  xlim(0, 1.25) +
-  geom_tiplab(
-    aes(label = paste0('italic(\"', label, '\")')),
-    parse = TRUE,
-    size = 2.5
-  )
+  scale_x_reverse(expand = c(0, 0)) +
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
+
+####
+library(patchwork)
+ggsave(
+  "figures/Schoenus_RAxML-HPC.pdf",
+  Schoenus_BS_plot + Schoenus_multitree_plot,
+  width = 10, height = 10
+)
+####
 
 # Save plots -------------------------------------------------------------------
 
