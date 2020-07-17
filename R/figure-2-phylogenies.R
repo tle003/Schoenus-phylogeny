@@ -129,3 +129,9 @@ ggsave(
   Schoenus_RAxML_plot,
   width = 10, height = 12
 )
+
+ggsave(
+  "figures/Schoenus_RAxML_plot.png",
+  Schoenus_RAxML_plot,
+  width = 10, height = 12, dpi = 300
+)
