@@ -98,7 +98,7 @@ Schoenus_BS_plot <-
   scale_fill_gradient(name = "BS (%)",
     na.value  = "white", low = "white", high = "black",
     limits = c(50, 100),
-    labels = c("< 50", "60", "70", "80", "90", "100")
+    labels = c("<= 50", "60", "70", "80", "90", "100")
   ) +
   scale_x_continuous(expand = c(0, 0)) +
   theme(
