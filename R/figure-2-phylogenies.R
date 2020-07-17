@@ -102,7 +102,7 @@ Schoenus_BS_plot <-
   ) +
   scale_x_continuous(expand = c(0, 0)) +
   theme(
-    legend.position = c(0.1, 0.15), legend.text.align = 1,
+    legend.position = c(0.1, 0.125), legend.text.align = 1,
     plot.margin = unit(c(0, 0, 0, 0), "cm")
   )
 
