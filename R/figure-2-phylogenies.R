@@ -8,6 +8,7 @@ library(ggtree)    # Multi-phylo plots
                    # (Intalled with BiocManager::install("ggtree"))
 library(jntools)   # For ::get_tips_in_ape_plot_order()
                    # (Installed with remotes::install_github("joelnitta/jntools"))
+library(patchwork)  # Figure panelling
 
 # Import data ------------------------------------------------------------------
 
@@ -119,24 +120,12 @@ Schoenus_multitree_plot <-
   scale_x_reverse(expand = c(0, 0)) +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
-####
-library(patchwork)
+Schoenus_RAxML_plot <- Schoenus_BS_plot + Schoenus_multitree_plot
+
+# Save plot -------------------------------------------------------------------
+
 ggsave(
-  "figures/Schoenus_RAxML-HPC.pdf",
-  Schoenus_BS_plot + Schoenus_multitree_plot,
+  "figures/Schoenus_RAxML_plot.pdf",
+  Schoenus_RAxML_plot,
   width = 10, height = 10
-)
-####
-
-# Save plots -------------------------------------------------------------------
-
-ggsave(
-  "figures/Schoenus_BS_plot.pdf",
-  Schoenus_BS_plot,
-  width = 6, height = 12
-)
-ggsave(
-  "figures/Schoenus_multitree_plot.pdf",
-  Schoenus_multitree_plot,
-  width = 5, height = 10
 )
