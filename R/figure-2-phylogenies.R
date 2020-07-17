@@ -127,5 +127,5 @@ Schoenus_RAxML_plot <- Schoenus_BS_plot + Schoenus_multitree_plot
 ggsave(
   "figures/Schoenus_RAxML_plot.pdf",
   Schoenus_RAxML_plot,
-  width = 10, height = 10
+  width = 10, height = 12
 )
