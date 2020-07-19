@@ -49,3 +49,23 @@ dispersal_matrix %>%
   } %>%
   network(directed = TRUE) %>%
   ggnet2(label = "vertex.names")
+
+library(ggraph)
+library(tidygraph)
+dispersal_matrix %>%
+  {
+    y <- as.matrix(.[, -1])
+    rownames(y) <- .[[1]]
+    y[y == 0] <- NA
+    y
+  } %>%
+  as_tbl_graph() %>%
+  ggraph() +
+    geom_node_point(size = 15) +
+    geom_node_text(aes(label = name), colour = "white") +
+    geom_edge_parallel(
+      aes(colour = weight),
+      sep = unit(0.25, "inches"),
+      arrow = grid::arrow(length = unit(0.1, "inches"), type = "closed")
+    ) +
+    scale_edge_colour_viridis(direction = -1, na.value = NA)
