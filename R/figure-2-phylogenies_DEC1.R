@@ -16,7 +16,8 @@ library(patchwork)  # Figure panelling
 # Best tree with nodes' bootstrap support values
 tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bipartitions.result")
 
-species_DEC_areas <- read_csv("data/occurence-data/Schoenus-DEC-9areas.csv")
+# Biogeographical coding for extant species (used in DEC analysis)
+Schoenus_DEC_areas <- read_csv("data/occurence-data/Schoenus-DEC-9areas.csv")
 
 # Tidy data --------------------------------------------------------------------
 
@@ -28,26 +29,85 @@ Schoenus <- tree %>%
   drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
   ladderize()
 
-colnames(species_DEC_areas)[[1]] <- "id"
-species_DEC_areas <- species_DEC_areas %>%
-  gather(area, present, -id) %>%
-  mutate(present = as.logical(present))
+colnames(Schoenus_DEC_areas)[[1]] <- "species"
+Schoenus_DEC_areas_tidy <- Schoenus_DEC_areas %>%
+  gather(area, present, -species) %>%
+  mutate(
+    species = factor(species, levels = get_tips_in_ape_plot_order(Schoenus)),
+    area = factor(area, levels = c(
+      "Cape", "Africa",
+      "Western Australia", "Australia",
+      "New Zealand", "Neotropics",
+      "Pacific", "Tropical Asia", "Holarctic"
+    )),
+    area_group =
+      case_when(
+        area %in% c("Cape", "Western Australia") ~ "Cape + Western Australia",
+        area %in% c("Africa", "Australia")       ~ "Africa + Australia",
+        area %in% c("New Zealand", "Neotropics") ~ "New Zealand + Neotropics",
+        TRUE                                     ~ as.character(area)
+      ) %>%
+      factor(levels = c(
+        "Cape + Western Australia",
+        "Africa + Australia",
+        "New Zealand + Neotropics",
+        "Pacific", "Tropical Asia", "Holarctic"
+      )),
+    present = as.logical(present),
+  )
 
 # Plots ------------------------------------------------------------------------
 
-Schoenus_BS_plot <- ggtree(Schoenus, ladderize = TRUE, right = TRUE) #+
-  #geom_tiplab(
-  #  aes(label = paste0('italic(\"', label, '\")')),
-  #  parse = TRUE,
-  #  size  = 2.5,
-  #  align = TRUE
-  #) +
-  #xlim(0, 0.5)
+root_length <- 0.01
+tile_width <- 0.1
 
-facet_plot(Schoenus_BS_plot,
-  geom = "geom_tile",
-  data = species_DEC_areas,
-  panel = "DEC areas",
-  aes(x = as.numeric(as.factor(area)), fill = area, alpha = present)
-) +
-  scale_alpha_manual(values = c(0, 1))
+Schoenus_BS_plot <-
+  ggtree(Schoenus,
+    ladderize     = TRUE,
+    right         = TRUE,
+    root.position = root_length
+  ) +
+  geom_rootedge(rootedge = root_length) +
+  xlim(-tile_width/2, 0.4) +
+  geom_tiplab(
+    aes(label = label %>%
+      str_replace("Schoenus_", "S. ") %>%
+      {paste0('italic(\"', ., '\")')}
+    ),
+    parse = TRUE,
+    size = 2.5,
+    align = TRUE,
+    colour = "grey50",
+  )
+
+Schoenus_DEC_areas_plot <-
+  facet_plot(Schoenus_BS_plot,
+    geom = "geom_tile",
+    data = Schoenus_DEC_areas_tidy,
+    panel = "DEC areas",
+    aes(x = 0, group = area_group, fill = area, alpha = present),
+    width = tile_width, position = position_dodge(width = tile_width)
+  ) +
+  scale_fill_brewer(palette = "Paired") +
+  scale_alpha_manual(values = c(0, 1), guide = FALSE) +
+  theme(strip.text = element_blank())
+
+ggsave("figures/Schoenus_DEC_areas_plot.pdf", Schoenus_DEC_areas_plot, width = 10, height = 12)
+
+####
+
+#theme_set(theme_classic())
+#Schoenus_areas_plot <- ggplot(Schoenus_DEC_areas_tidy) +
+#  aes(area_group, species, fill = area, alpha = present) +
+#  geom_tile() +
+#  scale_alpha_manual(values = c(0, 1), guide = FALSE) +
+#  theme(
+#    axis.title   = element_blank(),
+#    axis.text.x  = element_blank(), axis.text.y = element_blank(),
+#    axis.ticks.x = element_blank(),
+#    axis.line.x  = element_blank(),
+#    plot.margin  = unit(c(2, 0, 2, 0), "cm")
+#  )
+#
+#library(patchwork)
+#{Schoenus_BS_plot + xlim(0, 0.5) + theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))} + Schoenus_areas_plot
