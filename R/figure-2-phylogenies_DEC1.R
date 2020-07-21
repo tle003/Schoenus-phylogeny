@@ -27,7 +27,7 @@ Schoenus_DEC_areas <- read_csv("data/occurence-data/Schoenus-DEC-9areas.csv")
 # Extract Schoenus
 Schoenus <- tree %>%
   drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
-  ladderize()
+  ladderize(right = TRUE)
 
 colnames(Schoenus_DEC_areas)[[1]] <- "species"
 Schoenus_DEC_areas_tidy <- Schoenus_DEC_areas %>%
