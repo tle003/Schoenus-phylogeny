@@ -63,7 +63,7 @@ p
 ####
 
 # Bootstrap sample:
-# Sub-sample 100 tree
+# Sub-sample 100 trees
 set.seed(1234)
 BS_sample <- sample(BS_trees, 100)
 Schoenus_BS_sample <- BS_sample
@@ -160,7 +160,7 @@ Schoenus_posterior_plot <-
 
 Schoenus_tree_plots <- Schoenus_RAxML_plot + Schoenus_posterior_plot
 
-# Save plot -------------------------------------------------------------------
+# Save plots -------------------------------------------------------------------
 
 ggsave(
   "figures/Schoenus_tree_plots.pdf",
