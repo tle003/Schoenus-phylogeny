@@ -18,7 +18,7 @@ RAxML_tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04
 # Bootstrap sample (1000 + 8 trees)
 BS_trees <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
 
-# BEAST reconstruction:
+# BEAST reconstruction's posterior sample
 posterior_sample <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL-thinned.trees")
 
 # Tidy data --------------------------------------------------------------------
@@ -79,13 +79,12 @@ for (i in seq_along(BS_sample)) {
   )
 }
 
-# .... BEAST reconstruction ----------------------------------------------------
+# .... BEAST reconstruction's posterior sample ---------------------------------
 
-# Posterior sample:
+# Extract Schoenus from each tree
 Schoenus_posterior <- list(length = length(posterior_sample))
 for (i in seq_along(posterior_sample)) {
   Schoenus_posterior[[i]] <- posterior_sample[[i]] %>%
-    # Extract Schoenus from each tree
     drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")])
   # Tidy tip labels
   Schoenus_posterior[[i]]$tip.label <- str_replace(
@@ -93,6 +92,7 @@ for (i in seq_along(posterior_sample)) {
     "Schoenus_", "S. "
   )
 }
+# Convert list of pruned trees to multiphylo
 Schoenus_posterior_multiphylo <- Schoenus_posterior[[1]]
 for (i in 2:length(Schoenus_posterior)) {
   Schoenus_posterior_multiphylo <- c(
