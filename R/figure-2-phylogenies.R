@@ -19,47 +19,6 @@ posterior_sample <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction
 
 # Tidy data --------------------------------------------------------------------
 
-####
-library(treeio)
-well_supported_nodes <- Schoenus %>%
-  as.treedata() %>%
-  as_tibble() %>%
-  filter(!str_detect(label, "S")) %>%
-  mutate(BS = as.numeric(label)) %>%
-  select(parent, node, BS) %>%
-  filter(BS >= 80, parent != node) %>%
-  mutate(n_spp = map_int(node, ~length(offspring(Schoenus, ., tiponly = TRUE)))) %>%
-  filter(n_spp < 40, n_spp > 3) %>%
-  #filter(!(parent %in% map(node, ~offspring(Schoenus, .)))) %>%
-  #filter(
-  #  map2_lgl(parent, node, ~ .y %in% offspring(Schoenus, .x))
-  #) %>%
-  pull(node)
-p <- ggtree(Schoenus, ladderize = TRUE, right = TRUE)
-for (i in seq_along(well_supported_nodes)) {
-  p <- p + geom_hilight(node = well_supported_nodes[[i]])
-}
-p
-####
-
-# Bootstrap sample:
-# Sub-sample 100 trees
-set.seed(1234)
-BS_sample <- sample(BS_trees, 100)
-Schoenus_BS_sample <- BS_sample
-for (i in seq_along(BS_sample)) {
-  Schoenus_BS_sample[[i]] <- BS_sample[[i]] %>%
-    # Extract Schoenus from each tree
-    drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
-    # Ultrametricise each tree and make tree depth 1
-    compute.brlen()
-  # Tidy tip labels
-  Schoenus_BS_sample[[i]]$tip.label <- str_replace(
-    Schoenus_BS_sample[[i]]$tip.label,
-    "Schoenus_", "S. "
-  )
-}
-
 # MCC tree:
 # Extract Schoenus
 Schoenus_MRCA_node <- MCC_tree@phylo %>%
