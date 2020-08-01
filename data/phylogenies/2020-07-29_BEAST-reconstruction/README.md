@@ -23,3 +23,5 @@ cat Cyperaceae-all-taxa-6-calib-comb-29JUL.trees
 ```
 
 (Note, `gshuf` is a macOS "coreutils" function.)
+
+I then manually added the header-lines and the `End;`-line to `Cyperaceae-all-taxa-6-calib-comb-29JUL-thinned.tree`.
