@@ -93,10 +93,10 @@ Schoenus_MCC$tip.label <- str_replace(
   "Schoenus_", "S. "
 )
 
-# Posterior sample:
-# Extract Schoenus from each tree
+# Posterior sample (already thinned to 100 trees):
 Schoenus_posterior <- list(length = length(posterior_sample))
 for (i in seq_along(posterior_sample)) {
+  # Extract Schoenus from each tree
   Schoenus_posterior[[i]] <- posterior_sample[[i]] %>%
     drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")])
   # Tidy tip labels
