@@ -14,9 +14,9 @@ library(patchwork)  # Figure panelling
 
 # RAxML-HPC reconstruction:
 # Best tree with nodes' bootstrap support values
-tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bipartitions.result")
+RAxML_tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bipartitions.result")
 # Bootstrap sample (1000 + 8 trees)
-tree_sample <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
+BS_trees <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
 
 # Tidy data --------------------------------------------------------------------
 
@@ -24,16 +24,16 @@ tree_sample <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_0
 
 # Best tree:
 # Extract Schoenus
-Schoenus <- tree %>%
+Schoenus_RAxML <- RAxML_tree %>%
   drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
   ladderize()
 # Tidy tip labels
-Schoenus$tip.label <- str_replace(
-  Schoenus$tip.label,
+Schoenus_RAxML$tip.label <- str_replace(
+  Schoenus_RAxML$tip.label,
   "Schoenus_", "S. "
 )
-# Tidy node lables
-Schoenus$node.label <- as.numeric(Schoenus$node.label)
+# Tidy node labels
+Schoenus_RAxML$node.label <- as.numeric(Schoenus_RAxML$node.label)
 
 ####
 library(treeio)
@@ -61,17 +61,17 @@ p
 # Bootstrap sample:
 # Sub-sample 100 tree
 set.seed(1234)
-tree_sample <- sample(tree_sample, 100)
-Schoenus_sample <- tree_sample
-for (i in 1:length(tree_sample)) {
-  Schoenus_sample[[i]] <- tree_sample[[i]] %>%
+BS_sample <- sample(BS_trees, 100)
+Schoenus_BS_sample <- BS_sample
+for (i in seq_along(BS_sample)) {
+  Schoenus_BS_sample[[i]] <- BS_sample[[i]] %>%
     # Extract Schoenus from each tree
     drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
     # Ultrametricise each tree and make tree depth 1
     compute.brlen()
   # Tidy tip labels
-  Schoenus_sample[[i]]$tip.label <- str_replace(
-    Schoenus_sample[[i]]$tip.label,
+  Schoenus_BS_sample[[i]]$tip.label <- str_replace(
+    Schoenus_BS_sample[[i]]$tip.label,
     "Schoenus_", "S. "
   )
 }
@@ -80,8 +80,8 @@ for (i in 1:length(tree_sample)) {
 
 root_length <- 0.01
 
-Schoenus_BS_plot <-
-  ggtree(Schoenus,
+Schoenus_RAxML_plot <-
+  ggtree(Schoenus_RAxML,
     ladderize     = TRUE,
     right         = TRUE,
     root.position = root_length
