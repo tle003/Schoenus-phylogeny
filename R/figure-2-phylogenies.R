@@ -59,6 +59,8 @@ Schoenus_posterior <- Schoenus_posterior_multiphylo
 
 # Plots ------------------------------------------------------------------------
 
+max_tree_height <- max(nodeHeights(Schoenus_MCC@phylo))
+label_positions <- c(max_tree_height-50, max_tree_height-40, max_tree_height-30, max_tree_height-20, max_tree_height-10, max_tree_height)
 Schoenus_MCC_plot <-
   ggtree(Schoenus_MCC) +
   geom_tiplab(
@@ -73,18 +75,24 @@ Schoenus_MCC_plot <-
     limits = c(0.5, 1),
     labels = c("<= 0.5", "0.6", "0.7", "0.8", "0.9", "1.0")
   ) +
-  scale_x_continuous(expand = c(0, 0)) +
+  theme_tree2() +
+  scale_x_continuous(name = "Ma", limits = c(0, 68), breaks = label_positions, labels = c(50, 40, 30, 40, 10, 0)) +
   theme(
-    legend.position = c(0.1, 0.125), legend.text.align = 1,
-    plot.margin = unit(c(0, 0, 0, 0), "cm")
+    legend.position   = c(0.150, 0.875),
+    legend.text.align = 1,
+    plot.margin       = unit(c(0, 0, 0, 0), "cm")
   )
 
+max_tree_height <- max(purrr::map_dbl(Schoenus_posterior, ~max(nodeHeights(.))))
+#mean_tree_height <- mean(purrr::map_dbl(Schoenus_posterior, ~max(nodeHeights(.))))
+label_positions <- c(max_tree_height-50, max_tree_height-40, max_tree_height-30, max_tree_height-20, max_tree_height-10, max_tree_height)
 Schoenus_posterior_plot <-
   ggdensitree(Schoenus_posterior,
-    alpha     = 0.025,
+    alpha     = 0.03,
     tip.order = rev(get_tips_in_ape_plot_order(ladderize(Schoenus_MCC@phylo)))
   ) +
-  scale_x_reverse(expand = c(0, 0)) +
+  theme_tree2() +
+  scale_x_reverse(name = "Ma", breaks = label_positions, labels = c(50, 40, 30, 40, 10, 0)) +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
 Schoenus_tree_plots <- Schoenus_MCC_plot + Schoenus_posterior_plot
