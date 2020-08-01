@@ -18,7 +18,8 @@ RAxML_tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04
 # Bootstrap sample (1000 + 8 trees)
 BS_trees <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
 
-# BEAST reconstruction's posterior sample
+# BEAST reconstruction:
+MCC_tree <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL.tre")
 posterior_sample <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL-thinned.trees")
 
 # Tidy data --------------------------------------------------------------------
@@ -81,6 +82,18 @@ for (i in seq_along(BS_sample)) {
 
 # .... BEAST reconstruction's posterior sample ---------------------------------
 
+# MCC tree:
+# Extract Schoenus
+Schoenus_MCC <- MCC_tree %>%
+  drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
+  ladderize()
+# Tidy tip labels
+Schoenus_MCC$tip.label <- str_replace(
+  Schoenus_MCC$tip.label,
+  "Schoenus_", "S. "
+)
+
+# Posterior sample:
 # Extract Schoenus from each tree
 Schoenus_posterior <- list(length = length(posterior_sample))
 for (i in seq_along(posterior_sample)) {
