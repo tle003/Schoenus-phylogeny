@@ -18,9 +18,13 @@ RAxML_tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04
 # Bootstrap sample (1000 + 8 trees)
 BS_trees <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
 
+# BEAST reconstruction:
+MCC_tree <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL.tre")
+posterior_sample <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL-thinned.trees")
+
 # Tidy data --------------------------------------------------------------------
 
-# RAxML-HPC reconstruction:
+# .... RAxML-HPC reconstruction ------------------------------------------------
 
 # Best tree:
 # Extract Schoenus
@@ -76,6 +80,40 @@ for (i in seq_along(BS_sample)) {
   )
 }
 
+# .... BEAST reconstruction ----------------------------------------------------
+
+# MCC tree:
+# Extract Schoenus
+Schoenus_MCC <- MCC_tree %>%
+  drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
+  ladderize()
+# Tidy tip labels
+Schoenus_MCC$tip.label <- str_replace(
+  Schoenus_MCC$tip.label,
+  "Schoenus_", "S. "
+)
+
+# Posterior sample:
+Schoenus_posterior <- list(length = length(posterior_sample))
+for (i in seq_along(posterior_sample)) {
+  Schoenus_posterior[[i]] <- posterior_sample[[i]] %>%
+    # Extract Schoenus from each tree
+    drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")])
+  # Tidy tip labels
+  Schoenus_posterior[[i]]$tip.label <- str_replace(
+    Schoenus_posterior[[i]]$tip.label,
+    "Schoenus_", "S. "
+  )
+}
+Schoenus_posterior_multiphylo <- Schoenus_posterior[[1]]
+for (i in 2:length(Schoenus_posterior)) {
+  Schoenus_posterior_multiphylo <- c(
+    Schoenus_posterior_multiphylo,
+    Schoenus_posterior[[i]]
+  )
+}
+Schoenus_posterior <- Schoenus_posterior_multiphylo
+
 # Plots ------------------------------------------------------------------------
 
 root_length <- 0.01
@@ -106,32 +144,32 @@ Schoenus_RAxML_plot <-
     plot.margin = unit(c(0, 0, 0, 0), "cm")
   )
 
-Schoenus_multitree_plot <-
-  ggdensitree(Schoenus_sample,
-    alpha     = 0.03,
-    tip.order = get_tips_in_ape_plot_order(Schoenus)
+Schoenus_posterior_plot <-
+  ggdensitree(Schoenus_posterior,
+    alpha     = 0.025,
+    tip.order = get_tips_in_ape_plot_order(Schoenus_RAxML)
   ) +
   geom_tiplab(
     aes(label = paste0('italic(\"', label, '\")')),
     parse = TRUE,
     size = 2.5,
-    offset = -0.25
+    offset = -20
   ) +
   scale_x_reverse(expand = c(0, 0)) +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
-Schoenus_RAxML_plot <- Schoenus_BS_plot + Schoenus_multitree_plot
+Schoenus_tree_plots <- Schoenus_RAxML_plot + Schoenus_posterior_plot
 
 # Save plot -------------------------------------------------------------------
 
 ggsave(
-  "figures/Schoenus_RAxML_plot.pdf",
-  Schoenus_RAxML_plot,
+  "figures/Schoenus_tree_plots.pdf",
+  Schoenus_tree_plots,
   width = 10, height = 12
 )
 
 ggsave(
-  "figures/Schoenus_RAxML_plot.png",
-  Schoenus_RAxML_plot,
+  "figures/Schoenus_tree_plots.png",
+  Schoenus_tree_plots,
   width = 10, height = 12, dpi = 300
 )
