@@ -4,6 +4,8 @@
 
 library(tidyverse)
 library(phytools)   # Importing trees
+library(phyloch)    # For ::read.beast()
+                    # (Installed with devtools::install_github("fmichonneau/phyloch"))
 library(ggtree)     # Multi-phylo plots
                     # (Installed with BiocManager::install("ggtree"))
 library(jntools)    # For ::get_tips_in_ape_plot_order()
@@ -12,6 +14,7 @@ library(patchwork)  # Figure panelling
 
 # Import data ------------------------------------------------------------------
 
+MCC_tree <- read.beast("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL.tre")
 posterior_sample <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL-thinned.trees")
 
 # Tidy data --------------------------------------------------------------------
@@ -59,12 +62,15 @@ for (i in seq_along(BS_sample)) {
 
 # MCC tree:
 # Extract Schoenus
+Schoenus_MRCA_node <- MCC_tree@phylo %>%
+  MRCA(.$tip.label[str_detect(.$tip.label, "Schoenus")])
+# (Look at node numbers to confirm correct node recovered)
+#plotTree(ladderize(MCC_tree@phylo), fsize = 1, node.numbers = TRUE)
 Schoenus_MCC <- MCC_tree %>%
-  drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
-  ladderize()
+  tree_subset(Schoenus_MRCA_node, levels_back = 0)
 # Tidy tip labels
-Schoenus_MCC$tip.label <- str_replace(
-  Schoenus_MCC$tip.label,
+Schoenus_MCC@phylo$tip.label <- str_replace(
+  Schoenus_MCC@phylo$tip.label,
   "Schoenus_", "S. "
 )
 
