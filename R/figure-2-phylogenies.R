@@ -12,32 +12,9 @@ library(patchwork)  # Figure panelling
 
 # Import data ------------------------------------------------------------------
 
-# RAxML-HPC reconstruction:
-# Best tree with nodes' bootstrap support values
-RAxML_tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bipartitions.result")
-# Bootstrap sample (1000 + 8 trees)
-BS_trees <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
-
-# BEAST reconstruction:
-MCC_tree <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL.tre")
 posterior_sample <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL-thinned.trees")
 
 # Tidy data --------------------------------------------------------------------
-
-# .... RAxML-HPC reconstruction ------------------------------------------------
-
-# Best tree:
-# Extract Schoenus
-Schoenus_RAxML <- RAxML_tree %>%
-  drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
-  ladderize()
-# Tidy tip labels
-Schoenus_RAxML$tip.label <- str_replace(
-  Schoenus_RAxML$tip.label,
-  "Schoenus_", "S. "
-)
-# Tidy node labels
-Schoenus_RAxML$node.label <- as.numeric(Schoenus_RAxML$node.label)
 
 ####
 library(treeio)
@@ -79,8 +56,6 @@ for (i in seq_along(BS_sample)) {
     "Schoenus_", "S. "
   )
 }
-
-# .... BEAST reconstruction's posterior sample ---------------------------------
 
 # MCC tree:
 # Extract Schoenus
