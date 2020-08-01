@@ -27,6 +27,8 @@ Schoenus_MRCA_node <- MCC_tree@phylo %>%
 #plotTree(ladderize(MCC_tree@phylo), fsize = 1, node.numbers = TRUE)
 Schoenus_MCC <- MCC_tree %>%
   tree_subset(Schoenus_MRCA_node, levels_back = 0)
+Schoenus_MCC@phylo <- ladderize(Schoenus_MCC@phylo, right = TRUE)
+
 # Tidy tip labels
 Schoenus_MCC@phylo$tip.label <- str_replace(
   Schoenus_MCC@phylo$tip.label,
@@ -57,27 +59,19 @@ Schoenus_posterior <- Schoenus_posterior_multiphylo
 
 # Plots ------------------------------------------------------------------------
 
-root_length <- 0.01
-
-Schoenus_RAxML_plot <-
-  ggtree(Schoenus_RAxML,
-    ladderize     = TRUE,
-    right         = TRUE,
-    root.position = root_length
-  ) +
-  geom_rootedge(rootedge = root_length) +
-  xlim(0, 0.31) +
+Schoenus_MCC_plot <-
+  ggtree(Schoenus_MCC) +
   geom_tiplab(
-    label = "",
+    aes(label = paste0('italic(\"', label, '\")')),
+    parse = TRUE,
     size = 2.5,
-    align = TRUE,
-    colour = "grey50",
+    offset = 2
   ) +
-  geom_nodepoint(aes(fill = as.numeric(label)), pch = 21, size = 2.5) +
-  scale_fill_gradient(name = "BS (%)",
+  geom_nodepoint(aes(fill = posterior), pch = 21, size = 2.5) +
+  scale_fill_gradient(name = "PP",
     na.value  = "white", low = "white", high = "darkgreen",
-    limits = c(50, 100),
-    labels = c("<= 50", "60", "70", "80", "90", "100")
+    limits = c(0.5, 1),
+    labels = c("<= 0.5", "0.6", "0.7", "0.8", "0.9", "1.0")
   ) +
   scale_x_continuous(expand = c(0, 0)) +
   theme(
@@ -88,18 +82,12 @@ Schoenus_RAxML_plot <-
 Schoenus_posterior_plot <-
   ggdensitree(Schoenus_posterior,
     alpha     = 0.025,
-    tip.order = get_tips_in_ape_plot_order(Schoenus_RAxML)
-  ) +
-  geom_tiplab(
-    aes(label = paste0('italic(\"', label, '\")')),
-    parse = TRUE,
-    size = 2.5,
-    offset = -20
+    tip.order = rev(get_tips_in_ape_plot_order(ladderize(Schoenus_MCC@phylo)))
   ) +
   scale_x_reverse(expand = c(0, 0)) +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
-Schoenus_tree_plots <- Schoenus_RAxML_plot + Schoenus_posterior_plot
+Schoenus_tree_plots <- Schoenus_MCC_plot + Schoenus_posterior_plot
 
 # Save plots -------------------------------------------------------------------
 
