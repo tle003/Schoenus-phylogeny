@@ -4,134 +4,126 @@
 
 library(tidyverse)
 library(phytools)   # Importing trees
+library(phyloch)    # For ::read.beast()
+                    # (Installed with devtools::install_github("fmichonneau/phyloch"))
 library(ggtree)     # Multi-phylo plots
-                    # (Intalled with BiocManager::install("ggtree"))
+                    # (Installed with BiocManager::install("ggtree"))
 library(jntools)    # For ::get_tips_in_ape_plot_order()
                     # (Installed with remotes::install_github("joelnitta/jntools"))
 library(patchwork)  # Figure panelling
 
 # Import data ------------------------------------------------------------------
 
-# RAxML-HPC reconstruction:
-# Best tree with nodes' bootstrap support values
-tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bipartitions.result")
-# Bootstrap sample (1000 + 8 trees)
-tree_sample <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bootstrap.result")
+MCC_tree <- read.beast("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL.tre")
+posterior_sample <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL-thinned.trees")
 
 # Tidy data --------------------------------------------------------------------
 
-# RAxML-HPC reconstruction:
-
-# Best tree:
+# MCC tree:
 # Extract Schoenus
-Schoenus <- tree %>%
-  drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
-  ladderize()
+Schoenus_MRCA_node <- MCC_tree@phylo %>%
+  MRCA(.$tip.label[str_detect(.$tip.label, "Schoenus")])
+# (Look at node numbers to confirm correct node recovered)
+#plotTree(ladderize(MCC_tree@phylo), fsize = 1, node.numbers = TRUE)
+Schoenus_MCC <- MCC_tree %>%
+  tree_subset(Schoenus_MRCA_node, levels_back = 0)
+Schoenus_MCC@phylo <- ladderize(Schoenus_MCC@phylo, right = TRUE)
+
 # Tidy tip labels
-Schoenus$tip.label <- str_replace(
-  Schoenus$tip.label,
+Schoenus_MCC@phylo$tip.label <- str_replace(
+  Schoenus_MCC@phylo$tip.label,
   "Schoenus_", "S. "
 )
-# Tidy node lables
-Schoenus$node.label <- as.numeric(Schoenus$node.label)
 
-####
-library(treeio)
-well_supported_nodes <- Schoenus %>%
-  as.treedata() %>%
-  as_tibble() %>%
-  filter(!str_detect(label, "S")) %>%
-  mutate(BS = as.numeric(label)) %>%
-  select(parent, node, BS) %>%
-  filter(BS >= 80, parent != node) %>%
-  mutate(n_spp = map_int(node, ~length(offspring(Schoenus, ., tiponly = TRUE)))) %>%
-  filter(n_spp < 40, n_spp > 3) %>%
-  #filter(!(parent %in% map(node, ~offspring(Schoenus, .)))) %>%
-  #filter(
-  #  map2_lgl(parent, node, ~ .y %in% offspring(Schoenus, .x))
-  #) %>%
-  pull(node)
-p <- ggtree(Schoenus, ladderize = TRUE, right = TRUE)
-for (i in seq_along(well_supported_nodes)) {
-  p <- p + geom_hilight(node = well_supported_nodes[[i]])
-}
-p
-####
-
-# Bootstrap sample:
-# Sub-sample 100 tree
-set.seed(1234)
-tree_sample <- sample(tree_sample, 100)
-Schoenus_sample <- tree_sample
-for (i in 1:length(tree_sample)) {
-  Schoenus_sample[[i]] <- tree_sample[[i]] %>%
-    # Extract Schoenus from each tree
-    drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
-    # Ultrametricise each tree and make tree depth 1
-    compute.brlen()
+# Posterior sample (already thinned to 100 trees):
+Schoenus_posterior <- list(length = length(posterior_sample))
+for (i in seq_along(posterior_sample)) {
+  # Extract Schoenus from each tree
+  Schoenus_posterior[[i]] <- posterior_sample[[i]] %>%
+    drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")])
   # Tidy tip labels
-  Schoenus_sample[[i]]$tip.label <- str_replace(
-    Schoenus_sample[[i]]$tip.label,
+  Schoenus_posterior[[i]]$tip.label <- str_replace(
+    Schoenus_posterior[[i]]$tip.label,
     "Schoenus_", "S. "
   )
 }
+# Convert list of pruned trees to multiphylo
+Schoenus_posterior_multiphylo <- Schoenus_posterior[[1]]
+for (i in 2:length(Schoenus_posterior)) {
+  Schoenus_posterior_multiphylo <- c(
+    Schoenus_posterior_multiphylo,
+    Schoenus_posterior[[i]]
+  )
+}
+Schoenus_posterior <- Schoenus_posterior_multiphylo
 
 # Plots ------------------------------------------------------------------------
 
-root_length <- 0.01
+# X-axis scaling things:
+tree_height <- max(nodeHeights(Schoenus_MCC@phylo))
+my_labels <- c(50, 40, 30, 40, 10, 0)
+label_positions <- tree_height - my_labels
 
-Schoenus_BS_plot <-
-  ggtree(Schoenus,
-    ladderize     = TRUE,
-    right         = TRUE,
-    root.position = root_length
-  ) +
-  geom_rootedge(rootedge = root_length) +
-  xlim(0, 0.31) +
-  geom_tiplab(
-    label = "",
-    size = 2.5,
-    align = TRUE,
-    colour = "grey50",
-  ) +
-  geom_nodepoint(aes(fill = as.numeric(label)), pch = 21, size = 2.5) +
-  scale_fill_gradient(name = "BS (%)",
-    na.value  = "white", low = "white", high = "darkgreen",
-    limits = c(50, 100),
-    labels = c("<= 50", "60", "70", "80", "90", "100")
-  ) +
-  scale_x_continuous(expand = c(0, 0)) +
-  theme(
-    legend.position = c(0.1, 0.125), legend.text.align = 1,
-    plot.margin = unit(c(0, 0, 0, 0), "cm")
-  )
-
-Schoenus_multitree_plot <-
-  ggdensitree(Schoenus_sample,
-    alpha     = 0.03,
-    tip.order = get_tips_in_ape_plot_order(Schoenus)
-  ) +
+Schoenus_MCC_plot <-
+  ggtree(Schoenus_MCC) +
   geom_tiplab(
     aes(label = paste0('italic(\"', label, '\")')),
     parse = TRUE,
     size = 2.5,
-    offset = -0.25
+    offset = 2
   ) +
-  scale_x_reverse(expand = c(0, 0)) +
+  geom_nodepoint(aes(fill = posterior), pch = 21, size = 2.5) +
+  scale_fill_gradient(name = "PP",
+    na.value  = "white", low = "white", high = "darkgreen",
+    limits = c(0.5, 1),
+    labels = c("<= 0.5", "0.6", "0.7", "0.8", "0.9", "1.0")
+  ) +
+  theme_tree2() +
+  scale_x_continuous(name = "Ma",
+    limits = c(0, 68),
+    breaks = label_positions,
+    labels = my_labels
+  ) +
+  theme(
+    legend.position   = c(0.150, 0.875),
+    legend.text.align = 1,
+    plot.margin       = unit(c(0, 0, 0, 0), "cm")
+  )
+
+# X-axis scaling things:
+max_tree_height <- Schoenus_posterior %>%
+  map_dbl(~max(nodeHeights(.))) %>%
+  max()
+label_positions <- max_tree_height - my_labels
+
+Schoenus_posterior_plot <-
+  ggdensitree(Schoenus_posterior,
+    alpha     = 0.03,
+    tip.order = rev(get_tips_in_ape_plot_order(ladderize(Schoenus_MCC@phylo)))
+    # NOTE: Don't why this works, but it's the only way to get the 2 panels
+    # to have the same tip-order...
+    # Must be something to do with ape, phytools and ggtree ladderizing in
+    # slightly different ways.
+  ) +
+  theme_tree2() +
+  scale_x_reverse(name = "Ma",
+    breaks = label_positions,
+    labels = my_labels
+  ) +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
-Schoenus_RAxML_plot <- Schoenus_BS_plot + Schoenus_multitree_plot
+Schoenus_tree_plots <- Schoenus_MCC_plot + Schoenus_posterior_plot
 
-# Save plot -------------------------------------------------------------------
+# Save plots -------------------------------------------------------------------
 
 ggsave(
-  "figures/Schoenus_RAxML_plot.pdf",
-  Schoenus_RAxML_plot,
+  "figures/Schoenus_tree_plots.pdf",
+  Schoenus_tree_plots,
   width = 10, height = 12
 )
 
 ggsave(
-  "figures/Schoenus_RAxML_plot.png",
-  Schoenus_RAxML_plot,
+  "figures/Schoenus_tree_plots.png",
+  Schoenus_tree_plots,
   width = 10, height = 12, dpi = 300
 )
