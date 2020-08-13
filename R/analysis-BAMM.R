@@ -1,17 +1,14 @@
 # BAMM analysis of Schoenus
 # Tammy Elliott & Ruan van Mazijk, 2020
 
+# Load packages ----------------------------------------------------------------
 
-# Load the required libraries.
-suppressWarnings(library(hisse))
+library(hisse)
 library(phytools)
 library(BAMMtools)
 library(coda)
 
-#set working directory
-setwd("/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/follow-up-analyses")
-getwd()
-
+# ... --------------------------------------------------------------------------
 
 # Read newick tree file, first drop excess tips
 #Cyperaceae_tree<-read.tree("Cyperaceae-max-clade-cred-jul29.newick")
@@ -20,7 +17,6 @@ getwd()
 #Schoenus_tree<-drop.tip(Schoenus_tree_prelim, c("XyroSchoeneae_hornei", "GymnoSchoeneae_sphaerocephalus"))
 #str(Schoenus_tree)
 
-
 #phy<-force.ultrametric(Schoenus_tree, method=c("nnls","extend"))
 #is.ultrametric(phy)
 
@@ -28,18 +24,23 @@ getwd()
 #write.tree(phy, file = "Schoenus_tree_ultrametric.tre", append = FALSE, digits = 10, tree.names = FALSE)
 #phy<-read.tree("Schoenus_tree_ultrametric.tre")
 
+# Import data ------------------------------------------------------------------
 
-#Make sure tree is acceptable
-tree <- read.tree("Schoenus_tree_ultrametric.tre")
-#Check to make sure that tree makes basic checks
-is.ultrametric(phy)
-is.binary.tree(phy)
-# count negative branches
-sum(phy$edge.length < 0)
+tree <- read.tree("data/phylogenies/for-BAMM-analysis/Schoenus_tree_ultrametric.tre")
 
-# count zero length branches
-sum(phy$edge.length == 0)
+# Make sure tree is acceptable for BAMM's assumptions --------------------------
 
+# Check to make sure that tree makes basic checks
+is.ultrametric(tree, option = 2)  # Use option 2 for compatibility reasons
+is.binary.tree(tree)
+
+# Count negative branches
+sum(tree$edge.length < 0)
+# None!
+
+# Count zero length branches
+sum(tree$edge.length == 0)
+# None!
 
 
 
