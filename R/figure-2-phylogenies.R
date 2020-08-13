@@ -14,8 +14,8 @@ library(patchwork)  # Figure panelling
 
 # Import data ------------------------------------------------------------------
 
-MCC_tree <- read.beast("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL.tre")
-posterior_sample <- read.nexus("data/phylogenies/2020-07-29_BEAST-reconstruction/Cyperaceae-all-taxa-6-calib-comb-29JUL-thinned.trees")
+MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
+posterior_sample <- read.tree("data/phylogenies/Cyperaceae.trees.100.trees")
 
 # Tidy data --------------------------------------------------------------------
 
