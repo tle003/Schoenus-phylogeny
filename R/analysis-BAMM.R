@@ -1,6 +1,5 @@
-## Title:  Schoenus BAMM
-### Name: Tammy Elliott
-### Date: July 17, 2020
+# BAMM analysis of Schoenus
+# Tammy Elliott & Ruan van Mazijk, 2020
 
 
 # Load the required libraries.
