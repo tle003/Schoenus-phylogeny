@@ -14,7 +14,7 @@ library(patchwork)  # Figure panelling
 
 # Import data ------------------------------------------------------------------
 
-MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
+MCC_tree <- treeio::read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
 posterior_sample <- read.tree("data/phylogenies/Cyperaceae.trees.100.trees")
 
 # Tidy data --------------------------------------------------------------------
@@ -26,7 +26,7 @@ Schoenus_MRCA_node <- MCC_tree@phylo %>%
 # (Look at node numbers to confirm correct node recovered)
 #plotTree(ladderize(MCC_tree@phylo), fsize = 1, node.numbers = TRUE)
 Schoenus_MCC <- MCC_tree %>%
-  tree_subset(Schoenus_MRCA_node, levels_back = 0)
+  treeio::tree_subset(Schoenus_MRCA_node, levels_back = 0)
 Schoenus_MCC@phylo <- ladderize(Schoenus_MCC@phylo, right = TRUE)
 
 # Tidy tip labels
