@@ -8,6 +8,7 @@ library(phyloch)    # For ::read.beast()
                     # (Installed with devtools::install_github("fmichonneau/phyloch"))
 library(ggtree)     # Multi-phylo plots
                     # (Installed with BiocManager::install("ggtree"))
+library(treeio)
 library(jntools)    # For ::get_tips_in_ape_plot_order()
                     # (Installed with remotes::install_github("joelnitta/jntools"))
 library(patchwork)  # Figure panelling
@@ -22,7 +23,7 @@ posterior_sample <- read.tree("data/phylogenies/Cyperaceae.trees.100.trees")
 # MCC tree:
 # Extract Schoenus
 Schoenus_MRCA_node <- MCC_tree@phylo %>%
-  MRCA(.$tip.label[str_detect(.$tip.label, "Schoenus")])
+  getMRCA(.$tip.label[str_detect(.$tip.label, "Schoenus")])
 # (Look at node numbers to confirm correct node recovered)
 #plotTree(ladderize(MCC_tree@phylo), fsize = 1, node.numbers = TRUE)
 Schoenus_MCC <- MCC_tree %>%
