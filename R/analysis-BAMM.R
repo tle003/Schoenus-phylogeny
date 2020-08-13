@@ -46,28 +46,32 @@ sum(tree$edge.length == 0)
 
 
 #Set priors; run this to see how to adapt block
-setBAMMpriors(phy = phy)
+setBAMMpriors(tree)
 
 #Generate control file
 #the block will have to be altered for the final runs
 #I am using a sampling fraction of .7 since we have sampled about 70% of Schoenus species
 #Assumes species sampled at random
-generateControlFile('divcontrol.txt', type = 'diversification', params = list(
-        treefile = "Schoenus_tree_ultrametric.tre",
-        runInfoFilename = "run_info.txt",
-        runMCMC = 1,
-        numberOfGenerations = 3500000,
-        overwrite = '1',
-        lambdaInitPrior = '2.65133706894448',
-        lambdaShiftPrior = '0.0216229837749123',
-        muInitPrior = '2.65133706894448',
-        expectedNumberOfShifts = '1',
-        useGlobalSamplingProbability = 1,
-        globalSamplingFraction = 0.70,
-        mcmcWriteFreq = 10000,
-		eventDataWriteFreq = 10000,
-		printFreq = 1000,
-		acceptanceResetFreq = 10000))
+generateControlFile("divcontrol.txt",
+  type = "diversification",
+  params = list(
+    treefile                     = "Schoenus_tree_ultrametric.tre",
+    runInfoFilename              = "run_info.txt",
+    runMCMC                      = 1,
+    numberOfGenerations          = 3500000,
+    overwrite                    = "1",
+    lambdaInitPrior              = "2.65133706894448",
+    lambdaShiftPrior             = "0.0216229837749123",
+    muInitPrior                  = "2.65133706894448",
+    expectedNumberOfShifts       = "1",
+    useGlobalSamplingProbability = 1,
+    globalSamplingFraction       = 0.70,
+    mcmcWriteFreq                = 10000,
+    eventDataWriteFreq           = 10000,
+    printFreq                    = 1000,
+    acceptanceResetFreq          = 10000
+  )
+)
 
 
 #Run BAMM with terminal
