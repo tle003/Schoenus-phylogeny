@@ -61,7 +61,7 @@ Schoenus_posterior <- Schoenus_posterior_multiphylo
 
 # X-axis scaling things:
 tree_height <- max(nodeHeights(Schoenus_MCC@phylo))
-my_labels <- c(50, 40, 30, 40, 10, 0)
+my_labels <- c(50, 40, 30, 20, 10, 0)
 label_positions <- tree_height - my_labels
 
 Schoenus_MCC_plot <-
