@@ -8,7 +8,9 @@ library(phytools)
 library(BAMMtools)
 library(coda)
 
-# ... --------------------------------------------------------------------------
+# Run BAMM analysis on BEAST MCC tree ------------------------------------------
+
+# .... -------------------------------------------------------------------------
 
 # Read newick tree file, first drop excess tips
 #Cyperaceae_tree<-read.tree("Cyperaceae-max-clade-cred-jul29.newick")
@@ -24,11 +26,11 @@ library(coda)
 #write.tree(phy, file = "Schoenus_tree_ultrametric.tre", append = FALSE, digits = 10, tree.names = FALSE)
 #phy<-read.tree("Schoenus_tree_ultrametric.tre")
 
-# Import data ------------------------------------------------------------------
+# .... Import data -------------------------------------------------------------
 
 tree <- read.tree("data/phylogenies/for-BAMM-analysis/Schoenus_tree_ultrametric.tre")
 
-# Make sure tree is acceptable for BAMM's assumptions --------------------------
+# .... Make sure tree is acceptable for BAMM's assumptions ---------------------
 
 # Check to make sure that tree makes basic checks
 is.ultrametric(tree, option = 2)  # Use option 2 for compatibility reasons
@@ -42,16 +44,16 @@ sum(tree$edge.length < 0)
 sum(tree$edge.length == 0)
 # None!
 
-
-
-
 #Set priors; run this to see how to adapt block
 setBAMMpriors(tree)
 
-#Generate control file
-#the block will have to be altered for the final runs
-#I am using a sampling fraction of .7 since we have sampled about 70% of Schoenus species
-#Assumes species sampled at random
+# .... Generate control file ---------------------------------------------------
+
+# The block will have to be altered for the final runs.
+
+# Using a sampling fraction of 0.7, since we have sampled about 70% of Schoenus
+# species (assumes species sampled at random)
+
 generateControlFile("divcontrol.txt",
   type = "diversification",
   params = list(
@@ -73,8 +75,11 @@ generateControlFile("divcontrol.txt",
   )
 )
 
-# Run BAMM with terminal
+# .... Run BAMM with terminal --------------------------------------------------
+
 system("C:\\Users\\USER\\Downloads\\bamm-2.5.0-Windows\\bamm-2.5.0-Windows\\bamm-2.5.0-Windows\\bamm.exe -c C:\\Users\\USER\\Desktop\\Schoenus-phylogeny\\divcontrol.txt --seed 1234")
+
+# .... Get the BAMM results ----------------------------------------------------
 
 # Read BAMMdata
 edata <- getEventData(tree, eventdata = "event_data.txt", burnin = 0.1)
@@ -273,7 +278,7 @@ for (i in 1:length(ixx)) {
 
 
 
-#do over posterior distribution
+# Repeat BAMM analysis over the posterior distribution -------------------------
 # Read newick tree file, first drop excess tips
 Cyperaceae_trees<-read.tree("Cyperaceae-max-clade-cred-jul29.newick")
 #Only keep Schoeneae species for analysis
