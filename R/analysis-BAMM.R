@@ -73,16 +73,14 @@ generateControlFile("divcontrol.txt",
   )
 )
 
+# Run BAMM with terminal
+system("C:\\Users\\USER\\Downloads\\bamm-2.5.0-Windows\\bamm-2.5.0-Windows\\bamm-2.5.0-Windows\\bamm.exe -c C:\\Users\\USER\\Desktop\\Schoenus-phylogeny\\divcontrol.txt --seed 1234")
 
-#Run BAMM with terminal
-#bamm -c divcontrol.txt --seed 1234
+# Read BAMMdata
+edata <- getEventData(tree, eventdata = "event_data.txt", burnin = 0.1)
 
-
-#Read Bammdata
-edata <- getEventData(tree, eventdata = "event_data.txt", burnin=0.1)
-
-#Access MCMC convergence
-mcmcout <- read.csv("mcmc_out.txt", header=T)
+# Access MCMC convergence
+mcmcout <- read.csv("mcmc_out.txt")
 plot(mcmcout$logLik ~ mcmcout$generation)
 
 burnstart <- floor(0.1 * nrow(mcmcout))
