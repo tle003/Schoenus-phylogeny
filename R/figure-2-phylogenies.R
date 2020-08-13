@@ -27,7 +27,9 @@ Schoenus_MRCA_node <- MCC_tree@phylo %>%
 #plotTree(ladderize(MCC_tree@phylo), fsize = 1, node.numbers = TRUE)
 Schoenus_MCC <- MCC_tree %>%
   treeio::tree_subset(Schoenus_MRCA_node, levels_back = 0)
-Schoenus_MCC@phylo <- ladderize(Schoenus_MCC@phylo, right = TRUE)
+Schoenus_MCC@phylo <- Schoenus_MCC@phylo %>%
+  ladderize(right = TRUE) %>%
+  force.ultrametric(method = "extend")
 
 # Tidy tip labels
 Schoenus_MCC@phylo$tip.label <- str_replace(
@@ -40,7 +42,8 @@ Schoenus_posterior <- list(length = length(posterior_sample))
 for (i in seq_along(posterior_sample)) {
   # Extract Schoenus from each tree
   Schoenus_posterior[[i]] <- posterior_sample[[i]] %>%
-    drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")])
+    drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
+    force.ultrametric(method = "extend")
   # Tidy tip labels
   Schoenus_posterior[[i]]$tip.label <- str_replace(
     Schoenus_posterior[[i]]$tip.label,
