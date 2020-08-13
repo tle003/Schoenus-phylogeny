@@ -91,158 +91,144 @@ plot(mcmcout$logLik ~ mcmcout$generation)
 burnstart <- floor(0.1 * nrow(mcmcout))
 postburn <- mcmcout[burnstart:nrow(mcmcout), ]
 
-#Access effective sample sizes; this should be ESS of >200
+# Access effective sample sizes; this should be ESS of >200
 effectiveSize(postburn$N_shifts)
 effectiveSize(postburn$logLik)
 
-#Also can access BAMM convergence by doing different runs and analyzing 
-#branch-specific marginal rate shift probabilities (marginalShiftProbsTree)
+# Also can access BAMM convergence by doing different runs and analyzing
+# branch-specific marginal rate shift probabilities (marginalShiftProbsTree)
 
-
-#Number of rate shifts
+# Number of rate shifts
 post_probs <- table(postburn$N_shifts) / nrow(postburn)
 names(post_probs)
 
-#Plot barplot
-barplot(post_probs, ylab="Shift posterior distribution", xlab="Number of rate shifts", ylim=c(0,1))
+# Plot barplot
+barplot(post_probs,
+  xlab = "Number of rate shifts",
+  ylab = "Shift posterior distribution",
+  ylim = c(0, 1)
+)
 
+# Compute the posterior odds ration for two models
+post_probs["0"] / post_probs["1"]
 
-
-#Compute the posterior odds ration for two models
-post_probs['0'] / post_probs['1']
-
-#Alternative method: summarize the posterior distribution of the number of shifts using the summary method
+# Alternative method: summarize the posterior distribution of the number of shifts using the summary method
 # Gives posteior probabilities of eac rate shift count
 (shift_probs <- summary(edata))
 
-
-
-#Prior distribution; compute Bayes factors
-#postfile <- "post_mcmc_out.txt"
+# Prior distribution; compute Bayes factors
 postfile <- "mcmc_out.txt"
-(bfmat <- computeBayesFactors(postfile, expectedNumberOfShifts=1, burnin=0.1))
-#BF >12 are considered by some to have at least some effect on 'significance'
+(bfmat <- computeBayesFactors(postfile, expectedNumberOfShifts = 1, burnin = 0.1))
+# BF >12 are considered by some to have at least some effect on 'significance'
 
-#Visualize the prior and posterior simultaneously
-plotPrior(postfile, expectedNumberofShifts=1)
+# Visualize the prior and posterior simultaneously
+plotPrior(postfile, expectedNumberofShifts = 1)
 
-#Mean phylorate plot
+# Mean phylorate plot
 summary(edata)
-plot.bammdata(edata,lwd=2)
+plot.bammdata(edata, lwd = 2)
 
-#Add interactive legend
-plot.bammdata(edata, lwd=2, legend=T)
+# Add interactive legend
+plot.bammdata(edata, lwd = 2, legend = TRUE)
 
+# Plot phylograte plot
+# This shows example of different options for mapping colors to rates in phylorate plots
+plot.bammdata(edata, lwd = 3, method = "polar", pal = "temperature")
 
-#Plot phylograte plot
-#This shows example of different options for mapping colors to rates in phylorate plots
-plot.bammdata(edata, lwd=3, method="polar", pal="temperature")
-
-#Plot x samplle from the posterior 
+# Plot x sample from the posterior
 index <- 25
 e2 <- subsetEventData(edata, index = index)
-plot.bammdata(e2, lwd=2)
-addBAMMshifts(e2, cex=2)
+plot.bammdata(e2, lwd = 2)
+addBAMMshifts(e2, cex = 2)
 
-#Plot credible set of macroeveolutionary rate configurations using the marginal odds ratio
-#95% credible set - account for 95% of the probability of the data
-css <- credibleShiftSet(edata, expectedNumberOfShifts=1, threshold=3, set.limit = 0.95)
+# Plot credible set of macroeveolutionary rate configurations using the marginal odds ratio
+# 95% credible set - account for 95% of the probability of the data
+css <- credibleShiftSet(edata, expectedNumberOfShifts = 1, threshold = 3, set.limit = 0.95)
 plot(css)
 
-#Number of distinct shift configurations in the data
+# Number of distinct shift configurations in the data
 css$number.distinct
 
 summary(css)
 
-#Generate phylorate plots for each of the shift configurations with the highest posterior probabilities
+# Generate phylorate plots for each of the shift configurations with the highest posterior probabilities
 plot.credibleshiftset(css)
 
-#Maximum a posteriori probability (MAP) shift configuration; this is the shift configuation with the highest posterior probability (the one that was sampled most)
-#This represents the best shift configuation
-best <- getBestShiftConfiguration(edata, expectedNumberOfShifts=1, threshold=5)
-plot.bammdata(best, lwd=2)
-addBAMMshifts(best, cex=2.5)
+# Maximum a posteriori probability (MAP) shift configuration; this is the shift configuation with the highest posterior probability (the one that was sampled most)
+# This represents the best shift configuation
+best <- getBestShiftConfiguration(edata, expectedNumberOfShifts = 1, threshold = 5)
+plot.bammdata(best, lwd = 2)
+addBAMMshifts(best, cex = 2.5)
 
-#Access list of vector of the most-probable shift configurations
-#This gives samples assigned to the most probable shift configuation
+# Access list of vector of the most-probable shift configurations
+# This gives samples assigned to the most probable shift configuation
 css$indices[[1]]
 
-#Plot any specific sample from any shift configuation
-#The code below alogs us to sample the 5th sample assigned to the most-probable shift configuration
+# Plot any specific sample from any shift configuation
+# The code below alogs us to sample the 5th sample assigned to the most-probable shift configuration
 index <- css$indices[[1]][5]
 rsample <- subsetEventData(edata, index=index)
 plot.bammdata(rsample)
-addBAMMshifts(rsample, cex=2)
+addBAMMshifts(rsample, cex = 2)
 
-
-#Random shift configurations
-dsc <- distinctShiftConfigurations(edata, expectedNumberOfShifts=1, threshold=5)
+# Random shift configurations
+dsc <- distinctShiftConfigurations(edata, expectedNumberOfShifts = 1, threshold = 5)
 # Here is one random sample with the BEST shift configuration
-plot.bammshifts(dsc, edata, rank=1, legend=F)
+plot.bammshifts(dsc, edata, rank = 1, legend = FALSE)
 # Here is another (read the label text):
-plot.bammshifts(dsc, edata, rank=1, legend=F)
+plot.bammshifts(dsc, edata, rank = 1, legend = FALSE)
 
-
-#Plotting rate shifts using plot.phylo
+# Plotting rate shifts using plot.phylo
 mysample <-55
 
-#Get total number of rate regimes on a tree of this sample
-#1 = no rate shift
-nrow(edata$eventData[[ mysample ]])
+# Get total number of rate regimes on a tree of this sample
+# 1 = no rate shift
+nrow(edata$eventData[[mysample]])
 
-#Get node numbers
+# Get node numbers
 shiftnodes <- getShiftNodesFromIndex(edata, index = mysample)
 
-#Plot these node on tree
-plot.phylo(phy, cex=0.3)
-nodelabels(node = shiftnodes, pch=21, col="red", cex=1.5)
+# Plot these node on tree
+plot.phylo(tree, cex = 0.3)
+nodelabels(node = shiftnodes, pch = 21, col = "red", cex = 1.5)
 
-
-#Calculate marginal shift probabilities
-#Marginal probability that each branch contains one or more shift events
+# Calculate marginal shift probabilities
+# Marginal probability that each branch contains one or more shift events
 marg_probs <- marginalShiftProbsTree(edata)
 plot.phylo(marg_probs)
 
+# Distinct shift configurations
+# distinct shift configurations” within a given dataset as well as the posterior probability of each configuration.
+# Each distinct shift configuration may have been sampled multiple times during simulation of the posterior.
 
-#Distinct shift configurations
-#distinct shift configurations” within a given dataset as well as the posterior probability of each configuration.
-#Each distinct shift configuration may have been sampled multiple times during simulation of the posterior.
-
-cset <- credibleShiftSet(edata, expectedNumberOfShifts=1, threshold=3)
-plot.credibleshiftset(cset, lwd=2.5)
+cset <- credibleShiftSet(edata, expectedNumberOfShifts = 1, threshold = 3)
+plot.credibleshiftset(cset, lwd = 2.5)
 
 
-#Prior probabilities of rate shifts on branches; branch shift priors are now equal to branch lengths in the phy object
+# Prior probabilities of rate shifts on branches; branch shift priors are now equal to branch lengths in the phy object
 branch_priors <- getBranchShiftPriors(edata, expectedNumberOfShifts = 1)
 plot(branch_priors)
 
-#Marginal Odds Ratio; gives relatives odds that a shift occurred on a specific branch given a shift occurred at all
+# Marginal Odds Ratio; gives relatives odds that a shift occurred on a specific branch given a shift occurred at all
 mo <- marginalOddsRatioBranches(edata, branch_priors)
 
-#Rate variation through time:Color density and grey scale
+# Rate variation through time:Color density and grey scale
 plot.new()
-st <- max(branching.times(phy))
-plotRateThroughTime(edata, intervalCol="darkgreen", avgCol="darkgreen", start.time=st, ylim=c(0,1), cex.axis=2)
-text(x=30, y= 0.8, label="Schoenus", font=4, cex=2.0, pos=4)
+st <- max(branching.times(tree))
+plotRateThroughTime(edata, intervalCol = "darkgreen", avgCol = "darkgreen", start.time = st, ylim = c(0, 1), cex.axis = 2)
+text(x = 30, y = 0.8, label = "Schoenus", font = 4, cex = 2.0, pos= 4)
 
 plot.new()
-plotRateThroughTime(edata, avgCol="black", start.time=st, ylim=c(0,1), cex.axis=2, intervalCol='gray80', intervals=c(0.05, 0.95), opacity=1)
-text(x=30, y= 0.8, label="Schoenus", font=4, cex=2.0, pos=4)
+plotRateThroughTime(edata, avgCol = "black", start.time = st, ylim = c(0, 1), cex.axis = 2, intervalCol = "gray80", intervals = c(0.05, 0.95), opacity = 1)
+text(x = 30, y = 0.8, label = "Schoenus", font = 4, cex = 2.0, pos = 4)
 
+# three side-by-side; shows different colour ramp options
+par(mfrow = c(1, 3), mar = c(1, 0.5, 0.5, 0.5), xpd = TRUE)
 
-
-
-
-
-
-
-#three side-by-side; shows different colour ramp options
-par(mfrow=c(1,3), mar=c(1, 0.5, 0.5, 0.5), xpd=TRUE)
-
-q <- plot.bammdata(edata, tau=0.001, breaksmethod='linear', lwd=2)
-addBAMMshifts(edata, par.reset=FALSE, cex=2)
-title(sub='linear',cex.sub=2, line=-1)
-addBAMMlegend(q, location=c(0, 1, 140, 220))
+q <- plot.bammdata(edata, tau = 0.001, breaksmethod = "linear", lwd = 2)
+addBAMMshifts(edata, par.reset = FALSE, cex = 2)
+title(sub = "linear", cex.sub = 2, line = -1)
+addBAMMlegend(q, location = c(0, 1, 140, 220))
 
 q <- plot.bammdata(edata, tau=0.001, breaksmethod='linear', color.interval=c(NA,0.12), lwd=2)
 addBAMMshifts(edata, par.reset=FALSE, cex=2)
