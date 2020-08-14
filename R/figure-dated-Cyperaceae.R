@@ -70,7 +70,7 @@ Cyperaceae_tree_plot <- ggtree(MCC_tree) +
     size = 2.5,
     offset = -40
   ) +
-  geom_range("height_0.95_HPD2",
+  geom_range("height_0.95_HPD",
     center = "height_median",
     size   = 1.5,
     alpha  = 0.33
