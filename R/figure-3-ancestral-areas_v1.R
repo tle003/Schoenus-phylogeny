@@ -17,7 +17,7 @@ library(patchwork)  # Figure panelling
 tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bipartitions.result")
 
 # Biogeographical coding for extant species (used in DEC analysis)
-Schoenus_DEC_areas <- read_csv("data/occurence-data/Schoenus-DEC-9areas.csv")
+Schoeneae_DEC_areas <- read_delim("data/occurence-data/Schoeneae-DEC-9areas.txt", delim = " ")
 
 # Tidy data --------------------------------------------------------------------
 
@@ -29,8 +29,31 @@ Schoenus <- tree %>%
   drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
   ladderize(right = TRUE)
 
-colnames(Schoenus_DEC_areas)[[1]] <- "species"
-Schoenus_DEC_areas_tidy <- Schoenus_DEC_areas %>%
+colnames(Schoeneae_DEC_areas)[[1]] <- "species"
+write_file(
+  paste0(colnames(Schoeneae_DEC_areas)[[2]], "\n"),
+  "data/occurence-data/Schoeneae-DEC-9areas.tmp"
+)
+Schoeneae_DEC_areas %>%
+  select(-species) %>%
+  as.matrix() %>%
+  paste(collapse = "\n") %>%
+  write_file(
+    "data/occurence-data/Schoeneae-DEC-9areas.tmp",
+    append = TRUE
+  )
+Schoeneae_DEC_areas_only <- read_fwf(
+  "data/occurence-data/Schoeneae-DEC-9areas.tmp",
+  col_positions = fwf_widths(rep(1, times = 9))
+)
+colnames(Schoeneae_DEC_areas_only) <- Schoeneae_DEC_areas_only[1, ]
+Schoeneae_DEC_areas_only <- Schoeneae_DEC_areas_only[-1, ]
+Schoeneae_DEC_areas_only <- purrr::map_df(Schoeneae_DEC_areas_only, as.numeric)
+Schoeneae_DEC_areas_tidy <-
+  cbind(species = Schoeneae_DEC_areas$species, Schoeneae_DEC_areas_only) %>%
+  as_tibble()
+
+Schoeneae_DEC_areas_tidy %>%
   gather(area, present, -species) %>%
   mutate(
     species = factor(species, levels = get_tips_in_ape_plot_order(Schoenus)),
