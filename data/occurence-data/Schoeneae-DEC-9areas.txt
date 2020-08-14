@@ -1,4 +1,4 @@
-137 9 (H N T P F C Z A W)
+137 HNTPFCZAW
 Schoenus_acuminatus 000000001
 Schoenus_adnatus 000001000
 Schoenus_albovaginatus 000001000
