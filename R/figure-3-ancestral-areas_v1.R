@@ -6,6 +6,7 @@ library(tidyverse)
 library(phytools)   # Importing trees
 library(ggtree)     # Multi-phylo plots
                     # (Intalled with BiocManager::install("ggtree"))
+library(treeio)     # For ::read.beast()
 library(jntools)    # For ::get_tips_in_ape_plot_order()
                     # (Installed with remotes::install_github("joelnitta/jntools"))
 library(patchwork)  # Figure panelling
@@ -14,20 +15,23 @@ library(patchwork)  # Figure panelling
 
 # RAxML-HPC reconstruction:
 # Best tree with nodes' bootstrap support values
-tree <- read.tree("data/phylogenies/2020-07-14_RAxML-HPC-reconstruction_04/RAxML_bipartitions.result")
+MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
 
 # Biogeographical coding for extant species (used in DEC analysis)
 Schoeneae_DEC_areas <- read_delim("data/occurence-data/Schoeneae-DEC-9areas.txt", delim = " ")
 
 # Tidy data --------------------------------------------------------------------
 
-# RAxML-HPC reconstruction:
 
-# Best tree:
-# Extract Schoenus
-Schoenus <- tree %>%
-  drop.tip(.$tip.label[!str_detect(.$tip.label, "Schoenus")]) %>%
+MCC_tree@phylo <- MCC_tree@phylo %>%
+  force.ultrametric(method = "extend") %>%
   ladderize(right = TRUE)
+Schoeneae_MRCA_node <- MCC_tree@phylo %>%
+  getMRCA(c(
+    .$tip.label[str_detect(.$tip.label, "Schoenus")],
+    "Gymnoschoenus_sphaerocephalus"
+  ))
+Schoeneae_tree <- extract.clade(MCC_tree@phylo, Schoeneae_MRCA_node)
 
 colnames(Schoeneae_DEC_areas)[[1]] <- "species"
 write_file(
@@ -81,26 +85,22 @@ Schoeneae_DEC_areas_tidy %>%
 
 # Plots ------------------------------------------------------------------------
 
-root_length <- 0.01
-tile_width <- 0.1
-
-Schoenus_BS_plot <-
-  ggtree(Schoenus,
-    ladderize     = TRUE,
-    right         = TRUE,
-    root.position = root_length
-  ) +
-  geom_rootedge(rootedge = root_length) +
-  xlim(-tile_width/2, 0.4) +
+Schoeneae_tree_plot <-
+  ggtree(Schoeneae) +
   geom_tiplab(
     aes(label = label %>%
-      str_replace("Schoenus_", "S. ") %>%
+      str_replace("Schoenus_", "S._") %>%
+      str_replace("_", " ") %>%
       {paste0('italic(\"', ., '\")')}
     ),
     parse = TRUE,
-    size = 2.5,
-    align = TRUE,
-    colour = "grey50",
+    size = 2.5
+  ) +
+  theme_tree2() +
+  scale_x_continuous(name = "Ma",
+    limits = c(-15, tree_height + 20),
+    breaks = label_positions,
+    labels = my_labels
   )
 
 Schoenus_DEC_areas_plot <-
