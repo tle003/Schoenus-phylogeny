@@ -56,31 +56,46 @@ Schoeneae_DEC_areas_only <- purrr::map_df(Schoeneae_DEC_areas_only, as.numeric)
 Schoeneae_DEC_areas_tidy <-
   cbind(species = Schoeneae_DEC_areas$species, Schoeneae_DEC_areas_only) %>%
   as_tibble()
-
-Schoeneae_DEC_areas_tidy %>%
+Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
   gather(area, present, -species) %>%
+  filter(species != "Schoenus_adnatus") %>%
   mutate(
-    species = factor(species, levels = get_tips_in_ape_plot_order(Schoenus)),
-    area = factor(area, levels = c(
-      "Cape", "Africa",
-      "Western Australia", "Australia",
-      "New Zealand", "Neotropics",
-      "Pacific", "Tropical Asia", "Holarctic"
-    )),
-    area_group =
+    species = factor(species, levels = get_tips_in_ape_plot_order(Schoeneae_tree)),
+    x = case_when(
+      area == "C" ~ label_positions[[1]],
+      area == "F" ~ label_positions[[2]],
+      area == "W" ~ label_positions[[3]],
+      area == "A" ~ label_positions[[4]],
+      area == "Z" ~ label_positions[[5]],
+      area == "N" ~ label_positions[[6]],
+      area == "P" ~ label_positions[[7]],
+      area == "T" ~ label_positions[[8]],
+      area == "H" ~ tree_height + 10
+    ),
+    area =
       case_when(
-        area %in% c("Cape", "Western Australia") ~ "Cape + Western Australia",
-        area %in% c("Africa", "Australia")       ~ "Africa + Australia",
-        area %in% c("New Zealand", "Neotropics") ~ "New Zealand + Neotropics",
-        TRUE                                     ~ as.character(area)
+        area == "C" ~ "Cape",
+        area == "F" ~ "Africa",
+        area == "W" ~ "Western Australia",
+        area == "A" ~ "Australia",
+        area == "Z" ~ "New Zealand",
+        area == "N" ~ "Neotropics",
+        area == "P" ~ "Pacific",
+        area == "T" ~ "Tropical Asia",
+        area == "H" ~ "Holarctic"
       ) %>%
       factor(levels = c(
-        "Cape + Western Australia",
-        "Africa + Australia",
-        "New Zealand + Neotropics",
-        "Pacific", "Tropical Asia", "Holarctic"
+        "Cape",
+        "Africa",
+        "Western Australia",
+        "Australia",
+        "New Zealand",
+        "Neotropics",
+        "Pacific",
+        "Tropical Asia",
+        "Holarctic"
       )),
-    present = as.logical(present),
+    present = as.logical(present)
   )
 
 # Plots ------------------------------------------------------------------------
@@ -104,14 +119,14 @@ Schoeneae_tree_plot <-
   )
 
 Schoenus_DEC_areas_plot <-
-  facet_plot(Schoenus_BS_plot,
+  facet_plot(Schoeneae_tree_plot,
     geom = "geom_tile",
-    data = Schoenus_DEC_areas_tidy,
+    data = Schoeneae_DEC_areas_tidy,
     panel = "DEC areas",
-    aes(x = 0, group = area_group, fill = area, alpha = present),
-    width = tile_width, position = position_dodge(width = tile_width)
+    aes(x = x, fill = area, alpha = present),
+    width = 10
   ) +
-  scale_fill_brewer(palette = "Paired") +
+  scale_fill_brewer(name = "Region", palette = "Paired") +
   scale_alpha_manual(values = c(0, 1), guide = FALSE) +
   theme(strip.text = element_blank())
 
