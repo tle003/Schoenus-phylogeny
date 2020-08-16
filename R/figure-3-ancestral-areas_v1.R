@@ -13,15 +13,13 @@ library(patchwork)  # Figure panelling
 
 # Import data ------------------------------------------------------------------
 
-# RAxML-HPC reconstruction:
-# Best tree with nodes' bootstrap support values
+# BEAST reconstruction:
 MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
 
 # Biogeographical coding for extant species (used in DEC analysis)
 Schoeneae_DEC_areas <- read_delim("data/occurence-data/Schoeneae-DEC-9areas.txt", delim = " ")
 
 # Tidy data --------------------------------------------------------------------
-
 
 MCC_tree@phylo <- MCC_tree@phylo %>%
   force.ultrametric(method = "extend") %>%
@@ -32,6 +30,7 @@ Schoeneae_MRCA_node <- MCC_tree@phylo %>%
     "Gymnoschoenus_sphaerocephalus"
   ))
 Schoeneae_tree <- extract.clade(MCC_tree@phylo, Schoeneae_MRCA_node)
+Schoeneae_tree <- ladderize(Schoeneae_tree, right = TRUE)
 
 colnames(Schoeneae_DEC_areas)[[1]] <- "species"
 write_file(
