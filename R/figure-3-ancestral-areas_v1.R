@@ -13,10 +13,10 @@ library(patchwork)  # Figure panelling
 
 # Import data ------------------------------------------------------------------
 
-# BEAST reconstruction:
+# BEAST reconstruction (MCC tree):
 MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
 
-# Biogeographical coding for extant species (used in DEC analysis)
+# Biogeographical coding for extant species (used in DEC analysis):
 Schoeneae_DEC_areas <- read_delim("data/occurence-data/Schoeneae-DEC-9areas.txt", delim = " ")
 
 # Tidy data --------------------------------------------------------------------
@@ -24,6 +24,7 @@ Schoeneae_DEC_areas <- read_delim("data/occurence-data/Schoeneae-DEC-9areas.txt"
 MCC_tree@phylo <- MCC_tree@phylo %>%
   force.ultrametric(method = "extend") %>%
   ladderize(right = TRUE)
+# Extract Schoeneae from MCC tree
 Schoeneae_MRCA_node <- MCC_tree@phylo %>%
   getMRCA(c(
     .$tip.label[str_detect(.$tip.label, "Schoenus")],
@@ -32,6 +33,7 @@ Schoeneae_MRCA_node <- MCC_tree@phylo %>%
 Schoeneae_tree <- extract.clade(MCC_tree@phylo, Schoeneae_MRCA_node)
 Schoeneae_tree <- ladderize(Schoeneae_tree, right = TRUE)
 
+# Turn single CFWAZNPTH-column into multiple columns (complicated):
 colnames(Schoeneae_DEC_areas)[[1]] <- "species"
 write_file(
   paste0(colnames(Schoeneae_DEC_areas)[[2]], "\n"),
@@ -55,6 +57,8 @@ Schoeneae_DEC_areas_only <- purrr::map_df(Schoeneae_DEC_areas_only, as.numeric)
 Schoeneae_DEC_areas_tidy <-
   cbind(species = Schoeneae_DEC_areas$species, Schoeneae_DEC_areas_only) %>%
   as_tibble()
+
+# Tidy region data nicely and include x-axis position's column
 Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
   gather(area, present, -species) %>%
   filter(species != "Schoenus_adnatus") %>%
