@@ -9,7 +9,6 @@ library(ggtree)     # Multi-phylo plots
 library(treeio)     # For ::read.beast()
 library(jntools)    # For ::get_tips_in_ape_plot_order()
                     # (Installed with remotes::install_github("joelnitta/jntools"))
-library(patchwork)  # Figure panelling
 
 # Import data ------------------------------------------------------------------
 
@@ -179,18 +178,32 @@ ggsave("figures/Schoeneae_DEC_areas_plot.png", Schoeneae_DEC_areas_plot, width =
 
 ####
 
-#theme_set(theme_classic())
-#Schoenus_areas_plot <- ggplot(Schoenus_DEC_areas_tidy) +
-#  aes(area_group, species, fill = area, alpha = present) +
-#  geom_tile() +
-#  scale_alpha_manual(values = c(0, 1), guide = FALSE) +
-#  theme(
-#    axis.title   = element_blank(),
-#    axis.text.x  = element_blank(), axis.text.y = element_blank(),
-#    axis.ticks.x = element_blank(),
-#    axis.line.x  = element_blank(),
-#    plot.margin  = unit(c(2, 0, 2, 0), "cm")
-#  )
-#
-#library(patchwork)
-#{Schoenus_BS_plot + xlim(0, 0.5) + theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))} + Schoenus_areas_plot
+
+####
+
+Schoeneae_areas_plot <- ggplot(Schoeneae_DEC_areas_tidy) +
+  aes(
+    x = area,
+    y = factor(species, levels = Schoeneae_tree %>%
+      ladderize(right = FALSE) %>%
+      get_tips_in_ape_plot_order()
+    ),
+    fill = area,
+    alpha = present
+  ) +
+  geom_tile() +
+  scale_alpha_manual(values = c(0, 1), guide = FALSE) +
+  theme_classic() +
+  theme(
+    axis.title   = element_blank(),
+    axis.text.x  = element_blank(), axis.text.y  = element_blank(),
+    axis.ticks.x = element_blank(), axis.ticks.y = element_blank(),
+    axis.line.x  = element_blank(), axis.line.y  = element_blank(),
+  )
+
+library(patchwork)
+Schoeneae_tree_plot | (
+  plot_spacer() / Schoeneae_areas_plot / plot_spacer() +
+  plot_layout(heights = c(0.1, 1, 0.1))
+)
+{Schoeneae_tree_plot + theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))} + Schoeneae_areas_plot
