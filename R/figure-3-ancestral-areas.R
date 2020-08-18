@@ -17,7 +17,10 @@ library(patchwork)  # Figure panelling
 MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
 
 # Biogeographical coding for extant species (used in DEC analysis):
-Schoeneae_DEC_areas <- read_delim("data/occurence-data/Schoeneae-DEC-9areas.txt", delim = " ")
+Schoeneae_DEC_areas <- read_delim(
+  "data/occurence-data/Schoeneae-DEC-9areas.txt",
+  delim = " "
+)
 
 # Tidy data --------------------------------------------------------------------
 
@@ -60,7 +63,8 @@ Schoeneae_DEC_areas_only <- read_fwf(
 )
 colnames(Schoeneae_DEC_areas_only) <- Schoeneae_DEC_areas_only[1, ]
 Schoeneae_DEC_areas_only <- Schoeneae_DEC_areas_only[-1, ]
-Schoeneae_DEC_areas_only <- purrr::map_df(Schoeneae_DEC_areas_only, as.numeric)
+Schoeneae_DEC_areas_only <- Schoeneae_DEC_areas_only %>%
+  purrr::map_df(as.numeric)
 Schoeneae_DEC_areas_tidy <-
   cbind(species = Schoeneae_DEC_areas$species, Schoeneae_DEC_areas_only) %>%
   as_tibble()
@@ -124,7 +128,11 @@ my_panel_grid <- get_tips_in_ape_plot_order(Schoeneae_tree) %>%
 
 Schoeneae_tree_plot <-
   ggtree(Schoeneae_tree) +
-  geom_tile(data = my_panel_grid, aes(x, species, alpha = alpha), fill = "black") +
+  geom_tile(
+    data = my_panel_grid,
+    aes(x, species, alpha = alpha),
+    fill = "black"
+  ) +
   scale_alpha_manual(values = c(0, 0.2), guide = FALSE) +
   geom_tiplab(
     aes(label = label %>%
@@ -142,7 +150,11 @@ Schoeneae_tree_plot <-
     labels = my_labels
   )
 
-my_palette <- scales::brewer_pal(palette = "Paired")(n = length(unique(Schoeneae_DEC_areas_tidy$area)))
+my_palette <- scales::brewer_pal(palette = "Paired")(
+  n = length(unique(
+    Schoeneae_DEC_areas_tidy$area
+  ))
+)
 my_palette2 <- vector("character", length = 2*length(my_palette))
 for (i in 1:length(my_palette)) {
   my_palette2[((2*i) - 1):(2*i)] <- c(my_palette[[i]], "white")
@@ -153,17 +165,21 @@ Schoeneae_DEC_areas_plot <-
     geom = "geom_tile",
     data = Schoeneae_DEC_areas_tidy,
     panel = "DEC areas",
-    aes(x = x, colour = area, fill = factor(paste(area, !present), levels = c(
-      "Cape FALSE",              "Cape TRUE",
-      "Africa FALSE",            "Africa TRUE",
-      "Western Australia FALSE", "Western Australia TRUE",
-      "Australia FALSE",         "Australia TRUE",
-      "New Zealand FALSE",       "New Zealand TRUE",
-      "Neotropics FALSE",        "Neotropics TRUE",
-      "Pacific FALSE",           "Pacific TRUE",
-      "Tropical Asia FALSE",     "Tropical Asia TRUE",
-      "Holarctic FALSE",         "Holarctic TRUE"
-    ))),
+    aes(
+      x = x,
+      colour = area,
+      fill = factor(paste(area, !present), levels = c(
+        "Cape FALSE",              "Cape TRUE",
+        "Africa FALSE",            "Africa TRUE",
+        "Western Australia FALSE", "Western Australia TRUE",
+        "Australia FALSE",         "Australia TRUE",
+        "New Zealand FALSE",       "New Zealand TRUE",
+        "Neotropics FALSE",        "Neotropics TRUE",
+        "Pacific FALSE",           "Pacific TRUE",
+        "Tropical Asia FALSE",     "Tropical Asia TRUE",
+        "Holarctic FALSE",         "Holarctic TRUE"
+      ))
+    ),
     width = 10
   ) +
   scale_fill_manual(values = my_palette2, guide = FALSE) +
