@@ -174,6 +174,8 @@ Schoeneae_DEC_areas_plot <-
   )) +
   theme(strip.text = element_blank())
 
+# Save plot --------------------------------------------------------------------
+
 ggsave(
   "figures/Schoeneae_DEC_areas_plot.pdf",
   Schoeneae_DEC_areas_plot,
