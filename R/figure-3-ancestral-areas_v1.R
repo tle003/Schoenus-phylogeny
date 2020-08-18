@@ -174,7 +174,7 @@ Schoeneae_DEC_areas_plot <-
   )) +
   theme(strip.text = element_blank())
 
-ggsave("figures/Schoenus_DEC_areas_plot.pdf", Schoenus_DEC_areas_plot, width = 10, height = 12)
+ggsave("figures/Schoeneae_DEC_areas_plot.pdf", Schoeneae_DEC_areas_plot, width = 10, height = 12)
 
 ####
 
