@@ -157,7 +157,10 @@ my_palette <- scales::brewer_pal(palette = "Paired")(
 )
 my_palette2 <- vector("character", length = 2*length(my_palette))
 for (i in 1:length(my_palette)) {
-  my_palette2[((2*i) - 1):(2*i)] <- c(my_palette[[i]], "white")
+  pos2 <- 2*i
+  pos1 <- pos2 - 1
+  my_palette2[[pos1]] <- my_palette[[i]]
+  my_palette2[[pos2]] <- "white"
 }
 
 Schoeneae_DEC_areas_plot <-
