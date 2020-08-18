@@ -33,6 +33,13 @@ Schoeneae_MRCA_node <- MCC_tree@phylo %>%
 Schoeneae_tree <- extract.clade(MCC_tree@phylo, Schoeneae_MRCA_node)
 Schoeneae_tree <- ladderize(Schoeneae_tree, right = TRUE)
 
+# X-axis scaling things:
+# (for both tree's time-axis labels and
+# region-tiles' x-axis being on that same scale)
+tree_height <- max(nodeHeights(Schoeneae_tree))
+my_labels <- c(70, 60, 50, 40, 30, 20, 10, 0)
+label_positions <- tree_height - my_labels
+
 # Turn single CFWAZNPTH-column into multiple columns (complicated):
 colnames(Schoeneae_DEC_areas)[[1]] <- "species"
 write_file(
@@ -103,8 +110,22 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
 
 # Plots ------------------------------------------------------------------------
 
+# Make data for grey and white blocks for timescale-background of tree
+my_panel_grid <- get_tips_in_ape_plot_order(Schoeneae_tree) %>%
+  map_dfr(~ tibble(
+    x       = label_positions - 5,
+    species = .x,
+    alpha   = c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
+  )) %>%
+  mutate(species = species %>%
+    factor(levels = get_tips_in_ape_plot_order(Schoeneae_tree)) %>%
+    as.numeric()
+  )
+
 Schoeneae_tree_plot <-
-  ggtree(Schoeneae) +
+  ggtree(Schoeneae_tree) +
+  geom_tile(data = my_panel_grid, aes(x, species, alpha = alpha), fill = "black") +
+  scale_alpha_manual(values = c(0, 0.2), guide = FALSE) +
   geom_tiplab(
     aes(label = label %>%
       str_replace("Schoenus_", "S._") %>%
@@ -121,16 +142,36 @@ Schoeneae_tree_plot <-
     labels = my_labels
   )
 
-Schoenus_DEC_areas_plot <-
+my_palette <- scales::brewer_pal(palette = "Paired")(n = length(unique(Schoeneae_DEC_areas_tidy$area)))
+my_palette2 <- vector("character", length = 2*length(my_palette))
+for (i in 1:length(my_palette)) {
+  my_palette2[((2*i) - 1):(2*i)] <- c(my_palette[[i]], "white")
+}
+
+Schoeneae_DEC_areas_plot <-
   facet_plot(Schoeneae_tree_plot,
     geom = "geom_tile",
     data = Schoeneae_DEC_areas_tidy,
     panel = "DEC areas",
-    aes(x = x, fill = area, alpha = present),
+    aes(x = x, colour = area, fill = factor(paste(area, !present), levels = c(
+      "Cape FALSE",              "Cape TRUE",
+      "Africa FALSE",            "Africa TRUE",
+      "Western Australia FALSE", "Western Australia TRUE",
+      "Australia FALSE",         "Australia TRUE",
+      "New Zealand FALSE",       "New Zealand TRUE",
+      "Neotropics FALSE",        "Neotropics TRUE",
+      "Pacific FALSE",           "Pacific TRUE",
+      "Tropical Asia FALSE",     "Tropical Asia TRUE",
+      "Holarctic FALSE",         "Holarctic TRUE"
+    ))),
     width = 10
   ) +
-  scale_fill_brewer(name = "Region", palette = "Paired") +
-  scale_alpha_manual(values = c(0, 1), guide = FALSE) +
+  scale_fill_manual(values = my_palette2, guide = FALSE) +
+  scale_colour_manual(values = rep(NA, times = 9)) +
+  guides(colour = guide_legend(
+    title = "Region",
+    override.aes = list(fill = my_palette)
+  )) +
   theme(strip.text = element_blank())
 
 ggsave("figures/Schoenus_DEC_areas_plot.pdf", Schoenus_DEC_areas_plot, width = 10, height = 12)
