@@ -142,6 +142,8 @@ Schoeneae_tree_plot <-
     labels = my_labels
   )
 
+#library(ggnewscale)
+
 my_palette <- scales::brewer_pal(palette = "Paired")(n = length(unique(Schoeneae_DEC_areas_tidy$area)))
 my_palette2 <- vector("character", length = 2*length(my_palette))
 for (i in 1:length(my_palette)) {
@@ -172,6 +174,14 @@ Schoeneae_DEC_areas_plot <-
     title = "Region",
     override.aes = list(fill = my_palette)
   )) +
+  #scale_fill_brewer(name = "Region", palette = "Paired") +
+  #new_scale_fill() +
+  #geom_tile(
+  # data = Schoeneae_DEC_areas_tidy,
+  #  aes(x = x, y = as.numeric(species), fill = as.factor(present)),
+  #  width = 10
+  #) +
+  #scale_fill_manual(values = c("NA", "white"), guide = FALSE) +
   theme(strip.text = element_blank())
 
 ggsave("figures/Schoeneae_DEC_areas_plot.pdf", Schoeneae_DEC_areas_plot, width = 10, height = 12)
@@ -194,3 +204,18 @@ ggsave("figures/Schoeneae_DEC_areas_plot.png", Schoeneae_DEC_areas_plot, width =
 #
 #library(patchwork)
 #{Schoenus_BS_plot + xlim(0, 0.5) + theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))} + Schoenus_areas_plot
+
+####
+
+tree_height
+my_labels
+label_positions + 5
+
+my_panel_grid <- data.frame(
+  fill = c(1, 0, 1, 0, 1, 0, 1, 0, 1),
+  x    = c(label_positions[[1]] - 5, label_positions + 5)
+)
+
+ggplot(my_panel_grid) +
+  aes(x = x, y = 1, fill = fill) +
+  geom_tile()
