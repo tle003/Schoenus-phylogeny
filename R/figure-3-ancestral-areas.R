@@ -63,10 +63,9 @@ Schoeneae_DEC_areas_only <- read_fwf(
 )
 colnames(Schoeneae_DEC_areas_only) <- Schoeneae_DEC_areas_only[1, ]
 Schoeneae_DEC_areas_only <- Schoeneae_DEC_areas_only[-1, ]
-Schoeneae_DEC_areas_only <- Schoeneae_DEC_areas_only %>%
-  purrr::map_df(as.numeric)
-Schoeneae_DEC_areas_tidy <-
-  cbind(species = Schoeneae_DEC_areas$species, Schoeneae_DEC_areas_only) %>%
+Schoeneae_DEC_areas_only <- purrr::map_df(Schoeneae_DEC_areas_only, as.numeric)
+Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_only %>%
+  cbind(species = Schoeneae_DEC_areas$species) %>%
   as_tibble()
 
 # Tidy region data nicely and include x-axis position's column
@@ -115,7 +114,8 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
 # Plots ------------------------------------------------------------------------
 
 # Make data for grey and white blocks for timescale-background of tree
-my_panel_grid <- get_tips_in_ape_plot_order(Schoeneae_tree) %>%
+my_panel_grid <- Schoeneae_tree %>%
+  get_tips_in_ape_plot_order() %>%
   map_dfr(~ tibble(
     x       = label_positions - 5,
     species = .x,
