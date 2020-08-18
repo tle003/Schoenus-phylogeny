@@ -186,21 +186,3 @@ ggsave(
   Schoeneae_DEC_areas_plot,
   width = 10, height = 12, dpi= 300
 )
-
-####
-
-#theme_set(theme_classic())
-#Schoenus_areas_plot <- ggplot(Schoenus_DEC_areas_tidy) +
-#  aes(area_group, species, fill = area, alpha = present) +
-#  geom_tile() +
-#  scale_alpha_manual(values = c(0, 1), guide = FALSE) +
-#  theme(
-#    axis.title   = element_blank(),
-#    axis.text.x  = element_blank(), axis.text.y = element_blank(),
-#    axis.ticks.x = element_blank(),
-#    axis.line.x  = element_blank(),
-#    plot.margin  = unit(c(2, 0, 2, 0), "cm")
-#  )
-#
-#library(patchwork)
-#{Schoenus_BS_plot + xlim(0, 0.5) + theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))} + Schoenus_areas_plot
