@@ -21,10 +21,8 @@ Schoeneae_DEC_areas <- read_delim("data/occurence-data/Schoeneae-DEC-9areas.txt"
 
 # Tidy data --------------------------------------------------------------------
 
-MCC_tree@phylo <- MCC_tree@phylo %>%
-  force.ultrametric(method = "extend") %>%
-  ladderize(right = TRUE)
 # Extract Schoeneae from MCC tree
+MCC_tree@phylo <- force.ultrametric(MCC_tree@phylo, method = "extend")
 Schoeneae_MRCA_node <- MCC_tree@phylo %>%
   getMRCA(c(
     .$tip.label[str_detect(.$tip.label, "Schoenus")],
