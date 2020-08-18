@@ -174,6 +174,16 @@ Schoeneae_DEC_areas_plot <-
   )) +
   theme(strip.text = element_blank())
 
+# Manually remove region panel's "time"-axis
+Schoeneae_DEC_areas_plot <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot)
+#plot(Schoeneae_DEC_areas_plot)
+#str(Schoeneae_DEC_areas_plot, max.level = 1)
+#Schoeneae_DEC_areas_plot$grobs[[1]]
+Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[7]] <- zeroGrob()
+
+# Check:
+plot(Schoeneae_DEC_areas_plot)
+
 # Save plot --------------------------------------------------------------------
 
 ggsave(
