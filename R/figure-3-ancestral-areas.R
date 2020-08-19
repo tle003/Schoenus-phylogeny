@@ -9,7 +9,7 @@ library(ggtree)     # Multi-phylo plots
 library(treeio)     # For ::read.beast()
 library(jntools)    # For ::get_tips_in_ape_plot_order()
                     # (Installed with remotes::install_github("joelnitta/jntools"))
-library(patchwork)  # Figure panelling
+library(lemon)      # For ::coord_capped_cart()
 
 # Import data ------------------------------------------------------------------
 
@@ -145,12 +145,20 @@ Schoeneae_tree_plot <-
     parse = TRUE,
     size = 2.5
   ) +
+  # Add time axes
   theme_tree2() +
   scale_x_continuous(name = "Ma",
-    limits = c(-15, tree_height + 20),
-    breaks = label_positions,
-    labels = my_labels
-  )
+    limits   = c(-15, tree_height + 28),  # 28 is the min needed to fit labels
+    breaks   = label_positions,
+    labels   = my_labels,
+    sec.axis = dup_axis()
+  ) +
+  # Remove empty space above, below tree
+  scale_y_continuous(limits = c(0, Ntip(Schoeneae_tree) + 1), expand = c(0, 0)) +
+  # Remove extra line at right of time axes
+  coord_capped_cart(bottom = "right", top = "right") +
+  # Move time axes' titles to the right
+  theme(axis.title.x = element_text(hjust = 0.15))
 
 my_palette <- scales::brewer_pal(palette = "Paired")(
   n = length(unique(
@@ -200,6 +208,7 @@ Schoeneae_DEC_areas_plot <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot)
 #plot(Schoeneae_DEC_areas_plot)
 #str(Schoeneae_DEC_areas_plot, max.level = 1)
 #Schoeneae_DEC_areas_plot$grobs[[1]]
+Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[5]] <- zeroGrob()
 Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[7]] <- zeroGrob()
 
 # Check:
