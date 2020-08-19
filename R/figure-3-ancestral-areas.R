@@ -233,10 +233,10 @@ plot(Schoeneae_DEC_areas_plot)
 ggsave(
   "figures/Schoeneae_DEC_areas_plot.pdf",
   Schoeneae_DEC_areas_plot,
-  width = 10, height = 12
+  width = 10, height = 13
 )
 ggsave(
   "figures/Schoeneae_DEC_areas_plot.png",
   Schoeneae_DEC_areas_plot,
-  width = 10, height = 12, dpi= 300
+  width = 10, height = 13, dpi= 300
 )
