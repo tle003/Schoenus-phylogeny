@@ -78,9 +78,13 @@ Cyperaceae_tree_plot <- ggtree(MCC_tree) +
   #geom_hilight(Schoenus_MRCA_node,  fill = "darkblue",  alpha = 0.25) +
   #geom_hilight(Schoeneae_MRCA_node, fill = "lightblue", alpha = 0.25) +
   scale_x_reverse(name = "Ma",
-    limits = c(135, -10),
-    breaks = label_positions,
-    labels = my_labels
+    limits   = c(135, -10),
+    breaks   = label_positions,
+    labels   = my_labels,
+    sec.axis = sec_axis(trans = "identity", name = "Ma",
+      breaks = label_positions,
+      labels = my_labels
+    )
   ) +
   theme_tree2() +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
