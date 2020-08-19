@@ -4,9 +4,9 @@
 
 library(tidyverse)
 library(phytools)
-library(ggtree)  # Multi-phylo plots
-                 # (Installed with BiocManager::install("ggtree"))
-library(treeio)  # For ::read.beast()
+library(ggtree)   # Multi-phylo plots
+                  # (Installed with BiocManager::install("ggtree"))
+library(treeio)   # For ::read.beast()
 library(jntools)  # For ::get_tips_in_ape_plot_order()
 
 # Import data ------------------------------------------------------------------
