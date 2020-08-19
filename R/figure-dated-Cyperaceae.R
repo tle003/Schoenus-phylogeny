@@ -8,6 +8,7 @@ library(ggtree)   # Multi-phylo plots
                   # (Installed with BiocManager::install("ggtree"))
 library(treeio)   # For ::read.beast()
 library(jntools)  # For ::get_tips_in_ape_plot_order()
+library(lemon)    # For ::coord_capped_cart()
 
 # Import data ------------------------------------------------------------------
 
@@ -77,7 +78,9 @@ my_panel_grid <- MCC_tree@phylo %>%
     as.numeric()
   )
 
-Cyperaceae_tree_plot <- ggtree(MCC_tree) +
+Cyperaceae_tree_plot <-
+  ggtree(MCC_tree, ladderize = FALSE) +  # (already ladderized above!)
+  geom_rootedge(rootedge = -10) +
   geom_tile(
     data = my_panel_grid,
     aes(x, species, alpha = alpha),
@@ -97,17 +100,19 @@ Cyperaceae_tree_plot <- ggtree(MCC_tree) +
   ) +
   #geom_hilight(Schoenus_MRCA_node,  fill = "darkblue",  alpha = 0.25) +
   #geom_hilight(Schoeneae_MRCA_node, fill = "lightblue", alpha = 0.25) +
+  theme_tree2() +
   scale_x_reverse(name = "Ma",
     limits   = c(135, -10),
     breaks   = label_positions,
     labels   = my_labels,
-    sec.axis = sec_axis(trans = "identity", name = "Ma",
-      breaks = label_positions,
-      labels = my_labels
-    )
+    sec.axis = dup_axis()
   ) +
-  theme_tree2() +
-  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
+  # Remove empty space above, below tree
+  scale_y_continuous(limits = c(0, Ntip(MCC_tree@phylo) + 1), expand = c(0, 0)) +
+  # Remove extra line at left of time axes
+  coord_capped_cart(bottom = "left", top = "left") +
+  # Move time axes' titles to the left
+  theme(axis.title.x = element_text(hjust = 0.65))
 
 # Save plot --------------------------------------------------------------------
 
