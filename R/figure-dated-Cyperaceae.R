@@ -7,6 +7,7 @@ library(phytools)
 library(ggtree)  # Multi-phylo plots
                  # (Installed with BiocManager::install("ggtree"))
 library(treeio)  # For ::read.beast()
+library(jntools)  # For ::get_tips_in_ape_plot_order()
 
 # Import data ------------------------------------------------------------------
 
@@ -63,7 +64,26 @@ MCC_tree@data %>%
 # - FigTree
 # - phytools:: + base::
 
+# Make data for grey and white blocks for timescale-background of tree
+my_panel_grid <- MCC_tree@phylo %>%
+  get_tips_in_ape_plot_order() %>%
+  map_dfr(~ tibble(
+    x       = label_positions - 5,
+    species = .x,
+    alpha   = c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
+  )) %>%
+  mutate(species = species %>%
+    factor(levels = get_tips_in_ape_plot_order(MCC_tree@phylo)) %>%
+    as.numeric()
+  )
+
 Cyperaceae_tree_plot <- ggtree(MCC_tree) +
+  geom_tile(
+    data = my_panel_grid,
+    aes(x, species, alpha = alpha),
+    fill = "black"
+  ) +
+  scale_alpha_manual(values = c(0, 0.2), guide = FALSE) +
   geom_tiplab(
     aes(label = paste0('italic(\"', label, '\")')),
     parse = TRUE,
@@ -73,7 +93,7 @@ Cyperaceae_tree_plot <- ggtree(MCC_tree) +
   geom_range("height_0.95_HPD",
     center = "height_median",
     size   = 1.5,
-    alpha  = 0.33
+    alpha  = 0.4
   ) +
   #geom_hilight(Schoenus_MRCA_node,  fill = "darkblue",  alpha = 0.25) +
   #geom_hilight(Schoeneae_MRCA_node, fill = "lightblue", alpha = 0.25) +
