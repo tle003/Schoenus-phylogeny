@@ -68,6 +68,8 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_only %>%
   cbind(species = Schoeneae_DEC_areas$species) %>%
   as_tibble()
 
+# To make the tiles etc. in the region panel easier to position
+# (on the same scale as the tree) and then make narrower
 my_scale_factor <-  5
 
 # Tidy region data nicely and include x-axis position's column
@@ -77,6 +79,7 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
   mutate(
     species = factor(species, levels = get_tips_in_ape_plot_order(Schoeneae_tree)),
     x = case_when(
+      # TODO: refactor
       area == "C" ~ (label_positions[[1]] / my_scale_factor) - 12.5,
       area == "F" ~ (label_positions[[2]] / my_scale_factor) - 12.5,
       area == "W" ~ (label_positions[[3]] / my_scale_factor) - 12.5,
@@ -88,6 +91,7 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
       area == "H" ~ ((tree_height + 10)   / my_scale_factor) - 12.5
     ),
     area =
+      # TODO: functionalise
       case_when(
         area == "C" ~ "Cape",
         area == "F" ~ "Africa",
@@ -203,7 +207,7 @@ Schoeneae_DEC_areas_plot <-
   )) +
   theme(strip.text = element_blank())
 
-# Manually remove region panel's "time"-axis
+# Manually remove region panel's "time"-axes
 Schoeneae_DEC_areas_plot <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot)
 #plot(Schoeneae_DEC_areas_plot)
 #str(Schoeneae_DEC_areas_plot, max.level = 1)
