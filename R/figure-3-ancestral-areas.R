@@ -133,7 +133,8 @@ my_panel_grid <- Schoeneae_tree %>%
   )
 
 Schoeneae_tree_plot <-
-  ggtree(Schoeneae_tree) +
+  ggtree(Schoeneae_tree, ladderize = FALSE) +  # (already ladderized above!)
+  geom_rootedge(rootedge = 10) +
   geom_tile(
     data = my_panel_grid,
     aes(x, species, alpha = alpha),
@@ -143,11 +144,13 @@ Schoeneae_tree_plot <-
   geom_tiplab(
     aes(label = label %>%
       str_replace("Schoenus_", "S._") %>%
+      str_replace("Gymnoschoenus_", "G._") %>%  # (otherwise very long name!)
       str_replace("_", " ") %>%
       {paste0('italic(\"', ., '\")')}
     ),
-    parse = TRUE,
-    size = 2.5
+    parse  = TRUE,
+    size   = 2.5,
+    offset = 3
   ) +
   # Add time axes
   theme_tree2() +
@@ -205,7 +208,11 @@ Schoeneae_DEC_areas_plot <-
     title = "Region",
     override.aes = list(fill = my_palette)
   )) +
-  theme(strip.text = element_blank())
+  theme(
+    strip.text        = element_blank(),
+    legend.background = element_blank(),
+    legend.position   = c(0.10, 0.15)
+  )
 
 # Manually remove region panel's "time"-axes
 Schoeneae_DEC_areas_plot <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot)
