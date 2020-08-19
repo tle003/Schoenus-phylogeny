@@ -222,6 +222,9 @@ Schoeneae_DEC_areas_plot <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot)
 Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[5]] <- zeroGrob()
 Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[7]] <- zeroGrob()
 
+# Manually remove grey and white blocks from region panel
+Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[3]]$children[[6]] <-  zeroGrob()
+
 # Check:
 plot(Schoeneae_DEC_areas_plot)
 
