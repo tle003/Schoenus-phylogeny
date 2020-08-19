@@ -67,6 +67,7 @@ Schoeneae_DEC_areas_only <- purrr::map_df(Schoeneae_DEC_areas_only, as.numeric)
 Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_only %>%
   cbind(species = Schoeneae_DEC_areas$species) %>%
   as_tibble()
+# TODO: export Schoeneae_DEC_areas_tidy as CSV
 
 # To make the tiles etc. in the region panel easier to position
 # (on the same scale as the tree) and then make narrower
