@@ -68,6 +68,8 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_only %>%
   cbind(species = Schoeneae_DEC_areas$species) %>%
   as_tibble()
 
+my_scale_factor <-  5
+
 # Tidy region data nicely and include x-axis position's column
 Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
   gather(area, present, -species) %>%
@@ -75,15 +77,15 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
   mutate(
     species = factor(species, levels = get_tips_in_ape_plot_order(Schoeneae_tree)),
     x = case_when(
-      area == "C" ~ label_positions[[1]],
-      area == "F" ~ label_positions[[2]],
-      area == "W" ~ label_positions[[3]],
-      area == "A" ~ label_positions[[4]],
-      area == "Z" ~ label_positions[[5]],
-      area == "N" ~ label_positions[[6]],
-      area == "P" ~ label_positions[[7]],
-      area == "T" ~ label_positions[[8]],
-      area == "H" ~ tree_height + 10
+      area == "C" ~ (label_positions[[1]] / my_scale_factor) - 12.5,
+      area == "F" ~ (label_positions[[2]] / my_scale_factor) - 12.5,
+      area == "W" ~ (label_positions[[3]] / my_scale_factor) - 12.5,
+      area == "A" ~ (label_positions[[4]] / my_scale_factor) - 12.5,
+      area == "Z" ~ (label_positions[[5]] / my_scale_factor) - 12.5,
+      area == "N" ~ (label_positions[[6]] / my_scale_factor) - 12.5,
+      area == "P" ~ (label_positions[[7]] / my_scale_factor) - 12.5,
+      area == "T" ~ (label_positions[[8]] / my_scale_factor) - 12.5,
+      area == "H" ~ ((tree_height + 10)   / my_scale_factor) - 12.5
     ),
     area =
       case_when(
@@ -183,7 +185,7 @@ Schoeneae_DEC_areas_plot <-
         "Holarctic FALSE",         "Holarctic TRUE"
       ))
     ),
-    width = 10
+    width = 10 / my_scale_factor
   ) +
   scale_fill_manual(values = my_palette2, guide = FALSE) +
   scale_colour_manual(values = rep(NA, times = 9)) +
