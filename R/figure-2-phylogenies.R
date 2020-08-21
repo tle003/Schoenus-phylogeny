@@ -38,18 +38,9 @@ Schoenus_MCC@phylo$tip.label <- str_replace(
 )
 
 # Get node numbers for clades to highlight
-Clade_A_node <- getMRCA(Schoenus_MCC@phylo, c(
-  "S. insolitus",
-  "S. sculptus"
-))
-Clade_B_node <- getMRCA(Schoenus_MCC@phylo, c(
-  "S. falcatus",
-  "S. australis"
-))
-Cape_clade_node <- getMRCA(Schoenus_MCC@phylo, c(
-  "S. dregeanus",
-  "S. australis"
-))
+Clade_A_node    <- getMRCA(Schoenus_MCC@phylo, c("S. insolitus", "S. sculptus"))
+Clade_B_node    <- getMRCA(Schoenus_MCC@phylo, c("S. falcatus",  "S. australis"))
+Cape_clade_node <- getMRCA(Schoenus_MCC@phylo, c("S. dregeanus", "S. australis"))
 
 # Posterior sample (already thinned to 100 trees):
 Schoenus_posterior <- list(length = length(posterior_sample))
