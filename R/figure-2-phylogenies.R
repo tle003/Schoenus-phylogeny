@@ -152,7 +152,8 @@ Schoenus_posterior_plot <-
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
 # Panel these pltos together using patchwork::
-Schoenus_tree_plots <- Schoenus_MCC_plot + Schoenus_posterior_plot
+Schoenus_tree_plots <- Schoenus_MCC_plot + Schoenus_posterior_plot +
+  plot_annotation(tag_levels = "A")
 
 # Save plots -------------------------------------------------------------------
 
