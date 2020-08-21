@@ -179,6 +179,9 @@ my_panel_grid <- MCC_tree@phylo %>%
     as.numeric()
   )
 
+clade_label_offset <- 85
+clade_bar_extension <- 0.2
+
 Cyperaceae_tree_plot <-
   ggtree(MCC_tree, ladderize = FALSE) +  # (already ladderized above!)
   geom_rootedge(rootedge = -10) +
