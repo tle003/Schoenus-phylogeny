@@ -94,7 +94,8 @@ Cyperaceae_tree_plot <-
   geom_range("height_0.95_HPD",
     center = "height_median",
     size   = 1.5,
-    alpha  = 0.4
+    alpha  = 0.4,
+    colour = "darkblue"
   ) +
   #geom_hilight(Schoenus_MRCA_node,  fill = "darkblue",  alpha = 0.25) +
   #geom_hilight(Schoeneae_MRCA_node, fill = "lightblue", alpha = 0.25) +
