@@ -59,7 +59,7 @@ oceania_plot <- ggplot(richness) +
     limits = c(0, 34)
   ) +
   theme(
-    axis.title.y      = element_blank(),
     axis.title.x      = element_blank(),
+    axis.title.y      = element_blank(),
     legend.text.align = 1
   )
