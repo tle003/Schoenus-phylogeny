@@ -104,8 +104,7 @@ Cyperaceae_tree_plot <-
   scale_x_reverse(name = "Ma",
     limits   = c(135, -10),
     breaks   = label_positions,
-    labels   = my_labels,
-    sec.axis = dup_axis()
+    labels   = my_labels
   ) +
   # Remove empty space above, below tree
   scale_y_continuous(limits = c(0, Ntip(MCC_tree@phylo) + 1), expand = c(0, 0)) +
