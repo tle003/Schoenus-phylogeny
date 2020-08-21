@@ -38,11 +38,6 @@ Schoenus_MCC@phylo$tip.label <- str_replace(
   "Schoenus_", "S. "
 )
 
-# Get node numbers for clades to highlight
-Clade_A_node    <- getMRCA(Schoenus_MCC@phylo, c("S. insolitus", "S. sculptus"))
-Clade_B_node    <- getMRCA(Schoenus_MCC@phylo, c("S. falcatus",  "S. australis"))
-Cape_clade_node <- getMRCA(Schoenus_MCC@phylo, c("S. dregeanus", "S. australis"))
-
 # Posterior sample (already thinned to 100 trees):
 Schoenus_posterior <- list(length = length(posterior_sample))
 for (i in seq_along(posterior_sample)) {
@@ -81,21 +76,6 @@ Schoenus_MCC_plot <-
     parse = TRUE,
     size = 2.5,
     offset = 2
-  ) +
-  stat_hilight(node = Clade_A_node,    fill = "black", alpha = 0.125, xmin = 5) +
-  stat_hilight(node = Clade_B_node,    fill = "black", alpha = 0.250, xmin = 5) +
-  stat_hilight(node = Cape_clade_node, fill = "blue",  alpha = 0.125) +
-  annotate(geom = "text",
-    label = "Clade A",
-    x = 11, y = Ntip(Schoenus_MCC@phylo)   - 1
-  ) +
-  annotate(geom = "text",
-    label = "Clade B",
-    x = 11, y = Ntip(Schoenus_MCC@phylo)/2 - 1
-  ) +
-  annotate(geom = "text",
-    label = "Cape clade",
-    x = 31, y = Ntip(Schoenus_MCC@phylo)/2 - 1
   ) +
   geom_nodepoint(aes(fill = posterior), pch = 21, size = 2.5) +
   scale_fill_gradient(name = "PP",
