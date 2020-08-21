@@ -81,8 +81,8 @@ Schoenus_MCC_plot <-
     size = 2.5,
     offset = 2
   ) +
-  geom_hilight(Clade_A_node,    fill = "black", alpha = 0.1) +
-  geom_hilight(Clade_B_node,    fill = "black", alpha = 0.2) +
+  stat_hilight(node = Clade_A_node,    fill = "black", alpha = 0.1, xmin = 5) +
+  stat_hilight(node = Clade_B_node,    fill = "black", alpha = 0.2, xmin = 5) +
   geom_hilight(Cape_clade_node, fill = "black", alpha = 0.2) +
   geom_nodepoint(aes(fill = posterior), pch = 21, size = 2.5) +
   scale_fill_gradient(name = "PP",
