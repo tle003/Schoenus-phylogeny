@@ -118,7 +118,7 @@ worldwide_plot <- ggplot() +
     colour = "grey30",
     size   = 0.1
   ) +
-  annotate("text", label = "(a)", x = -180, y = 85, hjust = 1) +
+  annotate("text", label = "A", x = -180, y = 85, hjust = 1) +
   coord_equal() +
   scale_fill_viridis_d(na.translate = FALSE) +
   scale_alpha_manual(values = c(1, 1, 1, 0.75, 0.5)) +
@@ -153,7 +153,7 @@ proportion_sampled_plot <- ggplot() +
     aes(x = long, y = lat, group = group, fill = prop_in_phylogeny),
     colour = "grey30", size = 0.1
   ) +
-  annotate("text", label = "(b)", x = -180, y = 85, hjust = 1) +
+  annotate("text", label = "B", x = -180, y = 85, hjust = 1) +
   coord_equal() +
   scale_fill_distiller(
     name      = "% species\nin phylogeny",
