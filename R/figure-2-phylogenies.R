@@ -92,7 +92,7 @@ Schoenus_MCC_plot <-
   scale_fill_gradient(name = "PP",
     na.value  = "white", low = "white", high = "darkgreen",
     limits = c(0.5, 1),
-    labels = c("<= 0.5", "0.6", "0.7", "0.8", "0.9", "1.0")
+    labels = c(expression(phantom(x) <= 50), "0.6", "0.7", "0.8", "0.9", "1.0")
   ) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
