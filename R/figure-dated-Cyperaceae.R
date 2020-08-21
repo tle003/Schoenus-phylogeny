@@ -157,13 +157,13 @@ clade_bar_extension <- 0.2
 
 Cyperaceae_tree_plot <-
   ggtree(MCC_tree, ladderize = FALSE) +  # (already ladderized above!)
-  geom_rootedge(rootedge = -10) +
   geom_cladelabel(node = clades_to_collapse$Caustiinae, label = "Caustiinae", offset = clade_label_offset, extend = clade_bar_extension) +
   geom_cladelabel(node = clades_to_collapse$Gahniinae, label = "Gahniinae", offset = clade_label_offset, extend = clade_bar_extension) +
   geom_cladelabel(node = clades_to_collapse$Lepidosperminae, label = "Lepidosperminae", offset = clade_label_offset, extend = clade_bar_extension) +
   geom_cladelabel(node = clades_to_collapse$Oreobolus, label = paste0('italic("Oreobolus")~clade'), offset = clade_label_offset, extend = clade_bar_extension, parse = TRUE) +
   geom_cladelabel(node = clades_to_collapse$Tricostulariinae, label = "Tricostulariinae", offset = clade_label_offset, extend = clade_bar_extension) +
   geom_cladelabel(node = clades_to_collapse$Gymnoschoeninae, label = "Gymnoschoeninae", offset = clade_label_offset, extend = clade_bar_extension) +
+  geom_rootedge(rootedge = 10) +
   geom_tile(
     data = my_panel_grid,
     aes(x, species, alpha = alpha),
@@ -177,33 +177,33 @@ Cyperaceae_tree_plot <-
     aes(label = paste0('italic(\"', label, '\")')),
     parse = TRUE,
     size = 2.5,
-    offset = -40
+    offset = 2
   ) +
   geom_cladelabel(node = Schoenus_MRCA_node, label = paste0('italic("Schoenus")'), offset = clade_label_offset, extend = clade_bar_extension, parse = TRUE) +
   geom_cladelabel(node = Schoeneae_MRCA_node, label = "Schoeneae", offset = clade_label_offset + 45, extend = clade_bar_extension) +
   theme_tree2() +
-  scale_x_reverse(name = "Ma",
-    limits   = c(135, -10),
+  scale_x_continuous(name = "Ma",
+    limits   = c(-10, 235),
     breaks   = label_positions,
     labels   = my_labels
   ) +
   # Remove empty space above, below tree
   scale_y_continuous(limits = c(0, Ntip(MCC_tree@phylo) + 1), expand = c(0, 0)) +
   # Remove extra line at left of time axes
-  coord_capped_cart(bottom = "left", top = "left") +
+  coord_capped_cart(bottom = "right") +
   # Move time axes' titles to the left
-  theme(axis.title.x = element_text(hjust = 0.65))
+  theme(axis.title.x = element_text(hjust = 0.35))
 
 # Save plot --------------------------------------------------------------------
 
 ggsave(
   "figures/Cyperaceae_tree_plot.pdf",
   Cyperaceae_tree_plot,
-  width = 7, height = 17
+  width = 10, height = 15
 )
 
 ggsave(
   "figures/Cyperaceae_tree_plot.png",
   Cyperaceae_tree_plot,
-  width = 7, height = 17, dpi = 300
+  width = 10, height = 15, dpi = 300
 )
