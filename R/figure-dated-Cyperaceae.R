@@ -46,6 +46,11 @@ Mapanioideae_MRCA_node <- MCC_tree@phylo %>%
     paste0("(", paste(Mapanioid_genera, collapse = "|"), ")")
   )])
 
+# Get node numbers for clades to highlight
+Clade_A_node    <- getMRCA(MCC_tree@phylo, c("Schoenus_insolitus", "Schoenus_sculptus"))
+Clade_B_node    <- getMRCA(MCC_tree@phylo, c("Schoenus_falcatus",  "Schoenus_australis"))
+Cape_clade_node <- getMRCA(MCC_tree@phylo, c("Schoenus_dregeanus", "Schoenus_australis"))
+
 MCC_tree@phylo$tip.label <- str_replace(MCC_tree@phylo$tip.label, "_", " ")
 
 # Plot -------------------------------------------------------------------------
@@ -104,6 +109,21 @@ Cyperaceae_tree_plot <-
     fill = "black"
   ) +
   scale_alpha_manual(values = c(0, 0.2), guide = FALSE) +
+  geom_hilight(node = Clade_A_node,    fill = "black", alpha = 0.125) +
+  geom_hilight(node = Clade_B_node,    fill = "black", alpha = 0.250) +
+  geom_hilight(node = Cape_clade_node, fill = "blue",  alpha = 0.125) +
+  #annotate(geom = "text",
+  #  label = "Clade A",
+  #  x = 11, y = Ntip(Schoenus_MCC@phylo)   - 1
+  #) +
+  #annotate(geom = "text",
+  #  label = "Clade B",
+  #  x = 11, y = Ntip(Schoenus_MCC@phylo)/2 - 1
+  #) +
+  #annotate(geom = "text",
+  #  label = "Cape clade",
+  #  x = 31, y = Ntip(Schoenus_MCC@phylo)/2 - 1
+  #) +
   geom_tiplab(
     aes(label = paste0('italic(\"', label, '\")')),
     parse = TRUE,
