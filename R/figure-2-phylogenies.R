@@ -133,6 +133,7 @@ Schoenus_posterior_plot <-
   coord_capped_cart(bottom = "left") +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
+# Panel these pltos together using patchwork::
 Schoenus_tree_plots <- Schoenus_MCC_plot + Schoenus_posterior_plot
 
 # Save plots -------------------------------------------------------------------
