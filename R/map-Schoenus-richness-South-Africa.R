@@ -55,7 +55,8 @@ south_africa_plot <- ggplot(richness) +
     limits = c(0, 34)
   ) +
   theme(
-    axis.title.y    = element_blank(),
-    axis.title.x    = element_blank(),
-    legend.position = "none"
+    axis.title.x      = element_blank(),
+    axis.title.y      = element_blank(),
+    legend.position   = "none",
+    legend.text.align = 1
   )
