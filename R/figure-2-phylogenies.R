@@ -82,9 +82,9 @@ Schoenus_MCC_plot <-
     size = 2.5,
     offset = 2
   ) +
-  stat_hilight(node = Clade_A_node,    fill = "black", alpha = 0.1, xmin = 5) +
-  stat_hilight(node = Clade_B_node,    fill = "black", alpha = 0.2, xmin = 5) +
-  stat_hilight(node = Cape_clade_node, fill = "blue", alpha = 0.1) +
+  geom_cladelabel(node = Clade_B_node,    label = "Clade B",    offset = 22, offset.text = 2, hjust = 0.5, angle = -90) +
+  geom_cladelabel(node = Clade_A_node,    label = "Clade A",    offset = 22, offset.text = 2, hjust = 0.5, angle = -90) +
+  geom_cladelabel(node = Cape_clade_node, label = "Cape clade", offset = 17, offset.text = 2, hjust = 0.5, angle = -90) +
   geom_nodepoint(aes(fill = posterior), pch = 21, size = 2.5) +
   scale_fill_gradient(name = "PP",
     na.value  = "white", low = "white", high = "darkgreen",
@@ -93,7 +93,7 @@ Schoenus_MCC_plot <-
   ) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
-    limits = c(-5, 68),
+    limits = c(-5, 77.5),
     breaks = label_positions,
     labels = my_labels
   ) +
@@ -104,7 +104,8 @@ Schoenus_MCC_plot <-
   theme(
     legend.position   = c(0.15, 0.85),
     legend.text.align = 1,
-    legend.background = element_blank()
+    legend.background = element_blank(),
+    plot.margin       = unit(c(0, 0, 0, 0), "cm")
   )
 
 # X-axis scaling things:
