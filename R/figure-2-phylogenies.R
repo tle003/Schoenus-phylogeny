@@ -11,6 +11,7 @@ library(ggtree)     # Multi-phylo plots
 library(jntools)    # For ::get_tips_in_ape_plot_order()
                     # (Installed with remotes::install_github("joelnitta/jntools"))
 library(patchwork)  # Figure panelling
+library(lemon)      # For ::coord_capped_cart()
 
 # Import data ------------------------------------------------------------------
 
@@ -96,6 +97,10 @@ Schoenus_MCC_plot <-
     breaks = label_positions,
     labels = my_labels
   ) +
+  # Remove empty space above, below tree
+  scale_y_continuous(limits = c(0, Ntip(Schoenus_MCC@phylo) + 1), expand = c(0, 0)) +
+  # Remove extra line at right of time axis
+  coord_capped_cart(bottom = "right") +
   theme(
     legend.position   = c(0.15, 0.85),
     legend.text.align = 1,
@@ -122,6 +127,10 @@ Schoenus_posterior_plot <-
     breaks = label_positions,
     labels = my_labels
   ) +
+  # Remove empty space above, below tree
+  scale_y_continuous(limits = c(0, Ntip(Schoenus_MCC@phylo) + 1), expand = c(0, 0)) +
+  # Remove extra line at left of time axis
+  coord_capped_cart(bottom = "left") +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
 Schoenus_tree_plots <- Schoenus_MCC_plot + Schoenus_posterior_plot
