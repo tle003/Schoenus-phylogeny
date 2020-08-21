@@ -126,7 +126,7 @@ Schoenus_MCC_plot <-
 max_tree_height <- Schoenus_posterior %>%
   map_dbl(~max(nodeHeights(.))) %>%
   max()
-label_positions <- max_tree_height - my_labels
+label_positions <- max_tree_height - c(80, 70, 60, my_labels)
 
 Schoenus_posterior_plot <-
   ggdensitree(Schoenus_posterior,
@@ -140,7 +140,7 @@ Schoenus_posterior_plot <-
   theme_tree2() +
   scale_x_reverse(name = "Ma",
     breaks = label_positions,
-    labels = my_labels
+    labels = c(80, 70, 60, my_labels)
   ) +
   # Remove empty space above, below tree
   scale_y_continuous(
