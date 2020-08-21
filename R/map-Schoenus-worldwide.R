@@ -93,7 +93,7 @@ TDWG_level3_df <- merge(TDWG_level3, TDWG_level3_df, by = "id", all = TRUE)
 # Tidy data some more
 TDWG_level3_df_tidy <- TDWG_level3_df %>%
   as_tibble() %>%
-  select(long, lat, group, Count) %>%
+  dplyr::select(long, lat, group, Count) %>%
   rename(richness = Count) %>%
   mutate(richness = ifelse(richness == 0, NA, richness)) %>%
   mutate(richness =
