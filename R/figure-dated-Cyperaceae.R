@@ -27,9 +27,7 @@ Schoeneae_MRCA_node <- MCC_tree@phylo %>%
     "Gymnoschoenus_sphaerocephalus"
   ))
 
-MCC_tree@phylo$tip.label <- MCC_tree@phylo$tip.label %>%
-  str_replace("Schoenus_", "S._") %>%
-  str_replace("_", " ")
+MCC_tree@phylo$tip.label <- str_replace(MCC_tree@phylo$tip.label, "_", " ")
 
 # Plot -------------------------------------------------------------------------
 
