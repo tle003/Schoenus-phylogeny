@@ -53,6 +53,85 @@ Cape_clade_node <- getMRCA(MCC_tree@phylo, c("Schoenus_dregeanus", "Schoenus_aus
 
 MCC_tree@phylo$tip.label <- str_replace(MCC_tree@phylo$tip.label, "_", " ")
 
+# Clades to collapse
+subtribes <- read_csv("data/Schoeneae-subtribes.csv")
+as.data.frame(subtribes)
+
+# TODO: funcionalise
+Caustiinae_node <- MCC_tree@phylo %>%
+  getMRCA(c(
+    .$tip.label[str_detect(.$tip.label,
+      paste0("(", paste(subtribes$Genus[1:2], collapse = "|"), ").+")
+    )],
+    paste(subtribes$Genus[[3]], subtribes$Species[[3]])
+  ))
+Gahniinae_node <- MCC_tree@phylo %>%
+  getMRCA(c(
+    .$tip.label[str_detect(.$tip.label,
+      paste0("(", paste(subtribes$Genus[4:7], collapse = "|"), ").+")
+    )]
+  ))
+Lepidosperminae_node <- MCC_tree@phylo %>%
+  getMRCA(c(
+    paste(subtribes$Genus[[8]], subtribes$Species[[8]]),
+    .$tip.label[str_detect(.$tip.label,
+      paste0("(", paste(subtribes$Genus[9:11], collapse = "|"), ").+")
+    )]
+  ))
+Oreobolus_node <- MCC_tree@phylo %>%
+  getMRCA(c(
+    .$tip.label[str_detect(.$tip.label,
+      paste0("(", paste(subtribes$Genus[12:16], collapse = "|"), ").+")
+    )]
+  ))
+#Tricostulariinae_species <- MCC_tree@phylo %>%
+#  {c(
+#    paste(subtribes$Genus[[19]], subtribes$Species[[19]]),
+#    .$tip.label[str_detect(.$tip.label,
+#      paste0("(", paste(subtribes$Genus[c(18, 20:25)], collapse = "|"), ").+")
+#    )] %>%
+#    (function(x) {
+#      x[x != paste(subtribes$Genus[[3]], subtribes$Species[[3]])]
+#    })() %>%
+#    (function(x) {
+#      x[x != paste(subtribes$Genus[[8]], subtribes$Species[[8]])]
+#    })()
+#  )}
+#foo <- MCC_tree@phylo
+#foo$tip.label <- ifelse(foo$tip.label %in% Tricostulariinae_species, foo$tip.label, " ")
+#plotTree(foo, fsize = 0.25)
+Tricostulariinae_node <- MCC_tree@phylo %>%
+  getMRCA(c(
+    paste(subtribes$Genus[[19]], subtribes$Species[[19]]),
+    .$tip.label[str_detect(.$tip.label,
+      paste0("(", paste(subtribes$Genus[c(18, 20:25)], collapse = "|"), ").+")
+    )] %>%
+    (function(x) {
+      x[x != paste(subtribes$Genus[[3]], subtribes$Species[[3]])]
+    })() %>%
+    (function(x) {
+      x[x != paste(subtribes$Genus[[8]], subtribes$Species[[8]])]
+    })() %>%
+    (function(x) {
+      x[x != "Anthelepis paludosa"]
+    })()
+  ))
+Gymnoschoeninae_node <- MCC_tree@phylo %>%
+  getMRCA(c(
+    .$tip.label[str_detect(.$tip.label,
+      paste0("(", paste(subtribes$Genus[26:27], collapse = "|"), ").+")
+    )]
+  ))
+
+clades_to_collapse <- list(
+  Caustiinae       = Caustiinae_node,
+  Gahniinae        = Gahniinae_node,
+  Lepidosperminae  = Lepidosperminae_node,
+  Oreobolus        = Oreobolus_node,
+  Tricostulariinae = Tricostulariinae_node,
+  Gymnoschoeninae  = Gymnoschoeninae_node
+)
+
 # Plot -------------------------------------------------------------------------
 
 # X-axis scaling things:
@@ -103,15 +182,21 @@ my_panel_grid <- MCC_tree@phylo %>%
 Cyperaceae_tree_plot <-
   ggtree(MCC_tree, ladderize = FALSE) +  # (already ladderized above!)
   geom_rootedge(rootedge = -10) +
+  geom_cladelabel(node = clades_to_collapse$Caustiinae, label = "Caustiinae", offset = clade_label_offset, extend = clade_bar_extension) +
+  geom_cladelabel(node = clades_to_collapse$Gahniinae, label = "Gahniinae", offset = clade_label_offset, extend = clade_bar_extension) +
+  geom_cladelabel(node = clades_to_collapse$Lepidosperminae, label = "Lepidosperminae", offset = clade_label_offset, extend = clade_bar_extension) +
+  geom_cladelabel(node = clades_to_collapse$Oreobolus, label = paste0('italic("Oreobolus")~clade'), offset = clade_label_offset, extend = clade_bar_extension, parse = TRUE) +
+  geom_cladelabel(node = clades_to_collapse$Tricostulariinae, label = "Tricostulariinae", offset = clade_label_offset, extend = clade_bar_extension) +
+  geom_cladelabel(node = clades_to_collapse$Gymnoschoeninae, label = "Gymnoschoeninae", offset = clade_label_offset, extend = clade_bar_extension) +
   geom_tile(
     data = my_panel_grid,
     aes(x, species, alpha = alpha),
     fill = "black"
   ) +
   scale_alpha_manual(values = c(0, 0.2), guide = FALSE) +
-  geom_hilight(node = Clade_A_node,    fill = "black", alpha = 0.125) +
-  geom_hilight(node = Clade_B_node,    fill = "black", alpha = 0.250) +
-  geom_hilight(node = Cape_clade_node, fill = "blue",  alpha = 0.125) +
+  geom_cladelabel(node = Clade_A_node, label = "Clade A", offset = clade_label_offset - 20, extend = clade_bar_extension) +
+  geom_cladelabel(node = Clade_B_node, label = "Clade B", offset = clade_label_offset - 20, extend = clade_bar_extension) +
+  geom_cladelabel(node = Cape_clade_node, label = "Cape clade", offset = clade_label_offset - 45, extend = clade_bar_extension) +
   #annotate(geom = "text",
   #  label = "Clade A",
   #  x = 11, y = Ntip(Schoenus_MCC@phylo)   - 1
@@ -136,8 +221,8 @@ Cyperaceae_tree_plot <-
     alpha  = 0.4,
     colour = "darkblue"
   ) +
-  #geom_hilight(Schoenus_MRCA_node,  fill = "darkblue",  alpha = 0.25) +
-  #geom_hilight(Schoeneae_MRCA_node, fill = "lightblue", alpha = 0.25) +
+  geom_cladelabel(node = Schoenus_MRCA_node, label = paste0('italic("Schoenus")'), offset = clade_label_offset, extend = clade_bar_extension, parse = TRUE) +
+  geom_cladelabel(node = Schoeneae_MRCA_node, label = "Schoeneae", offset = clade_label_offset + 45, extend = clade_bar_extension) +
   theme_tree2() +
   scale_x_reverse(name = "Ma",
     limits   = c(135, -10),
