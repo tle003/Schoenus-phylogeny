@@ -105,9 +105,9 @@ Schoenus_MCC_plot <-
     labels = my_labels
   ) +
   theme(
-    legend.position   = c(0.150, 0.875),
+    legend.position   = c(0.10, 0.85),
     legend.text.align = 1,
-    plot.margin       = unit(c(0, 0, 0, 0), "cm")
+    legend.background = element_blank()
   )
 
 # X-axis scaling things:
