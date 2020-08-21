@@ -139,33 +139,6 @@ tree_height <- max(nodeHeights(MCC_tree@phylo))
 my_labels <- c(90, 80, 70, 60, 50, 40, 30, 20, 10, 0)
 label_positions <- tree_height - my_labels
 
-# Try and fix node HPDs plotting backwards
-nodes_with_future_HPDs <- MCC_tree@data %>%
-  select(node, height_0.95_HPD) %>%
-  unnest() %>%
-  filter(height_0.95_HPD > tree_height) %>%
-  pull(node)
-MCC_tree@data %>%
-  filter(node %in% nodes_with_future_HPDs) %>%
-  as.data.frame()
-
-# This doesn't work:
-#MCC_tree@data <- MCC_tree@data %>%
-#  mutate(height_0.95_HPD2 = purrr::map(height_0.95_HPD, rev))
-
-# Neither does this:
-#MCC_tree@data$height_0.95_HPD <- MCC_tree@data$height_0.95_HPD %>%
-#  purrr::map(rev)
-#  purrr::map(~{. - tree_height})
-
-# Temporary solution used below:
-# plot tree right-to-left instead of left-to-right
-# (Don't know why, but this seems to work best)
-
-# Alternatives:
-# - FigTree
-# - phytools:: + base::
-
 # Make data for grey and white blocks for timescale-background of tree
 my_panel_grid <- MCC_tree@phylo %>%
   get_tips_in_ape_plot_order() %>%
@@ -205,12 +178,6 @@ Cyperaceae_tree_plot <-
     parse = TRUE,
     size = 2.5,
     offset = -40
-  ) +
-  geom_range("height_0.95_HPD",
-    center = "height_median",
-    size   = 1.5,
-    alpha  = 0.4,
-    colour = "darkblue"
   ) +
   geom_cladelabel(node = Schoenus_MRCA_node, label = paste0('italic("Schoenus")'), offset = clade_label_offset, extend = clade_bar_extension, parse = TRUE) +
   geom_cladelabel(node = Schoeneae_MRCA_node, label = "Schoeneae", offset = clade_label_offset + 45, extend = clade_bar_extension) +
