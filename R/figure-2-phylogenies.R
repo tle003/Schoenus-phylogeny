@@ -85,9 +85,18 @@ Schoenus_MCC_plot <-
   stat_hilight(node = Clade_A_node,    fill = "black", alpha = 0.125, xmin = 5) +
   stat_hilight(node = Clade_B_node,    fill = "black", alpha = 0.250, xmin = 5) +
   stat_hilight(node = Cape_clade_node, fill = "blue",  alpha = 0.125) +
-  annotate(geom = "text", x = 11, y = Ntip(Schoenus_MCC@phylo)   - 1, label = "Clade A") +
-  annotate(geom = "text", x = 11, y = Ntip(Schoenus_MCC@phylo)/2 - 1, label = "Clade B") +
-  annotate(geom = "text", x = 31, y = Ntip(Schoenus_MCC@phylo)/2 - 1, label = "Cape clade") +
+  annotate(geom = "text",
+    label = "Clade A",
+    x = 11, y = Ntip(Schoenus_MCC@phylo)   - 1
+  ) +
+  annotate(geom = "text",
+    label = "Clade B",
+    x = 11, y = Ntip(Schoenus_MCC@phylo)/2 - 1
+  ) +
+  annotate(geom = "text",
+    label = "Cape clade",
+    x = 31, y = Ntip(Schoenus_MCC@phylo)/2 - 1
+  ) +
   geom_nodepoint(aes(fill = posterior), pch = 21, size = 2.5) +
   scale_fill_gradient(name = "PP",
     na.value  = "white", low = "white", high = "darkgreen",
@@ -101,7 +110,10 @@ Schoenus_MCC_plot <-
     labels = my_labels
   ) +
   # Remove empty space above, below tree
-  scale_y_continuous(limits = c(0, Ntip(Schoenus_MCC@phylo) + 1), expand = c(0, 0)) +
+  scale_y_continuous(
+    limits = c(0, Ntip(Schoenus_MCC@phylo) + 1),
+    expand = c(0, 0)
+  ) +
   # Remove extra line at right of time axis
   coord_capped_cart(bottom = "right") +
   theme(
@@ -131,7 +143,10 @@ Schoenus_posterior_plot <-
     labels = my_labels
   ) +
   # Remove empty space above, below tree
-  scale_y_continuous(limits = c(0, Ntip(Schoenus_MCC@phylo) + 1), expand = c(0, 0)) +
+  scale_y_continuous(
+    limits = c(0, Ntip(Schoenus_MCC@phylo) + 1),
+    expand = c(0, 0)
+  ) +
   # Remove extra line at left of time axis
   coord_capped_cart(bottom = "left") +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
