@@ -105,7 +105,7 @@ Schoenus_MCC_plot <-
   # Remove extra line at right of time axis
   coord_capped_cart(bottom = "right") +
   theme(
-    legend.position   = c(0.15, 0.85),
+    legend.position   = c(0.08, 0.80),
     legend.text.align = 1,
     legend.background = element_blank()
   )
