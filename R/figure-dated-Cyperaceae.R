@@ -14,20 +14,61 @@ library(lemon)    # For ::coord_capped_cart()
 
 MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
 
+subtribes <- read_csv("data/Schoeneae-subtribes.csv")
+
+# Tidy data --------------------------------------------------------------------
+
 MCC_tree@phylo <- MCC_tree@phylo %>%
   force.ultrametric(method = "extend") %>%
   ladderize(right = FALSE)
 
-Schoenus_MRCA_node <- MCC_tree@phylo %>%
-  getMRCA(.$tip.label[str_detect(.$tip.label, "Schoenus")])
+MCC_tree@phylo$tip.label <- str_replace(MCC_tree@phylo$tip.label, "_", " ")
 
-Schoeneae_MRCA_node <- MCC_tree@phylo %>%
-  getMRCA(c(
-    .$tip.label[str_detect(.$tip.label, "Schoenus")],
-    "Gymnoschoenus_sphaerocephalus"
-  ))
+subtribes <- subtribes %>%
+  mutate(taxa = str_remove(paste(genus, species), " NA"))
 
-Mapanioid_genera <- c(
+# Identify nodes for clades to highlight ---------------------------------------
+
+# .... Define helper functions -------------------------------------------------
+
+find_node <- function(tree, tip_pattern,
+                            additional_taxa = NULL,
+                            taxa_to_exclude = NULL) {
+  pattern_matches <- tree$tip.label[str_detect(tree$tip.label, tip_pattern)]
+  taxa <- c(pattern_matches, additional_taxa)
+  taxa <- taxa[!(taxa %in% taxa_to_exclude)]
+  getMRCA(tree, taxa)
+}
+
+vector2regex <- function(...) {
+  x <- c(...)
+  paste0("(",
+    paste(x, collapse = "|"),
+  ").+")
+}
+
+find_subtribe <- function(tree,
+                          subtribe_name, subtribes_df,
+                          additional_taxa_to_exclude = NULL) {
+  genera <- subtribes_df %>%
+    filter(subtribe == subtribe_name, is.na(species)) %>%
+    pull(taxa)
+  additional_taxa <- subtribes_df %>%
+    filter(subtribe == subtribe_name, !is.na(species)) %>%
+    pull(taxa)
+  taxa_to_exclude <- subtribes_df %>%
+    filter(subtribe != subtribe_name, genus %in% genera) %>%
+    pull(taxa)
+  find_node(tree,
+    tip_pattern = vector2regex(genera),
+    additional_taxa,
+    c(taxa_to_exclude, additional_taxa_to_exclude)
+  )
+}
+
+# .... Outgroup taxa -----------------------------------------------------------
+
+Mapanioid_genera <- vector2regex(  # Source: Wikispecies (Accessed 2020-08-21)
   "Capitularina",
   "Chorizandra",
   "Chrysitrix",
@@ -40,88 +81,17 @@ Mapanioid_genera <- c(
   "Principina",
   "Scirpodendron"
 )
+Mapanioideae_node <- find_node(MCC_tree@phylo, Mapanioid_genera)
 
-Mapanioideae_MRCA_node <- MCC_tree@phylo %>%
-  getMRCA(.$tip.label[str_detect(.$tip.label,
-    paste0("(", paste(Mapanioid_genera, collapse = "|"), ")")
-  )])
+# .... Other-Schoeneae subtribes -----------------------------------------------
 
-# Get node numbers for clades to highlight
-Clade_A_node    <- getMRCA(MCC_tree@phylo, c("Schoenus_insolitus", "Schoenus_sculptus"))
-Clade_B_node    <- getMRCA(MCC_tree@phylo, c("Schoenus_falcatus",  "Schoenus_australis"))
-Cape_clade_node <- getMRCA(MCC_tree@phylo, c("Schoenus_dregeanus", "Schoenus_australis"))
-
-MCC_tree@phylo$tip.label <- str_replace(MCC_tree@phylo$tip.label, "_", " ")
-
-# Clades to collapse
-subtribes <- read_csv("data/Schoeneae-subtribes.csv")
-as.data.frame(subtribes)
-
-# TODO: funcionalise
-Caustiinae_node <- MCC_tree@phylo %>%
-  getMRCA(c(
-    .$tip.label[str_detect(.$tip.label,
-      paste0("(", paste(subtribes$Genus[1:2], collapse = "|"), ").+")
-    )],
-    paste(subtribes$Genus[[3]], subtribes$Species[[3]])
-  ))
-Gahniinae_node <- MCC_tree@phylo %>%
-  getMRCA(c(
-    .$tip.label[str_detect(.$tip.label,
-      paste0("(", paste(subtribes$Genus[4:7], collapse = "|"), ").+")
-    )]
-  ))
-Lepidosperminae_node <- MCC_tree@phylo %>%
-  getMRCA(c(
-    paste(subtribes$Genus[[8]], subtribes$Species[[8]]),
-    .$tip.label[str_detect(.$tip.label,
-      paste0("(", paste(subtribes$Genus[9:11], collapse = "|"), ").+")
-    )]
-  ))
-Oreobolus_node <- MCC_tree@phylo %>%
-  getMRCA(c(
-    .$tip.label[str_detect(.$tip.label,
-      paste0("(", paste(subtribes$Genus[12:16], collapse = "|"), ").+")
-    )]
-  ))
-#Tricostulariinae_species <- MCC_tree@phylo %>%
-#  {c(
-#    paste(subtribes$Genus[[19]], subtribes$Species[[19]]),
-#    .$tip.label[str_detect(.$tip.label,
-#      paste0("(", paste(subtribes$Genus[c(18, 20:25)], collapse = "|"), ").+")
-#    )] %>%
-#    (function(x) {
-#      x[x != paste(subtribes$Genus[[3]], subtribes$Species[[3]])]
-#    })() %>%
-#    (function(x) {
-#      x[x != paste(subtribes$Genus[[8]], subtribes$Species[[8]])]
-#    })()
-#  )}
-#foo <- MCC_tree@phylo
-#foo$tip.label <- ifelse(foo$tip.label %in% Tricostulariinae_species, foo$tip.label, " ")
-#plotTree(foo, fsize = 0.25)
-Tricostulariinae_node <- MCC_tree@phylo %>%
-  getMRCA(c(
-    paste(subtribes$Genus[[19]], subtribes$Species[[19]]),
-    .$tip.label[str_detect(.$tip.label,
-      paste0("(", paste(subtribes$Genus[c(18, 20:25)], collapse = "|"), ").+")
-    )] %>%
-    (function(x) {
-      x[x != paste(subtribes$Genus[[3]], subtribes$Species[[3]])]
-    })() %>%
-    (function(x) {
-      x[x != paste(subtribes$Genus[[8]], subtribes$Species[[8]])]
-    })() %>%
-    (function(x) {
-      x[x != "Anthelepis paludosa"]
-    })()
-  ))
-Gymnoschoeninae_node <- MCC_tree@phylo %>%
-  getMRCA(c(
-    .$tip.label[str_detect(.$tip.label,
-      paste0("(", paste(subtribes$Genus[26:27], collapse = "|"), ").+")
-    )]
-  ))
+Caustiinae_node       <- find_subtribe(MCC_tree@phylo, "Caustiinae",       subtribes)
+Gahniinae_node        <- find_subtribe(MCC_tree@phylo, "Gahniinae",        subtribes)
+Lepidosperminae_node  <- find_subtribe(MCC_tree@phylo, "Lepidosperminae",  subtribes)
+Oreobolus_node        <- find_subtribe(MCC_tree@phylo, "Oreobolus",        subtribes)
+Tricostulariinae_node <- find_subtribe(MCC_tree@phylo, "Tricostulariinae", subtribes,
+                           additional_taxa_to_exclude = "Anthelepis paludosa")
+Gymnoschoeninae_node  <- find_subtribe(MCC_tree@phylo, "Gymnoschoeninae",  subtribes)
 
 clades_to_collapse <- list(
   Caustiinae       = Caustiinae_node,
@@ -131,6 +101,14 @@ clades_to_collapse <- list(
   Tricostulariinae = Tricostulariinae_node,
   Gymnoschoeninae  = Gymnoschoeninae_node
 )
+
+# .... Ingroup taxa ------------------------------------------------------------
+
+Schoeneae_node  <- find_node(MCC_tree@phylo, "Schoenus", "Gymnoschoenus sphaerocephalus")
+Schoenus_node   <- find_node(MCC_tree@phylo, "Schoenus")
+Clade_A_node    <- find_node(MCC_tree@phylo, "Schoenus insolitus", "Schoenus sculptus")
+Clade_B_node    <- find_node(MCC_tree@phylo, "Schoenus falcatus",  "Schoenus australis")
+Cape_clade_node <- find_node(MCC_tree@phylo, "Schoenus dregeanus", "Schoenus australis")
 
 # Plot -------------------------------------------------------------------------
 
@@ -179,8 +157,8 @@ Cyperaceae_tree_plot <-
     size = 2.5,
     offset = 2
   ) +
-  geom_cladelabel(node = Schoenus_MRCA_node, label = paste0('italic("Schoenus")'), offset = clade_label_offset, extend = clade_bar_extension, parse = TRUE) +
-  geom_cladelabel(node = Schoeneae_MRCA_node, label = "Schoeneae", offset = clade_label_offset + 45, extend = clade_bar_extension) +
+  geom_cladelabel(node = Schoenus_node, label = paste0('italic("Schoenus")'), offset = clade_label_offset, extend = clade_bar_extension, parse = TRUE) +
+  geom_cladelabel(node = Schoeneae_node, label = "Schoeneae", offset = clade_label_offset + 45, extend = clade_bar_extension) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
     limits   = c(-10, 235),
