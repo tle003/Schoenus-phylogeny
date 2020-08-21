@@ -28,7 +28,7 @@ Schoenus_MRCA_node <- MCC_tree@phylo %>%
 Schoenus_MCC <- MCC_tree %>%
   treeio::tree_subset(Schoenus_MRCA_node, levels_back = 0)
 Schoenus_MCC@phylo <- Schoenus_MCC@phylo %>%
-  ladderize(right = TRUE) %>%
+  ladderize(right = FALSE) %>%
   force.ultrametric(method = "extend")
 
 # Tidy tip labels
@@ -82,7 +82,8 @@ my_labels <- c(50, 40, 30, 20, 10, 0)
 label_positions <- tree_height - my_labels
 
 Schoenus_MCC_plot <-
-  ggtree(Schoenus_MCC) +
+  ggtree(Schoenus_MCC, ladderize = FALSE) +  # (already ladderized above!)
+  geom_rootedge(rootedge = 5) +
   geom_tiplab(
     aes(label = paste0('italic(\"', label, '\")')),
     parse = TRUE,
@@ -100,12 +101,12 @@ Schoenus_MCC_plot <-
   ) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
-    limits = c(0, 68),
+    limits = c(-5, 68),
     breaks = label_positions,
     labels = my_labels
   ) +
   theme(
-    legend.position   = c(0.10, 0.85),
+    legend.position   = c(0.15, 0.85),
     legend.text.align = 1,
     legend.background = element_blank()
   )
