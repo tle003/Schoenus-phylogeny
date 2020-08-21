@@ -85,6 +85,9 @@ Schoenus_MCC_plot <-
   stat_hilight(node = Clade_A_node,    fill = "black", alpha = 0.1, xmin = 5) +
   stat_hilight(node = Clade_B_node,    fill = "black", alpha = 0.2, xmin = 5) +
   stat_hilight(node = Cape_clade_node, fill = "blue", alpha = 0.1) +
+  annotate(geom = "text", x = 11, y = Ntip(Schoenus_MCC@phylo)   - 1, label = "Clade A") +
+  annotate(geom = "text", x = 11, y = Ntip(Schoenus_MCC@phylo)/2 - 1, label = "Clade B") +
+  annotate(geom = "text", x = 31, y = Ntip(Schoenus_MCC@phylo)/2 - 1, label = "Cape clade") +
   geom_nodepoint(aes(fill = posterior), pch = 21, size = 2.5) +
   scale_fill_gradient(name = "PP",
     na.value  = "white", low = "white", high = "darkgreen",
