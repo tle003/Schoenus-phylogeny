@@ -27,6 +27,25 @@ Schoeneae_MRCA_node <- MCC_tree@phylo %>%
     "Gymnoschoenus_sphaerocephalus"
   ))
 
+Mapanioid_genera <- c(
+  "Capitularina",
+  "Chorizandra",
+  "Chrysitrix",
+  "Diplasia",
+  "Exocarya",
+  "Hypolytrum",
+  "Lepironia",
+  "Mapania",
+  "Paramapania",
+  "Principina",
+  "Scirpodendron"
+)
+
+Mapanioideae_MRCA_node <- MCC_tree@phylo %>%
+  getMRCA(.$tip.label[str_detect(.$tip.label,
+    paste0("(", paste(Mapanioid_genera, collapse = "|"), ")")
+  )])
+
 MCC_tree@phylo$tip.label <- str_replace(MCC_tree@phylo$tip.label, "_", " ")
 
 # Plot -------------------------------------------------------------------------
@@ -91,6 +110,7 @@ Cyperaceae_tree_plot <-
     size = 2.5,
     offset = -40
   ) +
+  geom_hilight(node = Mapanioideae_MRCA_node) +
   geom_range("height_0.95_HPD",
     center = "height_median",
     size   = 1.5,
