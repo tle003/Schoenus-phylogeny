@@ -16,7 +16,7 @@ MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG
 
 MCC_tree@phylo <- MCC_tree@phylo %>%
   force.ultrametric(method = "extend") %>%
-  ladderize(right = TRUE)
+  ladderize(right = FALSE)
 
 Schoenus_MRCA_node <- MCC_tree@phylo %>%
   getMRCA(.$tip.label[str_detect(.$tip.label, "Schoenus")])
