@@ -130,7 +130,6 @@ Cyperaceae_tree_plot <-
     size = 2.5,
     offset = -40
   ) +
-  geom_hilight(node = Mapanioideae_MRCA_node) +
   geom_range("height_0.95_HPD",
     center = "height_median",
     size   = 1.5,
