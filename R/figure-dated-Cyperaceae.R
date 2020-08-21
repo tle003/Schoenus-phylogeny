@@ -200,18 +200,6 @@ Cyperaceae_tree_plot <-
   geom_cladelabel(node = Clade_A_node, label = "Clade A", offset = clade_label_offset - 20, extend = clade_bar_extension) +
   geom_cladelabel(node = Clade_B_node, label = "Clade B", offset = clade_label_offset - 20, extend = clade_bar_extension) +
   geom_cladelabel(node = Cape_clade_node, label = "Cape clade", offset = clade_label_offset - 45, extend = clade_bar_extension) +
-  #annotate(geom = "text",
-  #  label = "Clade A",
-  #  x = 11, y = Ntip(Schoenus_MCC@phylo)   - 1
-  #) +
-  #annotate(geom = "text",
-  #  label = "Clade B",
-  #  x = 11, y = Ntip(Schoenus_MCC@phylo)/2 - 1
-  #) +
-  #annotate(geom = "text",
-  #  label = "Cape clade",
-  #  x = 31, y = Ntip(Schoenus_MCC@phylo)/2 - 1
-  #) +
   geom_tiplab(
     aes(label = paste0('italic(\"', label, '\")')),
     parse = TRUE,
