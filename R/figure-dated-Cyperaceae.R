@@ -110,6 +110,7 @@ my_labels <- c(90, 80, 70, 60, 50, 40, 30, 20, 10, 0)
 label_positions <- tree_height - my_labels
 
 # .... Make data for grey and white blocks for timescale-background of tree ----
+
 my_panel_grid <- Schoeneae_tree@phylo %>%
   get_tips_in_ape_plot_order() %>%
   map_dfr(~ tibble(
