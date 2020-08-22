@@ -83,7 +83,7 @@ Mapanioid_genera <- vector2regex(  # Source: Wikispecies (Accessed 2020-08-21)
 )
 Mapanioideae_node <- find_node(MCC_tree@phylo, Mapanioid_genera)
 
-# .... Other-Schoeneae subtribes -----------------------------------------------
+# .... Other Schoeneae subtribes -----------------------------------------------
 
 subtribe_names <- unique(na.exclude(subtribes$subtribe))
 clades_to_collapse <- vector("list", length(subtribe_names))
