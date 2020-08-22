@@ -152,7 +152,10 @@ Cyperaceae_tree_plot <-
     labels   = my_labels
   ) +
   # Remove empty space above, below tree
-  scale_y_continuous(limits = c(0, Ntip(Schoeneae_tree@phylo) + 1), expand = c(0, 0)) +
+  scale_y_continuous(
+    limits = c(0, Ntip(Schoeneae_tree@phylo) + 1),
+    expand = c(0, 0)
+  ) +
   # Remove extra line at left of time axes
   coord_capped_cart(bottom = "right") +
   # Move time axes' titles to the left
