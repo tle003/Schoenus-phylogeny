@@ -100,7 +100,7 @@ clades_to_collapse <- purrr::map(subtribe_names, ~find_subtribe(
 ))
 names(clades_to_collapse) <- subtribe_names
 
-# .... Ingroup taxa ------------------------------------------------------------
+# .... Ingroup clades ----------------------------------------------------------
 
 Schoeneae_node <-
   find_node(MCC_tree@phylo, "Schoenus", "Gymnoschoenus sphaerocephalus")
