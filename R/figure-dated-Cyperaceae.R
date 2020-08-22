@@ -170,9 +170,8 @@ clade_label_offset <- 85
 clade_bar_extension <- 0.2
 
 # Label other Schoeneae subtribes
-Cyperaceae_tree_plot2 <- Cyperaceae_tree_plot
 for (subtribe in subtribe_names) {
-  Cyperaceae_tree_plot2 <- Cyperaceae_tree_plot2 +
+  Cyperaceae_tree_plot <- Cyperaceae_tree_plot +
     geom_cladelabel(clades_to_collapse[[subtribe]],
       label =
         if (subtribe == "Oreobolus") {
@@ -187,7 +186,7 @@ for (subtribe in subtribe_names) {
 }
 
 # Label ingroup clades
-Cyperaceae_tree_plot2 +
+Cyperaceae_tree_plot <- Cyperaceae_tree_plot +
   geom_cladelabel(Schoenus_node, paste0('italic("Schoenus")'), parse  = TRUE,
     offset = clade_label_offset,
     extend = clade_bar_extension
