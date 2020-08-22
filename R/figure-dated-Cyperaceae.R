@@ -150,7 +150,11 @@ Cyperaceae_tree_plot <-
     size = 2.5,
     offset = 2
   ) +
-  geom_range("height_0.95_HPD", center = "height_median", size = 2, alpha = 0.5, colour = "darkblue") +
+  geom_range(
+    "height_0.95_HPD",
+    colour = "darkblue", alpha = 0.5,
+    size = 1.5
+  ) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
     limits   = c(-5, 105),  # very wide to make space for annotations (below)
