@@ -188,17 +188,32 @@ Cyperaceae_tree_plot <- Cyperaceae_tree_plot +
     offset = clade_label_offset,
     extend = clade_bar_extension
   ) +
-  geom_cladelabel(Clade_A_node, "Clade A",
-    offset = clade_label_offset - 20,
-    extend = clade_bar_extension
+  stat_hilight(
+    node = Clade_A_node,
+    colour = "darkblue", xmin = 20,
+    fill = NA, alpha = NA
   ) +
-  geom_cladelabel(Clade_B_node, "Clade B",
-    offset = clade_label_offset - 20,
-    extend = clade_bar_extension
+  stat_hilight(
+    node = Clade_B_node,
+    colour = "darkblue", xmin = 20,
+    fill = NA, alpha = NA
   ) +
-  geom_cladelabel(Cape_clade_node, "Cape clade",
-    offset = clade_label_offset - 45,
-    extend = clade_bar_extension
+  stat_hilight(
+    node = Cape_clade_node,
+    colour = "darkblue",
+    fill = NA, alpha = NA
+  ) +
+  annotate(
+    label = "Clade A", geom = "text",
+    x = 25, y = Ntip(Schoeneae_tree@phylo) - 2
+  ) +
+  annotate(
+    label = "Clade B", geom = "text",
+    x = 25, y = (0.6 * Ntip(Schoeneae_tree@phylo)) - 2
+  ) +
+  annotate(
+    label = "Cape clade", geom = "text",
+    x = 42, y = (0.6 * Ntip(Schoeneae_tree@phylo)) - 2
   )
 
 # Save plot --------------------------------------------------------------------
