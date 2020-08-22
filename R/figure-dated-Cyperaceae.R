@@ -137,7 +137,7 @@ Cyperaceae_tree_plot <-
     aes(x, species, alpha = alpha),
     fill = "black"
   ) +
-  scale_alpha_manual(values = c(0, 0.2), guide = FALSE) +
+  scale_alpha_manual(values = c(0, 0.1), guide = FALSE) +
   geom_tiplab(
     aes(label = paste0('italic(\"', label, '\")')),
     parse = TRUE,
