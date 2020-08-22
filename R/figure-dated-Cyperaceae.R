@@ -55,10 +55,7 @@ find_subtribe <- function(tree,
 
 # Tidy data --------------------------------------------------------------------
 
-MCC_tree@phylo <- MCC_tree@phylo %>%
-  force.ultrametric(method = "extend") %>%
-  ladderize(right = FALSE)
-
+MCC_tree@phylo <- force.ultrametric(MCC_tree@phylo, method = "extend")
 MCC_tree@phylo$tip.label <- str_replace(MCC_tree@phylo$tip.label, "_", " ")
 
 # Prune tree to Schoeneae-only
@@ -125,8 +122,15 @@ my_panel_grid <- Schoeneae_tree@phylo %>%
 
 # .... Main plot ---------------------------------------------------------------
 
+Schoeneae_tree3 <- Schoeneae_tree
+Schoeneae_tree3@data <- Schoeneae_tree3@data %>%
+  mutate(
+    height          =                              tree_height - tree_height,
+    height_median   =                              tree_height - height_median,
+    height_0.95_HPD = purrr::map(height_0.95_HPD, ~tree_height - .)
+  )
 Cyperaceae_tree_plot <-
-  ggtree(Schoeneae_tree, ladderize = FALSE) +  # (already ladderized above!)
+  ggtree(Schoeneae_tree3, ladderize = TRUE) +
   geom_rootedge(rootedge = 10) +
   geom_tile(
     data = my_panel_grid,
@@ -140,6 +144,7 @@ Cyperaceae_tree_plot <-
     size = 2.5,
     offset = 2
   ) +
+  geom_range("height_0.95_HPD", center = "height_median", size = 2, alpha = 0.5, colour = "darkblue") +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
     limits   = c(-5, 105),  # very wide to make space for annotations (below)
