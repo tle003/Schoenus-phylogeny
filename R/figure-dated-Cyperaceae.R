@@ -100,11 +100,16 @@ names(clades_to_collapse) <- subtribe_names
 
 # .... Ingroup taxa ------------------------------------------------------------
 
-Schoeneae_node  <- find_node(MCC_tree@phylo, "Schoenus", "Gymnoschoenus sphaerocephalus")
-Schoenus_node   <- find_node(MCC_tree@phylo, "Schoenus")
-Clade_A_node    <- find_node(MCC_tree@phylo, "Schoenus insolitus", "Schoenus sculptus")
-Clade_B_node    <- find_node(MCC_tree@phylo, "Schoenus falcatus",  "Schoenus australis")
-Cape_clade_node <- find_node(MCC_tree@phylo, "Schoenus dregeanus", "Schoenus australis")
+Schoeneae_node <-
+  find_node(MCC_tree@phylo, "Schoenus", "Gymnoschoenus sphaerocephalus")
+Schoenus_node <-
+  find_node(MCC_tree@phylo, "Schoenus")
+Clade_A_node <-
+  find_node(MCC_tree@phylo, "Schoenus insolitus", "Schoenus sculptus")
+Clade_B_node <-
+  find_node(MCC_tree@phylo, "Schoenus falcatus",  "Schoenus australis")
+Cape_clade_node <-
+  find_node(MCC_tree@phylo, "Schoenus dregeanus", "Schoenus australis")
 
 # Plot -------------------------------------------------------------------------
 
