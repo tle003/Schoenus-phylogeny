@@ -164,7 +164,7 @@ Cyperaceae_tree_plot <-
   geom_cladelabel(node = Schoeneae_node, label = "Schoeneae", offset = clade_label_offset + 45, extend = clade_bar_extension) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
-    limits   = c(-10, 235),
+    limits   = c(-10, 235),  # very wide to make space for annotations (below)
     breaks   = label_positions,
     labels   = my_labels
   ) +
