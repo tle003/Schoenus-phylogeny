@@ -145,17 +145,12 @@ Cyperaceae_tree_plot <-
     fill = "black"
   ) +
   scale_alpha_manual(values = c(0, 0.2), guide = FALSE) +
-  geom_cladelabel(node = Clade_A_node, label = "Clade A", offset = clade_label_offset - 20, extend = clade_bar_extension) +
-  geom_cladelabel(node = Clade_B_node, label = "Clade B", offset = clade_label_offset - 20, extend = clade_bar_extension) +
-  geom_cladelabel(node = Cape_clade_node, label = "Cape clade", offset = clade_label_offset - 45, extend = clade_bar_extension) +
   geom_tiplab(
     aes(label = paste0('italic(\"', label, '\")')),
     parse = TRUE,
     size = 2.5,
     offset = 2
   ) +
-  geom_cladelabel(node = Schoenus_node, label = paste0('italic("Schoenus")'), offset = clade_label_offset, extend = clade_bar_extension, parse = TRUE) +
-  geom_cladelabel(node = Schoeneae_node, label = "Schoeneae", offset = clade_label_offset + 45, extend = clade_bar_extension) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
     limits   = c(-10, 235),  # very wide to make space for annotations (below)
@@ -190,6 +185,29 @@ for (subtribe in subtribe_names) {
       extend = clade_bar_extension
     )
 }
+
+# Label ingroup clades
+Cyperaceae_tree_plot2 +
+  geom_cladelabel(Schoenus_node, paste0('italic("Schoenus")'), parse  = TRUE,
+    offset = clade_label_offset,
+    extend = clade_bar_extension
+  ) +
+  geom_cladelabel(Schoeneae_node, "Schoeneae",
+    offset = clade_label_offset + 45,
+    extend = clade_bar_extension
+  ) +
+  geom_cladelabel(Clade_A_node, "Clade A",
+    offset = clade_label_offset - 20,
+    extend = clade_bar_extension
+  ) +
+  geom_cladelabel(Clade_B_node, "Clade B",
+    offset = clade_label_offset - 20,
+    extend = clade_bar_extension
+  ) +
+  geom_cladelabel(Cape_clade_node, "Cape clade",
+    offset = clade_label_offset - 45,
+    extend = clade_bar_extension
+  )
 
 # Save plot --------------------------------------------------------------------
 
