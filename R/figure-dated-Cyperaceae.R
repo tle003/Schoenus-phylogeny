@@ -86,22 +86,17 @@ Mapanioideae_node <- find_node(MCC_tree@phylo, Mapanioid_genera)
 # .... Other Schoeneae subtribes -----------------------------------------------
 
 subtribe_names <- unique(na.exclude(subtribes$subtribe))
-clades_to_collapse <- vector("list", length(subtribe_names))
-names(clades_to_collapse) <- subtribe_names
-
-for (subtribe in subtribe_names) {
-  clades_to_collapse[[subtribe]] <- find_subtribe(
-    MCC_tree@phylo,
-    subtribe_name = subtribe,
-    subtribes_df  = subtribes,
-    additional_taxa_to_exclude =
-      if (subtribe == "Tricostulariinae") {
-        "Anthelepis paludosa"
-      } else {
-        NULL
-      }
+subtribe_names <- subtribe_names[subtribe_names != "Schoeninae"]
+clades_to_collapse <- purrr::map(subtribe_names, ~find_subtribe(
+  MCC_tree@phylo,
+  subtribe_name = .x,
+  subtribes_df = subtribes,
+  additional_taxa_to_exclude = ifelse(.x == "Tricostulariinae",
+    "Anthelepis paludosa",
+    NA
   )
-}
+))
+names(clades_to_collapse) <- subtribe_names
 
 # .... Ingroup taxa ------------------------------------------------------------
 
