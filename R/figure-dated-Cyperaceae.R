@@ -115,12 +115,13 @@ Cape_clade_node <-
 
 # Plot -------------------------------------------------------------------------
 
-# X-axis scaling things:
+# .... X-axis scaling things ---------------------------------------------------
+
 tree_height <- max(nodeHeights(MCC_tree@phylo))
 my_labels <- c(90, 80, 70, 60, 50, 40, 30, 20, 10, 0)
 label_positions <- tree_height - my_labels
 
-# Make data for grey and white blocks for timescale-background of tree
+# .... Make data for grey and white blocks for timescale-background of tree ----
 my_panel_grid <- MCC_tree@phylo %>%
   get_tips_in_ape_plot_order() %>%
   map_dfr(~ tibble(
@@ -133,8 +134,7 @@ my_panel_grid <- MCC_tree@phylo %>%
     as.numeric()
   )
 
-clade_label_offset <- 85
-clade_bar_extension <- 0.2
+# .... Main plot ---------------------------------------------------------------
 
 Cyperaceae_tree_plot <-
   ggtree(MCC_tree, ladderize = FALSE) +  # (already ladderized above!)
@@ -174,6 +174,11 @@ Cyperaceae_tree_plot <-
   coord_capped_cart(bottom = "right") +
   # Move time axes' titles to the left
   theme(axis.title.x = element_text(hjust = 0.35))
+
+# .... Annotations -------------------------------------------------------------
+
+clade_label_offset <- 85
+clade_bar_extension <- 0.2
 
 # Save plot --------------------------------------------------------------------
 
