@@ -138,12 +138,6 @@ my_panel_grid <- MCC_tree@phylo %>%
 
 Cyperaceae_tree_plot <-
   ggtree(MCC_tree, ladderize = FALSE) +  # (already ladderized above!)
-  geom_cladelabel(node = clades_to_collapse$Caustiinae, label = "Caustiinae", offset = clade_label_offset, extend = clade_bar_extension) +
-  geom_cladelabel(node = clades_to_collapse$Gahniinae, label = "Gahniinae", offset = clade_label_offset, extend = clade_bar_extension) +
-  geom_cladelabel(node = clades_to_collapse$Lepidosperminae, label = "Lepidosperminae", offset = clade_label_offset, extend = clade_bar_extension) +
-  geom_cladelabel(node = clades_to_collapse$Oreobolus, label = paste0('italic("Oreobolus")~clade'), offset = clade_label_offset, extend = clade_bar_extension, parse = TRUE) +
-  geom_cladelabel(node = clades_to_collapse$Tricostulariinae, label = "Tricostulariinae", offset = clade_label_offset, extend = clade_bar_extension) +
-  geom_cladelabel(node = clades_to_collapse$Gymnoschoeninae, label = "Gymnoschoeninae", offset = clade_label_offset, extend = clade_bar_extension) +
   geom_rootedge(rootedge = 10) +
   geom_tile(
     data = my_panel_grid,
@@ -179,6 +173,23 @@ Cyperaceae_tree_plot <-
 
 clade_label_offset <- 85
 clade_bar_extension <- 0.2
+
+# Label other Schoeneae subtribes
+Cyperaceae_tree_plot2 <- Cyperaceae_tree_plot
+for (subtribe in subtribe_names) {
+  Cyperaceae_tree_plot2 <- Cyperaceae_tree_plot2 +
+    geom_cladelabel(clades_to_collapse[[subtribe]],
+      label =
+        if (subtribe == "Oreobolus") {
+          paste0('italic("Oreobolus")~clade')
+        } else {
+          subtribe
+        },
+      parse  = TRUE,
+      offset = clade_label_offset,
+      extend = clade_bar_extension
+    )
+}
 
 # Save plot --------------------------------------------------------------------
 
