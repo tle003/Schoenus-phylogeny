@@ -16,20 +16,7 @@ MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG
 
 subtribes <- read_csv("data/Schoeneae-subtribes.csv")
 
-# Tidy data --------------------------------------------------------------------
-
-MCC_tree@phylo <- MCC_tree@phylo %>%
-  force.ultrametric(method = "extend") %>%
-  ladderize(right = FALSE)
-
-MCC_tree@phylo$tip.label <- str_replace(MCC_tree@phylo$tip.label, "_", " ")
-
-subtribes <- subtribes %>%
-  mutate(taxa = str_remove(paste(genus, species), " NA"))
-
-# Identify nodes for clades to highlight ---------------------------------------
-
-# .... Define helper functions -------------------------------------------------
+# Define helper functions ------------------------------------------------------
 
 find_node <- function(tree, tip_pattern,
                             additional_taxa = NULL,
@@ -66,31 +53,34 @@ find_subtribe <- function(tree,
   )
 }
 
-# .... Outgroup taxa -----------------------------------------------------------
+# Tidy data --------------------------------------------------------------------
 
-Mapanioid_genera <- vector2regex(  # Source: Wikispecies (Accessed 2020-08-21)
-  "Capitularina",
-  "Chorizandra",
-  "Chrysitrix",
-  "Diplasia",
-  "Exocarya",
-  "Hypolytrum",
-  "Lepironia",
-  "Mapania",
-  "Paramapania",
-  "Principina",
-  "Scirpodendron"
-)
-Mapanioideae_node <- find_node(MCC_tree@phylo, Mapanioid_genera)
+MCC_tree@phylo <- MCC_tree@phylo %>%
+  force.ultrametric(method = "extend") %>%
+  ladderize(right = FALSE)
 
-# TODO: cont.
+MCC_tree@phylo$tip.label <- str_replace(MCC_tree@phylo$tip.label, "_", " ")
+
+# Prune tree to Schoeneae-only
+Schoeneae_node <-
+  find_node(MCC_tree@phylo, "Schoenus", "Gymnoschoenus sphaerocephalus")
+Schoenoid_taxa <- treeio::offspring(MCC_tree, Schoeneae_node)
+non_Schoenoid_taxa <- MCC_tree@data$node %>%
+  {.[!(. %in% Schoenoid_taxa)]} %>%
+  as.numeric()
+Schoeneae_tree <- drop.tip(MCC_tree, non_Schoenoid_taxa)
+
+subtribes <- subtribes %>%
+  mutate(taxa = str_remove(paste(genus, species), " NA"))
+
+# Identify nodes for clades to highlight ---------------------------------------
 
 # .... Other Schoeneae subtribes -----------------------------------------------
 
 subtribe_names <- unique(na.exclude(subtribes$subtribe))
 subtribe_names <- subtribe_names[subtribe_names != "Schoeninae"]
 clades_to_collapse <- purrr::map(subtribe_names, ~find_subtribe(
-  MCC_tree@phylo,
+  Schoeneae_tree@phylo,
   subtribe_name = .x,
   subtribes_df = subtribes,
   additional_taxa_to_exclude = ifelse(.x == "Tricostulariinae",
@@ -102,27 +92,25 @@ names(clades_to_collapse) <- subtribe_names
 
 # .... Ingroup clades ----------------------------------------------------------
 
-Schoeneae_node <-
-  find_node(MCC_tree@phylo, "Schoenus", "Gymnoschoenus sphaerocephalus")
 Schoenus_node <-
-  find_node(MCC_tree@phylo, "Schoenus")
+  find_node(Schoeneae_tree@phylo, "Schoenus")
 Clade_A_node <-
-  find_node(MCC_tree@phylo, "Schoenus insolitus", "Schoenus sculptus")
+  find_node(Schoeneae_tree@phylo, "Schoenus insolitus", "Schoenus sculptus")
 Clade_B_node <-
-  find_node(MCC_tree@phylo, "Schoenus falcatus",  "Schoenus australis")
+  find_node(Schoeneae_tree@phylo, "Schoenus falcatus",  "Schoenus australis")
 Cape_clade_node <-
-  find_node(MCC_tree@phylo, "Schoenus dregeanus", "Schoenus australis")
+  find_node(Schoeneae_tree@phylo, "Schoenus dregeanus", "Schoenus australis")
 
 # Plot -------------------------------------------------------------------------
 
 # .... X-axis scaling things ---------------------------------------------------
 
-tree_height <- max(nodeHeights(MCC_tree@phylo))
+tree_height <- max(nodeHeights(Schoeneae_tree@phylo))
 my_labels <- c(90, 80, 70, 60, 50, 40, 30, 20, 10, 0)
 label_positions <- tree_height - my_labels
 
 # .... Make data for grey and white blocks for timescale-background of tree ----
-my_panel_grid <- MCC_tree@phylo %>%
+my_panel_grid <- Schoeneae_tree@phylo %>%
   get_tips_in_ape_plot_order() %>%
   map_dfr(~ tibble(
     x       = label_positions - 5,
@@ -130,14 +118,14 @@ my_panel_grid <- MCC_tree@phylo %>%
     alpha   = c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
   )) %>%
   mutate(species = species %>%
-    factor(levels = get_tips_in_ape_plot_order(MCC_tree@phylo)) %>%
+    factor(levels = get_tips_in_ape_plot_order(Schoeneae_tree@phylo)) %>%
     as.numeric()
   )
 
 # .... Main plot ---------------------------------------------------------------
 
 Cyperaceae_tree_plot <-
-  ggtree(MCC_tree, ladderize = FALSE) +  # (already ladderized above!)
+  ggtree(Schoeneae_tree, ladderize = FALSE) +  # (already ladderized above!)
   geom_rootedge(rootedge = 10) +
   geom_tile(
     data = my_panel_grid,
@@ -158,7 +146,7 @@ Cyperaceae_tree_plot <-
     labels   = my_labels
   ) +
   # Remove empty space above, below tree
-  scale_y_continuous(limits = c(0, Ntip(MCC_tree@phylo) + 1), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, Ntip(Schoeneae_tree@phylo) + 1), expand = c(0, 0)) +
   # Remove extra line at left of time axes
   coord_capped_cart(bottom = "right") +
   # Move time axes' titles to the left
@@ -189,10 +177,6 @@ for (subtribe in subtribe_names) {
 Cyperaceae_tree_plot <- Cyperaceae_tree_plot +
   geom_cladelabel(Schoenus_node, paste0('italic("Schoenus")'), parse  = TRUE,
     offset = clade_label_offset,
-    extend = clade_bar_extension
-  ) +
-  geom_cladelabel(Schoeneae_node, "Schoeneae",
-    offset = clade_label_offset + 45,
     extend = clade_bar_extension
   ) +
   geom_cladelabel(Clade_A_node, "Clade A",
