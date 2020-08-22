@@ -106,7 +106,7 @@ Cape_clade_node <-
 # .... X-axis scaling things ---------------------------------------------------
 
 tree_height <- max(nodeHeights(Schoeneae_tree@phylo))
-my_labels <- c(90, 80, 70, 60, 50, 40, 30, 20, 10, 0)
+my_labels <- c(70, 60, 50, 40, 30, 20, 10, 0)
 label_positions <- tree_height - my_labels
 
 # .... Make data for grey and white blocks for timescale-background of tree ----
@@ -116,7 +116,7 @@ my_panel_grid <- Schoeneae_tree@phylo %>%
   map_dfr(~ tibble(
     x       = label_positions - 5,
     species = .x,
-    alpha   = c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
+    alpha   = c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
   )) %>%
   mutate(species = species %>%
     factor(levels = get_tips_in_ape_plot_order(Schoeneae_tree@phylo)) %>%
@@ -142,7 +142,7 @@ Cyperaceae_tree_plot <-
   ) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
-    limits   = c(-10, 235),  # very wide to make space for annotations (below)
+    limits   = c(-5, 105),  # very wide to make space for annotations (below)
     breaks   = label_positions,
     labels   = my_labels
   ) +
@@ -155,7 +155,7 @@ Cyperaceae_tree_plot <-
 
 # .... Annotations -------------------------------------------------------------
 
-clade_label_offset <- 85
+clade_label_offset <- 25
 clade_bar_extension <- 0.2
 
 # Label other Schoeneae subtribes
