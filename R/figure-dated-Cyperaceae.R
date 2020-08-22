@@ -131,7 +131,7 @@ Schoeneae_tree3@data <- Schoeneae_tree3@data %>%
   )
 Cyperaceae_tree_plot <-
   ggtree(Schoeneae_tree3, ladderize = TRUE) +
-  geom_rootedge(rootedge = 10) +
+  geom_rootedge(rootedge = 5) +
   geom_tile(
     data = my_panel_grid,
     aes(x, species, alpha = alpha),
