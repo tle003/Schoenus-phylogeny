@@ -85,22 +85,23 @@ Mapanioideae_node <- find_node(MCC_tree@phylo, Mapanioid_genera)
 
 # .... Other-Schoeneae subtribes -----------------------------------------------
 
-Caustiinae_node       <- find_subtribe(MCC_tree@phylo, "Caustiinae",       subtribes)
-Gahniinae_node        <- find_subtribe(MCC_tree@phylo, "Gahniinae",        subtribes)
-Lepidosperminae_node  <- find_subtribe(MCC_tree@phylo, "Lepidosperminae",  subtribes)
-Oreobolus_node        <- find_subtribe(MCC_tree@phylo, "Oreobolus",        subtribes)
-Tricostulariinae_node <- find_subtribe(MCC_tree@phylo, "Tricostulariinae", subtribes,
-                           additional_taxa_to_exclude = "Anthelepis paludosa")
-Gymnoschoeninae_node  <- find_subtribe(MCC_tree@phylo, "Gymnoschoeninae",  subtribes)
+subtribe_names <- unique(na.exclude(subtribes$subtribe))
+clades_to_collapse <- vector("list", length(subtribe_names))
+names(clades_to_collapse) <- subtribe_names
 
-clades_to_collapse <- list(
-  Caustiinae       = Caustiinae_node,
-  Gahniinae        = Gahniinae_node,
-  Lepidosperminae  = Lepidosperminae_node,
-  Oreobolus        = Oreobolus_node,
-  Tricostulariinae = Tricostulariinae_node,
-  Gymnoschoeninae  = Gymnoschoeninae_node
-)
+for (subtribe in subtribe_names) {
+  clades_to_collapse[[subtribe]] <- find_subtribe(
+    MCC_tree@phylo,
+    subtribe_name = subtribe,
+    subtribes_df  = subtribes,
+    additional_taxa_to_exclude =
+      if (subtribe == "Tricostulariinae") {
+        "Anthelepis paludosa"
+      } else {
+        NULL
+      }
+  )
+}
 
 # .... Ingroup taxa ------------------------------------------------------------
 
