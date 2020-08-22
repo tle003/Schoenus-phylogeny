@@ -122,13 +122,16 @@ my_panel_grid <- Schoeneae_tree@phylo %>%
 
 # .... Main plot ---------------------------------------------------------------
 
-Schoeneae_tree3 <- Schoeneae_tree
-Schoeneae_tree3@data <- Schoeneae_tree3@data %>%
+Schoeneae_tree_node_data <- Schoeneae_tree %>%
+  as_tibble() %>%
+  filter(is.na(label)) %>%
   mutate(
-    height          =                              tree_height - tree_height,
-    height_median   =                              tree_height - height_median,
-    height_0.95_HPD = purrr::map(height_0.95_HPD, ~tree_height - .)
-  )
+    height_min = map_dbl(height_0.95_HPD, min),
+    height_max = map_dbl(height_0.95_HPD, max)
+  ) %>%
+  select(node, height, height_median, height_min, height_max) %>%
+  mutate_at(vars(starts_with("height")), ~tree_height - .)
+
 Cyperaceae_tree_plot <-
   ggtree(Schoeneae_tree3, ladderize = TRUE) +
   geom_rootedge(rootedge = 5) +
@@ -144,7 +147,10 @@ Cyperaceae_tree_plot <-
     size = 2.5,
     offset = 2
   ) +
-  geom_range("height_0.95_HPD", center = "height_median", size = 2, alpha = 0.5, colour = "darkblue") +
+  geom_errorbarh(
+    data = Schoeneae_tree_node_data,
+    aes(x = height, y = node, xmin = height_min, xmax = height_max)
+  ) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
     limits   = c(-5, 105),  # very wide to make space for annotations (below)
