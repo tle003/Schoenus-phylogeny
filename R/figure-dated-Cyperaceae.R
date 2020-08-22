@@ -122,6 +122,9 @@ my_panel_grid <- Schoeneae_tree@phylo %>%
 
 # .... Main plot ---------------------------------------------------------------
 
+Schoeneae_tree2 <- Schoeneae_tree
+Schoeneae_tree2@phylo$tip.label <- paste0("'", Schoeneae_tree2@phylo$tip.label, "'")
+write.beast(Schoeneae_tree2, "data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12_Schoeneae.tre")
 Schoeneae_tree3 <- Schoeneae_tree
 Schoeneae_tree3@data <- Schoeneae_tree3@data %>%
   mutate(
