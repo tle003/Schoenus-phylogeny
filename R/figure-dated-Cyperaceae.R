@@ -157,7 +157,7 @@ Cyperaceae_tree_plot <-
   ) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
-    limits   = c(-5, 105),  # very wide to make space for annotations (below)
+    limits   = c(-50, 105),  # very wide to make space for annotations (below)
     breaks   = label_positions,
     labels   = my_labels
   ) +
