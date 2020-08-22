@@ -67,6 +67,20 @@ non_Schoenoid_taxa <- MCC_tree@data$node %>%
   as.numeric()
 Schoeneae_tree <- drop.tip(MCC_tree, non_Schoenoid_taxa)
 
+# Adjust height-related node-data by the tree-height
+# to get HPDs to plot correctly (not backwards)
+tree_height <- max(nodeHeights(Schoeneae_tree@phylo))
+Schoeneae_tree@data <- Schoeneae_tree@data %>%
+  mutate(
+    height          = tree_height - height,
+    height_median   = tree_height - height_median,
+    height_0.95_HPD = purrr::map(height_0.95_HPD,
+                        ~purrr::map_dbl(.,
+                          ~tree_height - .
+                        )
+                      )
+  )
+
 subtribes <- subtribes %>%
   mutate(taxa = str_remove(paste(genus, species), " NA"))
 
@@ -102,7 +116,6 @@ Cape_clade_node <-
 
 # .... X-axis scaling things ---------------------------------------------------
 
-tree_height <- max(nodeHeights(Schoeneae_tree@phylo))
 my_labels <- c(70, 60, 50, 40, 30, 20, 10, 0)
 label_positions <- tree_height - my_labels
 
@@ -122,15 +135,8 @@ my_panel_grid <- Schoeneae_tree@phylo %>%
 
 # .... Main plot ---------------------------------------------------------------
 
-Schoeneae_tree3 <- Schoeneae_tree
-Schoeneae_tree3@data <- Schoeneae_tree3@data %>%
-  mutate(
-    height          =                              tree_height - tree_height,
-    height_median   =                              tree_height - height_median,
-    height_0.95_HPD = purrr::map(height_0.95_HPD, ~tree_height - .)
-  )
 Cyperaceae_tree_plot <-
-  ggtree(Schoeneae_tree3, ladderize = TRUE) +
+  ggtree(Schoeneae_tree, ladderize = TRUE) +
   geom_rootedge(rootedge = 5) +
   geom_tile(
     data = my_panel_grid,
