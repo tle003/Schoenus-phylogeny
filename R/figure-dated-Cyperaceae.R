@@ -151,7 +151,7 @@ Cyperaceae_tree_plot <-
     offset = 2
   ) +
   geom_range(
-    "height_0.95_HPD",
+    "height_0.95_HPD", center = "height_median",
     colour = "darkblue", alpha = 0.5,
     size = 1.5
   ) +
