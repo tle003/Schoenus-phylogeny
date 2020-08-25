@@ -134,7 +134,7 @@ my_panel_grid <- Schoeneae_tree %>%
 
 Schoeneae_tree_plot <-
   ggtree(Schoeneae_tree, ladderize = TRUE) +
-  geom_rootedge(rootedge = 10) +
+  geom_rootedge(rootedge = 5) +
   geom_tile(
     data = my_panel_grid,
     aes(x, species, alpha = alpha),
