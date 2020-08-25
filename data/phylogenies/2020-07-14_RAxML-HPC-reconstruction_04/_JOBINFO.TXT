@@ -1,0 +1,14 @@
+Task\ label=2020-07-14_RAxML-HPC-reconstruction_04
+Task\ ID=2243422
+Tool=RAXMLHPC8_XSEDE
+created\ on=2020-07-14 10:21:53.0
+JobHandle=NGBW-JOB-RAXMLHPC8_XSEDE-8C11622599A7493380579D595AB59F04
+RunNumber=1
+resource=comet
+User\ ID=125605
+User\ Name=rvanmazijk
+email=vmzrua001@myuct.ac.za
+Output=(all_outputfiles,*,UNKNOWN,UNKNOWN,UNKNOWN)
+ChargeFactor=1.000000
+cores=48
+JOBID=34669825

@@ -96,7 +96,7 @@ TDWG_level3_df <- merge(TDWG_level3, TDWG_level3_df, by = "id", all = TRUE)
 # Tidy data some more
 TDWG_level3_df_tidy <- TDWG_level3_df %>%
   as_tibble() %>%
-  select(long, lat, group, Count) %>%
+  dplyr::select(long, lat, group, Count) %>%
   rename(richness = Count) %>%
   mutate(richness = ifelse(richness == 0, NA, richness)) %>%
   mutate(richness =
@@ -121,7 +121,7 @@ worldwide_plot <- ggplot() +
     colour = "grey30",
     size   = 0.1
   ) +
-  annotate("text", label = "(a)", x = -180, y = 85, hjust = 1) +
+  annotate("text", label = "A", x = -180, y = 85, hjust = 1) +
   coord_equal() +
   scale_fill_viridis_d(na.translate = FALSE) +
   scale_alpha_manual(values = c(1, 1, 1, 0.75, 0.5)) +
@@ -142,10 +142,11 @@ worldwide_plot <- ggplot() +
     alpha = FALSE
   ) +
   theme(
-    axis.title.y = element_blank(),
-    axis.title.x = element_blank(),
-    axis.text.x  = element_blank(),
-    axis.ticks.x = element_blank()
+    axis.ticks.x      = element_blank(),
+    axis.text.x       = element_blank(),
+    axis.title.x      = element_blank(),
+    axis.title.y      = element_blank(),
+    legend.text.align = 1
   )
 
 proportion_sampled_plot <- ggplot() +
@@ -156,7 +157,7 @@ proportion_sampled_plot <- ggplot() +
     aes(x = long, y = lat, group = group, fill = prop_in_phylogeny),
     colour = "grey30", size = 0.1
   ) +
-  annotate("text", label = "(b)", x = -180, y = 85, hjust = 1) +
+  annotate("text", label = "B", x = -180, y = 85, hjust = 1) +
   coord_equal() +
   scale_fill_distiller(
     name      = "% species\nin phylogeny",

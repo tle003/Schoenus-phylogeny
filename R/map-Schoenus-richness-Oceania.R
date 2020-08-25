@@ -42,7 +42,7 @@ oceania_plot <- ggplot(richness) +
     aes(x = long, y = lat, group = group),
     fill = NA, colour = "grey30", size = 0.15
   ) +
-  annotate("text", label = "(d)", x = 115, y = -13) +
+  annotate("text", label = "D", x = 115, y = -13) +
   coord_equal() +
   scale_x_continuous(
     breaks = c(115, 125, 135, 145, 155, 165, 175),
@@ -59,6 +59,7 @@ oceania_plot <- ggplot(richness) +
     limits = c(0, 34)
   ) +
   theme(
-    axis.title.y = element_blank(),
-    axis.title.x = element_blank()
+    axis.title.x      = element_blank(),
+    axis.title.y      = element_blank(),
+    legend.text.align = 1
   )
