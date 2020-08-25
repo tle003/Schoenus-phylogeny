@@ -67,6 +67,13 @@ non_Schoenoid_taxa <- MCC_tree@data$node %>%
   as.numeric()
 Schoeneae_tree <- drop.tip(MCC_tree, non_Schoenoid_taxa)
 
+# Export tree with spaces in tip names for FigTree
+Schoeneae_tree2 <- Schoeneae_tree
+Schoeneae_tree2@phylo$tip.label <- paste0("'",
+  Schoeneae_tree2@phylo$tip.label,
+"'")
+write.beast(Schoeneae_tree2, "data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12_Schoeneae.tre")
+
 # Adjust height-related node-data by the tree-height
 # to get HPDs to plot correctly (not backwards)
 tree_height <- max(nodeHeights(Schoeneae_tree@phylo))
@@ -135,9 +142,6 @@ my_panel_grid <- Schoeneae_tree@phylo %>%
 
 # .... Main plot ---------------------------------------------------------------
 
-Schoeneae_tree2 <- Schoeneae_tree
-Schoeneae_tree2@phylo$tip.label <- paste0("'", Schoeneae_tree2@phylo$tip.label, "'")
-write.beast(Schoeneae_tree2, "data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12_Schoeneae.tre")
 Cyperaceae_tree_plot <-
   ggtree(Schoeneae_tree, ladderize = TRUE) +
   geom_rootedge(rootedge = 5) +
