@@ -72,14 +72,24 @@ Schoeneae_tree <- drop.tip(MCC_tree, non_Schoenoid_taxa)
 tree_height <- max(nodeHeights(Schoeneae_tree@phylo))
 Schoeneae_tree@data <- Schoeneae_tree@data %>%
   mutate(
-    height          = tree_height - height,
-    height_median   = tree_height - height_median,
-    height_0.95_HPD = purrr::map(height_0.95_HPD,
-                        ~purrr::map_dbl(.,
-                          ~tree_height - .
-                        )
-                      )
+    height          = -height,
+    height_median   = -height_median,
+    height_0.95_HPD = purrr::map(height_0.95_HPD, ~-.)
   )
+#Schoeneae_tree@data <- Schoeneae_tree@data %>%
+
+tree_height <- -tree_height
+
+plotTree(ladderize(Schoeneae_tree@phylo), node.numbers = TRUE, fsize = 0.5)
+Schoeneae_tree %>%
+  as_tibble() %>%
+  mutate(
+    height_min = map_dbl(height_0.95_HPD, min),
+    height_max = map_dbl(height_0.95_HPD, max)
+  ) %>%
+  filter(is.na(label)) %>%
+  select(node, height, height_min, height_median, height_max) %>%
+  filter(height < 0)
 
 subtribes <- subtribes %>%
   mutate(taxa = str_remove(paste(genus, species), " NA"))
