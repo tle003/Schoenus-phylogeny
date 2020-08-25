@@ -206,11 +206,7 @@ Schoeneae_DEC_areas_plot <-
     title = "Region",
     override.aes = list(fill = my_palette)
   )) +
-  theme(
-    strip.text        = element_blank(),
-    legend.background = element_blank(),
-    legend.position   = c(0.10, 0.15)
-  )
+  theme(strip.text = element_blank())
 
 # Manually remove region panel's "time"-axis
 Schoeneae_DEC_areas_plot <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot)
