@@ -635,13 +635,7 @@ clade_bar_extension <- 0.2
 for (subtribe in subtribe_names) {
   Cyperaceae_tree_plot <- Cyperaceae_tree_plot +
     geom_cladelabel(clades_to_label[[subtribe]],
-      label =
-        if (subtribe == "Oreobolus") {
-          paste0('italic("Oreobolus")~clade')
-        } else {
-          subtribe
-        },
-      parse  = TRUE,
+      label  = subtribe,
       offset = clade_label_offset,
       extend = clade_bar_extension
     )
