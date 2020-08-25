@@ -152,13 +152,12 @@ Schoeneae_tree_plot <-
     size   = 2.5,
     offset = 3
   ) +
-  # Add time axes
+  # Add time axis
   theme_tree2() +
   scale_x_continuous(name = "Ma",
     limits   = c(-15, tree_height + 28),  # 28 is the min needed to fit labels
     breaks   = label_positions,
-    labels   = my_labels,
-    sec.axis = dup_axis()
+    labels   = -my_labels
   ) +
   # Remove empty space above, below tree
   scale_y_continuous(limits = c(0, Ntip(Schoeneae_tree) + 1), expand = c(0, 0)) +
@@ -214,12 +213,11 @@ Schoeneae_DEC_areas_plot <-
     legend.position   = c(0.10, 0.15)
   )
 
-# Manually remove region panel's "time"-axes
+# Manually remove region panel's "time"-axis
 Schoeneae_DEC_areas_plot <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot)
 #plot(Schoeneae_DEC_areas_plot)
 #str(Schoeneae_DEC_areas_plot, max.level = 1)
 #Schoeneae_DEC_areas_plot$grobs[[1]]
-Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[5]] <- zeroGrob()
 Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[7]] <- zeroGrob()
 
 # Manually remove grey and white blocks from region panel
