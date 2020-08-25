@@ -486,6 +486,27 @@ my_geoscalePhylo <- function (tree, ages, direction = "rightwards", units = c("P
     }
 }
 
+# Plot and save phylogeny with geological timescale (to use with Keynote)
+pdf(
+  "figures/my_geoscalePhylo_plot.pdf",
+  width = unit(3.5, units = "pt"), height = unit(7, units = "pt")
+)
+my_geoscalePhylo(
+  ladderize(Schoeneae_tree3@phylo, right = FALSE), root.edge = TRUE,
+  units = c("Period", "Epoch"),
+  boxes = "User", user.scale = data.frame(
+    Start = c(80, 70, 60, 50, 40, 30, 20, 10),
+    End   = c(70, 60, 50, 40, 30, 20, 10,  0),
+    Name  = rep(" ", times = 8)
+  ),
+  x.lim   = c(80, 0),
+  ts.col  = FALSE,
+  cex.age = 0.5,
+  cex.ts  = 0.5,
+  quat.rm = TRUE
+)
+dev.off()
+
 # Adjust height-related node-data by the tree-height
 # to get HPDs to plot correctly (not backwards)
 tree_height <- max(nodeHeights(Schoeneae_tree@phylo))
