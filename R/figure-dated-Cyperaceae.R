@@ -501,8 +501,8 @@ my_geoscalePhylo(
   ),
   x.lim   = c(80, 0),
   ts.col  = FALSE,
-  cex.age = 0.5,
-  cex.ts  = 0.5,
+  cex.age = 0.75,
+  cex.ts  = 0.75,
   quat.rm = TRUE
 )
 dev.off()
