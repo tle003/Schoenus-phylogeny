@@ -34,7 +34,6 @@ Schoeneae_MRCA_node <- MCC_tree@phylo %>%
     "Gymnoschoenus_sphaerocephalus"
   ))
 Schoeneae_tree <- extract.clade(MCC_tree@phylo, Schoeneae_MRCA_node)
-Schoeneae_tree <- ladderize(Schoeneae_tree, right = TRUE)
 
 # X-axis scaling things:
 # (for both tree's time-axis labels and
@@ -134,7 +133,7 @@ my_panel_grid <- Schoeneae_tree %>%
   )
 
 Schoeneae_tree_plot <-
-  ggtree(Schoeneae_tree, ladderize = FALSE) +  # (already ladderized above!)
+  ggtree(Schoeneae_tree, ladderize = TRUE) +
   geom_rootedge(rootedge = 10) +
   geom_tile(
     data = my_panel_grid,
