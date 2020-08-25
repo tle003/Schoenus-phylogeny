@@ -140,6 +140,21 @@ my_panel_grid <- Schoeneae_tree@phylo %>%
     as.numeric()
   )
 
+# Plot grid alone and save for use with FigTree/Keynote
+my_panel_grid_plot <- ggplot(my_panel_grid) +
+  aes(x, species, alpha = alpha) +
+  geom_tile(
+    data = my_panel_grid,
+    fill = "black"
+  ) +
+  scale_alpha_manual(values = c(0, 0.1), guide = FALSE) +
+  theme_void()
+ggsave(
+  "figures/my_panel_grid_plot.pdf",
+  my_panel_grid_plot,
+  width = 10, height = 15
+)
+
 # .... Main plot ---------------------------------------------------------------
 
 Cyperaceae_tree_plot <-
