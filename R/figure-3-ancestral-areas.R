@@ -154,7 +154,7 @@ Schoeneae_tree_plot <-
   ) +
   # Add time axis
   theme_tree2() +
-  scale_x_continuous(name = "Ma",
+  scale_x_continuous(
     limits   = c(-15, tree_height + 28),  # 28 is the min needed to fit labels
     breaks   = label_positions,
     labels   = -my_labels
@@ -163,8 +163,7 @@ Schoeneae_tree_plot <-
   scale_y_continuous(limits = c(0, Ntip(Schoeneae_tree) + 1), expand = c(0, 0)) +
   # Remove extra line at right of time axes
   coord_capped_cart(bottom = "right", top = "right") +
-  # Move time axes' titles to the right
-  theme(axis.title.x = element_text(hjust = 0.15))
+  theme(axis.title.x = element_blank())
 
 my_palette <- scales::brewer_pal(palette = "Paired")(
   n = length(unique(
