@@ -97,7 +97,7 @@ subtribes <- subtribes %>%
 
 subtribe_names <- unique(na.exclude(subtribes$subtribe))
 subtribe_names <- subtribe_names[subtribe_names != "Schoeninae"]
-clades_to_collapse <- purrr::map(subtribe_names, ~find_subtribe(
+clades_to_label <- purrr::map(subtribe_names, ~find_subtribe(
   Schoeneae_tree@phylo,
   subtribe_name = .x,
   subtribes_df = subtribes,
@@ -106,7 +106,7 @@ clades_to_collapse <- purrr::map(subtribe_names, ~find_subtribe(
     NA
   )
 ))
-names(clades_to_collapse) <- subtribe_names
+names(clades_to_label) <- subtribe_names
 
 # .... Ingroup clades ----------------------------------------------------------
 
@@ -186,7 +186,7 @@ clade_bar_extension <- 0.2
 # Label other Schoeneae subtribes
 for (subtribe in subtribe_names) {
   Cyperaceae_tree_plot <- Cyperaceae_tree_plot +
-    geom_cladelabel(clades_to_collapse[[subtribe]],
+    geom_cladelabel(clades_to_label[[subtribe]],
       label =
         if (subtribe == "Oreobolus") {
           paste0('italic("Oreobolus")~clade')
