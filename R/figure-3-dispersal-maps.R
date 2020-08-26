@@ -5,6 +5,8 @@
 # Load packages ----------------------------------------------------------------
 
 library(rgdal) # Shapefile I/O
+library(sp)
+
 library(tidyverse)
 library(magrittr)
 
@@ -83,7 +85,7 @@ dispersal_means %>%
 
 TDWG <- readOGR("~/wgsrpd/level1", layer = "level1", stringsAsFactors = FALSE)
 
-plot(TDWG$LEVEL1_NAM)
+plot(TDWG)
 
 theme_set(theme_classic())
 dispersal_matrix %>%
