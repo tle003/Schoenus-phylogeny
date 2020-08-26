@@ -9,8 +9,8 @@ library(tidyverse)
 
 # Import data ------------------------------------------------------------------
 
-dispersal_matrix <- read_tsv("data/all_dispersals_counts_fromto_means.txt")
-dispersal_matrix_codes <- read_csv("data/all_dispersals_counts_fromto_means_codes.csv")
+dispersal_means <- read_csv("data/dispersal_means.csv")
+dispersal_SDs   <- read_csv("data/dispersal_SDs.csv")
 
 TDWG <- readOGR("~/wgsrpd/level1", layer = "level1", stringsAsFactors = FALSE)
 
