@@ -678,13 +678,13 @@ Cyperaceae_tree_plot <- Cyperaceae_tree_plot +
 # Save plot --------------------------------------------------------------------
 
 ggsave(
-  "figures/Cyperaceae_tree_plot.pdf",
+  "figures/Schoeneae_tree_plot.pdf",
   Cyperaceae_tree_plot,
   width = 10, height = 15
 )
 
 ggsave(
-  "figures/Cyperaceae_tree_plot.png",
+  "figures/Schoeneae_tree_plot.png",
   Cyperaceae_tree_plot,
   width = 10, height = 15, dpi = 300
 )
