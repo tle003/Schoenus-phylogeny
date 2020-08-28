@@ -22,6 +22,9 @@ Schoeneae_DEC_areas <- read_delim(
   delim = " "
 )
 
+# Ancestral area probabilities for nodes (from DEC analysis):
+ancestral_areas <- read_csv("BioGeoBEARS/ancestral_areas_relative_probs_tidy.csv")
+
 # Tidy data --------------------------------------------------------------------
 
 # Extend tips that didn't reach time 0
