@@ -3,6 +3,8 @@
 ### Date: June 18, 2020
 
 
+# [RvM] Setup ------------------------------------------------------------------
+
 setwd("BioGeoBEARS/")  # [Rvm]
 
 # Load the required libraries.
@@ -25,6 +27,8 @@ library(FossilSim)
 library(phangorn)
 library(phytools)
 
+# /[RvM] -----------------------------------------------------------------------
+
 #set working directory
 setwd("/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/follow-up-analyses")
 getwd()
@@ -35,7 +39,7 @@ getwd()
 #Check timeperiods file
 timeperiods<-read.table("timeperiods.txt")
 dispersal.multipliers<-read.table("dispersal_multipliers.txt",header = TRUE, fill = TRUE)
-#Write .txt file 
+#Write .txt file
 #write.table(Schoenus.cont, file = "Schoenus.cont.txt", quote=F)
 
 
@@ -60,7 +64,7 @@ max(rowSums(dfnums_to_numeric(tipranges@df)))
  #   "Diplacrum_caricinum","Hypolytrum_africanum","Exochogyne_amazonica","Calyptrocarya_glomerulata","Trianoptiles_capensis"))
 #is.ultrametric(Schoeneae_tree_prelim)
 #Make tree ultrametric
-#Schoeneae_tree_ultrametric<-force.ultrametric(Schoeneae_tree_prelim) 
+#Schoeneae_tree_ultrametric<-force.ultrametric(Schoeneae_tree_prelim)
 #is.ultrametric(Schoeneae_tree_ultrametric)
 #Save tree file
 #write.tree(Schoeneae_tree_ultrametric, file = "Schoeneae_tree_ultrametric.tre", append = FALSE,
@@ -70,8 +74,8 @@ max(rowSums(dfnums_to_numeric(tipranges@df)))
 Schoeneae_tree_ultrametric<-read.tree("Schoeneae_tree_ultrametric.tre")
 
 #Impose mimimum branch lengths
-#Schoeneae_tree_min_branch<-impose_min_brlen(Schoeneae_tree_ultrametric, min_brlen = 0.01, leave_BL0_terminals = TRUE, 
- #   direct_ancestor_brlen = 1e-07, printlevel = 2) 
+#Schoeneae_tree_min_branch<-impose_min_brlen(Schoeneae_tree_ultrametric, min_brlen = 0.01, leave_BL0_terminals = TRUE,
+ #   direct_ancestor_brlen = 1e-07, printlevel = 2)
 
 #######################################################
 # This is the example Newick file for Hawaiian Schoeneae
@@ -101,7 +105,7 @@ system(cmdstr)
 ######################
 #DEC analysis
 
-#Read tree; 
+#Read tree;
 tree_file_name <- np("Schoeneae_tree_ultrametric.tre")
 tree_file_name
 
@@ -127,7 +131,7 @@ prt(tree)
 # since the program has to exponentiate a matrix of e.g. 600x600.  Often the computer
 # will just sit there and crunch, and never get through the calculation of the first
 # likelihood.
-# 
+#
 # (this is also what is usually happening when LAGRANGE hangs: you have too many states!)
 #
 # To check the number of states for a given number of ranges, try:
@@ -173,9 +177,9 @@ BioGeoBEARS_run_object$speedup = TRUE          # shorcuts to speed ML search; us
 BioGeoBEARS_run_object$use_optimx = "GenSA"    # if FALSE, use optim() instead of optimx()
 BioGeoBEARS_run_object$num_cores_to_use = 8
 # (use more cores to speed it up; this requires
-# library(parallel) and/or library(snow). The package "parallel" 
-# is now default on Macs in R 3.0+, but apparently still 
-# has to be typed on some Windows machines. Note: apparently 
+# library(parallel) and/or library(snow). The package "parallel"
+# is now default on Macs in R 3.0+, but apparently still
+# has to be typed on some Windows machines. Note: apparently
 # parallel works on Mac command-line R, but not R.app.
 # BioGeoBEARS checks for this and resets to 1
 # core with R.app)
@@ -203,7 +207,7 @@ BioGeoBEARS_run_object$on_NaN_error = -1e50    # returns very low lnL if paramet
 BioGeoBEARS_run_object$speedup = TRUE          # shorcuts to speed ML search; use FALSE if worried (e.g. >3 params)
 BioGeoBEARS_run_object$use_optimx = "GenSA"    # if FALSE, use optim() instead of optimx()
 BioGeoBEARS_run_object$num_cores_to_use = 1
-BioGeoBEARS_run_object$force_sparse = FALSE 
+BioGeoBEARS_run_object$force_sparse = FALSE
 
 # Good default settings to get ancestral states
 BioGeoBEARS_run_object$return_condlikes_table = TRUE
@@ -219,20 +223,20 @@ BioGeoBEARS_run_object
 # This contains the model object
 BioGeoBEARS_run_object$BioGeoBEARS_model_object
 
-# This table contains the parameters of the model 
+# This table contains the parameters of the model
 BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table
 
 # Run this to check inputs. Read the error messages if you get them!
 check_BioGeoBEARS_run(BioGeoBEARS_run_object)
 
-# For a slow analysis, run once, then set runslow=FALSE to just 
+# For a slow analysis, run once, then set runslow=FALSE to just
 # load the saved result.
 #runslow = TRUE
 #resfn = "Schoeneae_DEC_M0_unconstrained_v1.Rdata"
 #if (runslow)
     #{
     #res = bears_optim_run(BioGeoBEARS_run_object)
-    #res    
+    #res
 
     #save(res, file=resfn)
     #resDEC = res
@@ -293,11 +297,11 @@ dev.off()
 cmdstr = paste("open ", pdffn, sep="")
 system(cmdstr)
 
-
+# [RvM] BSM analysis -----------------------------------------------------------
 
 ######################################################
 # Get the inputs for Biogeographical Stochastic Mapping
-# Note: this can be slow for large state spaces and trees, since 
+# Note: this can be slow for large state spaces and trees, since
 # the independent likelihoods for each branch are being pre-calculated
 # E.g., for 10 areas, this requires calculation of a 1024x1024 matrix
 # for each branch.  On a tree with ~800 tips and thus ~1600 branches, this was about 1.6 gigs
