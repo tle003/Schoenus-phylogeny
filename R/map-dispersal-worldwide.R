@@ -180,3 +180,8 @@ ggsave(
   TDWG_plot,
   width = 10, height = 5
 )
+ggsave(
+  "figures/TDWG_plot.png",
+  TDWG_plot,
+  width = 10, height = 5, dpi = 300
+)
