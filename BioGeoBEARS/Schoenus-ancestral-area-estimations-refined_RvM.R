@@ -156,8 +156,13 @@ states_relative_probs_for_nodes <- as.data.frame(
   resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPASS
 )
 
+# Remove the tip-nodes from the matrix
+states_relative_probs_for_nodes <-  states_relative_probs_for_nodes[
+  -(1:Ntip(tr)),
+]
+
 # Check:
-(Nnode(tr) + Ntip(tr)) == nrow(states_relative_probs_for_nodes)
+Nnode(tr) == nrow(states_relative_probs_for_nodes)
 
 nstates <- ncol(states_relative_probs_for_nodes)
 
@@ -177,12 +182,13 @@ write.csv(
 
 # Tidy state probability matrix
 states_relative_probs_for_nodes_tidy <- states_relative_probs_for_nodes %>%
-  as_tibble(rownames = "label") %>%
-  gather(state, relative_prob, -label) %>%
-  group_by(label) %>%
+  as_tibble(rownames = "node") %>%
+  gather(state, relative_prob, -node) %>%
+  group_by(node) %>%
   # Only keep the most probable state
-  arrange(desc(relative_prob)) %>%
-  slice(1)
+  arrange(node, desc(relative_prob)) %>%
+  slice(1) %>%
+  mutate(node = as.numeric(node))
 
 # Save tidied state probability matrix
 write.csv(
@@ -196,12 +202,12 @@ tr_w_ancestral_areas <- tr %>%
   full_join(states_relative_probs_for_nodes_tidy) %>%
   as.treedata()
 
-# FIXME:
-#treeio::write.beast(tr_w_ancestral_areas, "tr_w_ancestral_areas.tre")
+treeio::write.beast(tr_w_ancestral_areas, "tr_w_ancestral_areas.tre")
 
-# FIXME:
-#plotTree(tr_w_ancestral_areas@phylo)
-# (But this works??: `plot(tr_w_ancestral_areas@phylo)`)
+
+
+
+
 
 # Check that as.treedata() didn't break the phylogeny?
 tr2 <- as.phylo(tr_w_ancestral_areas@phylo)
