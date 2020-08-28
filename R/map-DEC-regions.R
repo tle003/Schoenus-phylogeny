@@ -80,7 +80,7 @@ for (i in seq_along(TDWG$level4$level3_code)) {
   ])
 }
 
-TDWG$level4$DEC <- TDWG$level4 %$% {case_when(
+TDWG$level4$region <- TDWG$level4 %$% {case_when(
     (.$level3_name == "Cape Provinces")     ~ "Cape",
 
     (.$level1_name == "AFRICA")
@@ -115,16 +115,16 @@ TDWG$level4$all_level_names <- paste(sep = "_",
   TDWG$level4$level2_name,
   TDWG$level4$level3_name,
   TDWG$level4$level4_name,
-  TDWG$level4$DEC
+  TDWG$level4$region
 )
 
 TDWG_level4_tidy <- fortify(TDWG$level4, region = "all_level_names")
-TDWG_level4_tidy2 <- TDWG_level4_tidy %>%
+TDWG_level4_DEC_regions <- TDWG_level4_tidy %>%
   as_tibble() %>%
   separate(id, sep = "_",
-    into = c("level1_name", "level2_name", "level3_name", "level4_name", "DEC")
+    into = c("level1_name", "level2_name", "level3_name", "level4_name", "region")
   ) %>%
-  mutate(DEC = factor(DEC, levels = c(
+  mutate(region = factor(region, levels = c(
     "Cape",
     "Africa",
     "Western Australia",
@@ -135,7 +135,7 @@ TDWG_level4_tidy2 <- TDWG_level4_tidy %>%
     "Tropical Asia",
     "Holarctic"
   ))) %>%
-  filter(!is.na(DEC))
+  filter(!is.na(region))
 
 # Plot -------------------------------------------------------------------------
 
@@ -153,19 +153,19 @@ my_palette <- scales::brewer_pal(palette = "Paired")(
   ))
 )
 # Darken purple
-my_palette[[9]] <- "#ab71c7"
+my_palette[[9]] <- "#AB71C7"
 
-TDWG_plot <- ggplot() +
+DEC_regions_plot <- ggplot() +
   geom_polygon(
-    data = TDWG_level4_tidy2,
+    data = TDWG_level4_DEC_regions,
     aes(
       x = long, y = lat, group = group,
-      fill   = DEC,
-      colour = DEC
+      fill   = region,
+      colour = region
     ),
     size = 0.75
   ) +
-  scale_fill_manual(  values = my_palette) +
+  scale_fill_manual(values = my_palette) +
   scale_colour_manual(values = my_palette) +
   coord_equal() +
   theme_void() +
@@ -174,12 +174,12 @@ TDWG_plot <- ggplot() +
 # Save plot --------------------------------------------------------------------
 
 ggsave(
-  "figures/TDWG_plot.pdf",
-  TDWG_plot,
+  "figures/DEC_regions_plot.pdf",
+  DEC_regions_plot,
   width = 10, height = 5
 )
 ggsave(
-  "figures/TDWG_plot.png",
-  TDWG_plot,
+  "figures/DEC_regions_plot.png",
+  DEC_regions_plot,
   width = 10, height = 5, dpi = 300
 )
