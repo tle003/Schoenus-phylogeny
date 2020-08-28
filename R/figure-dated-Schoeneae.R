@@ -529,7 +529,6 @@ subtribes <- subtribes %>%
 # .... Other Schoeneae subtribes -----------------------------------------------
 
 subtribe_names <- unique(na.exclude(subtribes$subtribe))
-subtribe_names <- subtribe_names[subtribe_names != "Schoeninae"]
 clades_to_label <- purrr::map(subtribe_names, ~find_subtribe(
   Schoeneae_tree@phylo,
   subtribe_name = .x,
@@ -543,8 +542,6 @@ names(clades_to_label) <- subtribe_names
 
 # .... Ingroup clades ----------------------------------------------------------
 
-Schoenus_node <-
-  find_node(Schoeneae_tree@phylo, "Schoenus")
 Clade_A_node <-
   find_node(Schoeneae_tree@phylo, "Schoenus insolitus", "Schoenus sculptus")
 Clade_B_node <-
@@ -643,10 +640,6 @@ for (subtribe in subtribe_names) {
 
 # Label ingroup clades
 Cyperaceae_tree_plot <- Cyperaceae_tree_plot +
-  geom_cladelabel(Schoenus_node, paste0('italic("Schoenus")'), parse  = TRUE,
-    offset = clade_label_offset,
-    extend = clade_bar_extension
-  ) +
   stat_hilight(
     node = Clade_A_node,
     colour = "darkblue", xmin = 20,
