@@ -141,46 +141,50 @@ paint_stochastic_map_branches(res=resmod, master_table_cladogenetic_events=maste
 
 plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=TRUE, show.tip.label=TRUE)
 
-# [RvM]
+# [RvM] Save-out ancestral areas' relative probs at nodes ----------------------
+# (Written by RvM)
+
 library(tidyverse)
 library(tidytree)
 library(ggtree)
-# Check:
-(Nnode(tr) + Ntip(tr)) == nrow(
-  resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPAS
-)
-nstates <- ncol(
-  resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPAS
-)
+
+# NOTE: resmod = stochastic_map_states_into_res(res)
+# where res = results_DEC
+# where results_DEC = "results_DEC_constrained.rds"
+
 states_relative_probs_for_nodes <- as.data.frame(
   resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPASS
 )
-#areas2 <- c(areas, "zero")
-#for (i in 1:nstates) {
-#  states_list_0based_i <- ifelse(states_list_0based[[i]] == 0,
-#    10,
-#    states_list_0based[[i]]
-#  )
-#  colnames(states_relative_probs_for_nodes)[[i]] <- paste(collapse = "_",
-#    areas2[states_list_0based_i]
-#  )
-#}
+
+# Check:
+(Nnode(tr) + Ntip(tr)) == nrow(states_relative_probs_for_nodes)
+
+nstates <- ncol(states_relative_probs_for_nodes)
+
+# Replace column names in state probability matrix with state names
 for (i in 1:nstates) {
   colnames(states_relative_probs_for_nodes)[[i]] <- paste(collapse = "_",
     areas[states_list_0based[[i]] + 1]
   )
 }
 colnames(states_relative_probs_for_nodes)[[1]] <- "na"
+
+# Save state probability matrix
 write.csv(
   states_relative_probs_for_nodes,
   "ancestral_areas_relative_probs.csv"
 )
+
+# Tidy state probability matrix
 states_relative_probs_for_nodes_tidy <- states_relative_probs_for_nodes %>%
   as_tibble(rownames = "label") %>%
   gather(state, relative_prob, -label) %>%
   group_by(label) %>%
+  # Only keep the most probable state
   arrange(desc(relative_prob)) %>%
   slice(1)
+
+# Save tidied state probability matrix
 write.csv(
   states_relative_probs_for_nodes_tidy,
   "ancestral_areas_relative_probs_tidy.csv"
