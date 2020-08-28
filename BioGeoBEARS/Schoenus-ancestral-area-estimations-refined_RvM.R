@@ -189,3 +189,65 @@ write.csv(
   states_relative_probs_for_nodes_tidy,
   "ancestral_areas_relative_probs_tidy.csv"
 )
+
+# Combine node ancestral area data with phylogeny proper
+tr_w_ancestral_areas <- tr %>%
+  as_tibble() %>%
+  full_join(states_relative_probs_for_nodes_tidy) %>%
+  as.treedata()
+
+# FIXME:
+#treeio::write.beast(tr_w_ancestral_areas, "tr_w_ancestral_areas.tre")
+
+# FIXME:
+#plotTree(tr_w_ancestral_areas@phylo)
+# (But this works??: `plot(tr_w_ancestral_areas@phylo)`)
+
+# Check that as.treedata() didn't break the phylogeny?
+tr2 <- as.phylo(tr_w_ancestral_areas@phylo)
+tr2$node.label <- NULL
+plotTree(tr2$edge.length)
+write.tree(tr2, "foo.tre")
+tr3 <- read.tree("foo.tre")
+plotTree(tr3)
+# Nope!
+
+tr_w_ancestral_areas2 <- tr3 %>%
+  force.ultrametric(method = "extend") %>%
+  as_tibble() %>%
+  full_join(states_relative_probs_for_nodes_tidy) %>%
+  as.treedata()
+
+# FIXME:
+#tree_plot <- ggtree(tr_w_ancestral_areas2)
+#ggsave("WIP.pdf", tree_plot, width = 10, height = 10)
+
+# Try plotting with phytools::/ape::/base::?
+
+my_palette <- scales::brewer_pal(palette = "Paired")(
+  n = length(c(
+    "Cape",
+    "Africa",
+    "Western Australia",
+    "Australia",
+    "New Zealand",
+    "Neotropics",
+    "Pacific",
+    "Tropical Asia",
+    "Holarctic"
+  ))
+)
+# Darken purple
+my_palette[[9]] <- "#AB71C7"
+
+op <- par()
+par(mar = c(0, 0, 0, 0))
+pdf("WIP.pdf", width = 10, height = 10)
+plot(ladderize(tr3), cex = 0.5)
+nodelabels(
+  pie = as.matrix(states_relative_probs_for_nodes),
+  piecol = my_palette,  # FIXME: palette too small, no. states != no. regions
+  cex = 0.5
+)
+dev.off()
+par(op)
