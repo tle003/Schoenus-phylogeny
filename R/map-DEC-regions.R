@@ -173,6 +173,7 @@ DEC_regions_plot <- ggplot() +
 
 # Save plot --------------------------------------------------------------------
 
+save(DEC_regions_plot, file = "DEC_regions_plot.RDS")
 ggsave(
   "figures/DEC_regions_plot.pdf",
   DEC_regions_plot,
