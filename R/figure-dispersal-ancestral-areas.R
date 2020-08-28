@@ -22,7 +22,7 @@ Schoeneae_DEC_areas <- read_delim(
   delim = " "
 )
 
-load("DEC_regions_plot.RDS")
+load("DEC_regions_map.RDS")
 
 # Tidy data --------------------------------------------------------------------
 

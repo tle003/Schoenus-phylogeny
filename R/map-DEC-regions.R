@@ -155,7 +155,7 @@ my_palette <- scales::brewer_pal(palette = "Paired")(
 # Darken purple
 my_palette[[9]] <- "#AB71C7"
 
-DEC_regions_plot <- ggplot() +
+DEC_regions_map <- ggplot() +
   geom_polygon(
     data = TDWG_level4_DEC_regions,
     aes(
@@ -173,14 +173,14 @@ DEC_regions_plot <- ggplot() +
 
 # Save plot --------------------------------------------------------------------
 
-save(DEC_regions_plot, file = "DEC_regions_plot.RDS")
+save(DEC_regions_map, file = "DEC_regions_map.RDS")
 ggsave(
-  "figures/DEC_regions_plot.pdf",
-  DEC_regions_plot,
+  "figures/DEC_regions_map.pdf",
+  DEC_regions_map,
   width = 10, height = 5
 )
 ggsave(
-  "figures/DEC_regions_plot.png",
-  DEC_regions_plot,
+  "figures/DEC_regions_map.png",
+  DEC_regions_map,
   width = 10, height = 5, dpi = 300
 )
