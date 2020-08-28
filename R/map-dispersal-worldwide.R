@@ -141,6 +141,22 @@ TDWG_level4_tidy2 <- TDWG_level4_tidy %>%
 
 # Plot -------------------------------------------------------------------------
 
+my_palette <- scales::brewer_pal(palette = "Paired")(
+  n = length(c(
+    "Cape",
+    "Africa",
+    "Western Australia",
+    "Australia",
+    "New Zealand",
+    "Neotropics",
+    "Pacific",
+    "Tropical Asia",
+    "Holarctic"
+  ))
+)
+# Darken purple
+my_palette[[9]] <- "#ab71c7"
+
 TDWG_plot <- ggplot() +
   geom_polygon(
     data = TDWG_level4_tidy2,
@@ -151,8 +167,8 @@ TDWG_plot <- ggplot() +
     ),
     size = 0.75
   ) +
-  scale_fill_brewer(  palette = "Paired") +
-  scale_colour_brewer(palette = "Paired") +
+  scale_fill_manual(  values = my_palette) +
+  scale_colour_manual(values = my_palette) +
   coord_equal() +
   theme_void() +
   theme(legend.position = "none")
