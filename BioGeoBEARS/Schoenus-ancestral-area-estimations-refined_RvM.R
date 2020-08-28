@@ -140,3 +140,48 @@ plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic ma
 paint_stochastic_map_branches(res=resmod, master_table_cladogenetic_events=master_table_cladogenetic_events, colors_list_for_states=colors_list_for_states, lwd=4, lty=par("lty"), root.edge=TRUE, stratified=stratified)
 
 plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=TRUE, show.tip.label=TRUE)
+
+# [RvM]
+library(tidyverse)
+library(tidytree)
+library(ggtree)
+# Check:
+(Nnode(tr) + Ntip(tr)) == nrow(
+  resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPAS
+)
+nstates <- ncol(
+  resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPAS
+)
+states_relative_probs_for_nodes <- as.data.frame(
+  resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPASS
+)
+#areas2 <- c(areas, "zero")
+#for (i in 1:nstates) {
+#  states_list_0based_i <- ifelse(states_list_0based[[i]] == 0,
+#    10,
+#    states_list_0based[[i]]
+#  )
+#  colnames(states_relative_probs_for_nodes)[[i]] <- paste(collapse = "_",
+#    areas2[states_list_0based_i]
+#  )
+#}
+for (i in 1:nstates) {
+  colnames(states_relative_probs_for_nodes)[[i]] <- paste(collapse = "_",
+    areas[states_list_0based[[i]] + 1]
+  )
+}
+colnames(states_relative_probs_for_nodes)[[1]] <- "na"
+write.csv(
+  states_relative_probs_for_nodes,
+  "ancestral_areas_relative_probs.csv"
+)
+states_relative_probs_for_nodes_tidy <- states_relative_probs_for_nodes %>%
+  as_tibble(rownames = "label") %>%
+  gather(state, relative_prob, -label) %>%
+  group_by(label) %>%
+  arrange(desc(relative_prob)) %>%
+  slice(1)
+write.csv(
+  states_relative_probs_for_nodes_tidy,
+  "ancestral_areas_relative_probs_tidy.csv"
+)
