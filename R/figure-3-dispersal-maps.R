@@ -27,116 +27,102 @@ df2matrix <- function(df) {
 dispersal_means %<>% df2matrix()
 dispersal_SDs   %<>% df2matrix()
 
-dispersal_means[dispersal_means <= 0.5] <- NA
-dispersal_means[(dispersal_means - dispersal_SDs) <= 0] <- NA
+dispersal_means[dispersal_means <= 0.5] <- 0
+dispersal_means[(dispersal_means - dispersal_SDs) <= 0.5] <- 0
 
 dispersal_means %>%
   as_tbl_graph() %>%
-  ggraph() +
-    #geom_node_point(size = 15) +
-    geom_node_text(aes(label = name), colour = "black") +
-    geom_edge_parallel(
-      aes(colour = weight),
-      sep = unit(0.25, "inches"),
-      arrow = grid::arrow(length = unit(0.1, "inches"), type = "closed")
+  ggraph(layout = "linear", #tribble(
+    #  ~x,   ~y, ~Regions,
+    #0.33, 1.00, "Holarctic",
+    #0.00, 0.50, "Neotropics",
+    #0.75, 0.50, "Tropical Asia",
+    #1.00, 0.50, "Pacific",
+    #0.50, 0.66, "Africa",
+    #0.50, 0.25, "Cape",
+    #1.00, 0.15, "New Zealand",
+    #0.75, 0.33, "Australia",
+    #0.75, 0.25, "Western Australia")
+  ) +
+    geom_node_point(
+      aes(colour = {factor(name, levels = c(
+        "Cape",
+        "Africa",
+        "Western Australia",
+        "Australia",
+        "New Zealand",
+        "Neotropics",
+        "Pacific",
+        "Tropical Asia",
+        "Holarctic"
+      ))}),
+      size = 5
     ) +
-    scale_edge_colour_viridis(direction = -1, na.value = NA) +
-    theme_void()
-
-dispersal_means %>%
-  as_tbl_graph() %>%
-  ggraph(layout = tribble(
-      ~x,   ~y, ~Regions,
-    0.33, 1.00, "Holarctic",
-    0.00, 0.50, "Neotropics",
-    0.75, 0.50, "Tropical Asia",
-    1.00, 0.50, "Pacific",
-    0.50, 0.66, "Africa",
-    0.50, 0.25, "Cape",
-    1.00, 0.15, "New Zealand",
-    0.75, 0.33, "Australia",
-    0.75, 0.25, "Western Australia"
-  )) +
-    #geom_node_point(size = 15) +
-    geom_node_text(aes(label = name), colour = "black") +
-    geom_edge_parallel(
+    geom_edge_arc2(
       aes(edge_width = weight %>%
         {case_when(
           . >= 17  ~ "17.4",
           . >=  8  ~  "8.4",
-          . >=  4  ~  "4.1",
-          . >=  1  ~  "1-3",
-          . <   1  ~  "< 1"
+          TRUE     ~  "< 5"
         )} %>%
         factor(levels = c(
-           "< 1",
-           "1-3",
-           "4.1",
+           "< 5",
            "8.4",
           "17.4"
         ))
       ),
-      #sep = unit(0.25, "inches"),
-      arrow = grid::arrow(length = unit(0.1, "inches"), type = "closed")
+      start_cap = circle(10, "points"),
+      end_cap = circle(10, "points"),
+      sep = unit(10, "points"),
+      lineend = "round",
+      arrow = grid::arrow(length = unit(0.1, "inches"), type = "open")
     ) +
-    #scale_edge_colour_viridis(direction = -1, na.value = NA) +
-    scale_edge_width_manual(values = c(0.25, 0.5, 1, 2.5, 5)) +
+    scale_edge_width_manual(values = c(0.25, 1, 2)) +
+    scale_colour_brewer(palette = "Paired") +
     theme_void()
 
-TDWG <- readOGR("~/wgsrpd/level1", layer = "level1", stringsAsFactors = FALSE)
-
-plot(TDWG)
-
-theme_set(theme_classic())
-dispersal_matrix %>%
-  gather(to, mean_n_dispersal_events, -X1) %>%
-  rename(from = X1) %>%
-  mutate_at(vars(c("from", "to")), ~map_chr(.,
-    ~dispersal_matrix_codes$region[dispersal_matrix_codes$code == .]
-  )) %>%
-  filter(mean_n_dispersal_events > 0) %>%
-  ggplot() +
-    aes(x = to, y = from, size = mean_n_dispersal_events) +
-    geom_point()
-
-dispersal_matrix %>%
-  {
-    y <- as.matrix(.[, -1])
-    rownames(y) <- .[[1]]
-    y
-  } %>%
-  t() %>%
-  round() %>%
-  diagram::plotmat()
-
-library(network)
-devtools::install_github("briatte/ggnet")
-library(ggnet)
-dispersal_matrix %>%
-  {
-    y <- as.matrix(.[, -1])
-    rownames(y) <- .[[1]]
-    y
-  } %>%
-  network(directed = TRUE) %>%
-  ggnet2(label = "vertex.names")
-
-library(ggraph)
-library(tidygraph)
-dispersal_matrix %>%
-  {
-    y <- as.matrix(.[, -1])
-    rownames(y) <- .[[1]]
-    y[y == 0] <- NA
-    y
-  } %>%
-  as_tbl_graph() %>%
-  ggraph() +
-    geom_node_point(size = 15) +
-    geom_node_text(aes(label = name), colour = "white") +
-    geom_edge_parallel(
-      aes(colour = weight),
-      sep = unit(0.25, "inches"),
-      arrow = grid::arrow(length = unit(0.1, "inches"), type = "closed")
-    ) +
-    scale_edge_colour_viridis(direction = -1, na.value = NA)
+dispersal <-
+  full_join(
+    dispersal_means %>%
+      as_tibble(rownames = "from") %>%
+      gather(to, mean_n_dispersal_events, -from),
+    dispersal_SDs %>%
+      as_tibble(rownames = "from") %>%
+      gather(to, SD_dispersal_events, -from)
+  ) %>%
+  mutate_at(vars(c("from", "to")), ~factor(., levels = c(
+    "Cape",
+    "Africa",
+    "Western Australia",
+    "Australia",
+    "New Zealand",
+    "Neotropics",
+    "Pacific",
+    "Tropical Asia",
+    "Holarctic"
+  ))) %>%
+  filter(mean_n_dispersal_events > 0)
+ggplot(dispersal) +
+  aes(x = to, y = from, size = mean_n_dispersal_events) +
+  geom_point(na.rm = TRUE) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+ggplot(dispersal) +
+  aes(x = from, y = mean_n_dispersal_events, colour = to, group = to) +
+  geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5) +
+  geom_point(
+    position = position_dodge(width = 0.5),
+    na.rm = TRUE
+  ) +
+  geom_errorbar(
+    aes(
+      ymin = mean_n_dispersal_events - SD_dispersal_events,
+      ymax = mean_n_dispersal_events + SD_dispersal_events
+    ),
+    width = 0,
+    position = position_dodge(width = 0.5),
+    na.rm = TRUE
+  ) +
+  scale_colour_brewer(palette = "Paired") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
