@@ -3,6 +3,8 @@
 ### Date: June 18, 2020
 
 
+setwd("BioGeoBEARS/")  # [Rvm]
+
 # Load the required libraries.
 #install.packages("rexpokit")
 #install.packages("cladoRcpp")
@@ -305,6 +307,9 @@ system(cmdstr)
 #######################################################
 #Read in data
 results_DEC<-readRDS(file = "results_DEC_constrained.rds")
+results_DEC$inputs$wd <- getwd()  # [Rvm]
+results_DEC$inputs$geogfn <- "Schoeneae-DEC-9areas.txt"  # [Rvm]
+results_DEC$inputs$trfn <- "Schoeneae_tree_ultrametric.tre"  # [Rvm]
 res<-results_DEC
 
 tree_file_name <- np("Schoeneae_tree_ultrametric.tre")
