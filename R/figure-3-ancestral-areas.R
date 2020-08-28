@@ -170,6 +170,8 @@ my_palette <- scales::brewer_pal(palette = "Paired")(
     Schoeneae_DEC_areas_tidy$area
   ))
 )
+# Darken purple
+my_palette[[9]] <- "#ab71c7"
 my_palette2 <- vector("character", length = 2*length(my_palette))
 for (i in 1:length(my_palette)) {
   pos2 <- 2*i
