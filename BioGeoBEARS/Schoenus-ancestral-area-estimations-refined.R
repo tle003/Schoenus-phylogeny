@@ -393,7 +393,7 @@ states_list_0based = rcpp_areas_list_to_states_list(areas=areas, maxareas=6, inc
 
 colors_list_for_states = get_colors_for_states_list_0based(areanames=areanames, states_list_0based=states_list_0based, max_range_size=5, plot_null_range=TRUE)
 
-
+# /[Rvm] -----------------------------------------------------------------------
 
 ############################################
 # Setup for painting a single stochastic map
@@ -416,6 +416,8 @@ ana_events_table = ana_events_tables[[1]]
 ############################################
 pdffn = paste0("DEC", "Schoeneae_single_stochastic_map_n1.pdf")
 pdf(file=pdffn, width=6, height=6)
+
+# [RvM] BSM results ------------------------------------------------------------
 
 # Convert the BSM into a modified res object
 master_table_cladogenetic_events = clado_events_tables[[1]]
