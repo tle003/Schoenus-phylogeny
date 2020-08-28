@@ -370,8 +370,12 @@ if (runBSMslow == TRUE)
     BSM_output$RES_ana_events_tables = RES_ana_events_tables
     } # END if (runBSMslow == TRUE)
 
-
-
+str(BSM_output, max.level = 2)  # [Rvm]
+str(stochastic_mapping_inputs_list[[1]], max.level = 1)  # [Rvm]
+results_DEC$inputs$trfn  # [Rvm]
+nrow(results_DEC$ML_marginal_prob_each_state_at_branch_top_AT_node)  # [Rvm]
+ncol(results_DEC$ML_marginal_prob_each_state_at_branch_top_AT_node)  # [Rvm]
+results_DEC$ML_marginal_prob_each_state_at_branch_top_AT_node[, 1:5]  # [Rvm]
 
 # Extract BSM output
 clado_events_tables = BSM_output$RES_clado_events_tables
@@ -429,6 +433,13 @@ plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic ma
 paint_stochastic_map_branches(res=resmod, master_table_cladogenetic_events=master_table_cladogenetic_events, colors_list_for_states=colors_list_for_states, lwd=4, lty=par("lty"), root.edge=TRUE, stratified=stratified)
 
 plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=TRUE, show.tip.label=TRUE)
+
+nstates <- ncol(resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPASS)  # [Rvm]
+states_relative_probs_for_nodes <- as.data.frame(resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPASS)  # [Rvm]
+for (i in 1:nstates) {  # [Rvm]
+  colnames(states_relative_probs_for_nodes)[[i]] <- paste(areas[states_list_0based[[i]]], collapse = "_")  # [Rvm]
+}  # [Rvm]
+states_relative_probs_for_nodes  # [Rvm]
 
 ############################################
 # Close PDF
