@@ -22,8 +22,6 @@ Schoeneae_DEC_areas <- read_delim(
   delim = " "
 )
 
-load("DEC_regions_plot.RDS")
-
 # Tidy data --------------------------------------------------------------------
 
 # Extend tips that didn't reach time 0
