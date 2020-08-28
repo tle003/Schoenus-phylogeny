@@ -1,0 +1,3 @@
+> [...] You don't have to run the main DEC analysis - the results are in the file "results_DEC_constrained.rds" - you will just have to load these in for the subsequent analyses. The analysis produced a huge number of files - so I thought that I would let you run them so that you have them on your HD.
+> 
+> In the end, it is mostly the BSM (Biogeographic Stochastic Mapping) results that we need for the phylogeny and for final 'all-dispersal' matrix. I know that you can extract the ancestral area reconstruction BMS results and put it on your own phylogeny, as I have seen it in other papers, but I have not looked the results over to see how you do that. [...]
