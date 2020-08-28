@@ -169,7 +169,7 @@ nstates <- ncol(states_relative_probs_for_nodes)
 # Replace column names in state probability matrix with state names
 for (i in 1:nstates) {
   colnames(states_relative_probs_for_nodes)[[i]] <- paste(collapse = "_",
-    areas[states_list_0based[[i]] + 1]
+    areas[states_list_0based[[i]] + 1]  # because 9x areas indexed 0:8
   )
 }
 colnames(states_relative_probs_for_nodes)[[1]] <- "na"
