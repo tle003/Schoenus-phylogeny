@@ -216,7 +216,10 @@ Schoeneae_tree_plot <-
   ) +
   # Remove extra line at right of time axes
   coord_capped_cart(bottom = "right") +
-  theme(axis.title.x = element_blank())
+  theme(
+    axis.title.x    = element_blank(),
+    legend.position = "none"
+  )
 
 Schoeneae_tree_plot2 <-
   ggtree(Schoeneae_tree, ladderize = TRUE) +
@@ -226,7 +229,7 @@ Schoeneae_tree_plot2 <-
     aes(x, species, alpha = alpha),
     fill = "black"
   ) +
-  scale_alpha_manual(values = c(0, 0.1), guide = FALSE) +
+  scale_alpha_manual(values = c(0, 0.1)) +
   geom_tiplab(
     aes(label = label %>%
       str_replace("Schoenus_", "S._") %>%
@@ -252,7 +255,10 @@ Schoeneae_tree_plot2 <-
   ) +
   # Remove extra line at right of time axes
   coord_capped_cart(bottom = "right") +
-  theme(axis.title.x = element_blank())
+  theme(
+    axis.title.x    = element_blank(),
+    legend.position = "none"
+  )
 
 my_palette2 <- vector("character", length = 2*length(my_palette))
 for (i in 1:length(my_palette)) {
@@ -284,8 +290,11 @@ Schoeneae_DEC_areas_plot <-
     ),
     width = 10 / my_scale_factor
   ) +
-  scale_fill_manual(values = rep(NA, times = length(my_palette2)), guide = FALSE) +
-  theme(strip.text = element_blank())
+  scale_fill_manual(values = rep(NA, times = length(my_palette2))) +
+  theme(
+    strip.text      = element_blank(),
+    legend.position = "none"
+  )
 
 Schoeneae_DEC_areas_plot2 <-
   facet_plot(Schoeneae_tree_plot2,
@@ -309,9 +318,12 @@ Schoeneae_DEC_areas_plot2 <-
     ),
     width = 10 / my_scale_factor
   ) +
-  scale_fill_manual(values = my_palette2, guide = FALSE) +
+  scale_fill_manual(values = my_palette2) +
   scale_colour_manual(values = rep(NA, times = 9)) +
-  theme(strip.text = element_blank())
+  theme(
+    strip.text      = element_blank(),
+    legend.position = "none"
+  )
 
 # Manually remove region panel's "time"-axis
 Schoeneae_DEC_areas_plot  <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot)
