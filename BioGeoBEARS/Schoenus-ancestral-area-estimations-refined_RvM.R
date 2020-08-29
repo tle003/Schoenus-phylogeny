@@ -1,3 +1,5 @@
+# Tammy Elliott & Ruan van Mazijk, 2020
+
 # [RvM] Setup ------------------------------------------------------------------
 
 setwd("BioGeoBEARS")  # [Rvm]
