@@ -15,7 +15,7 @@ library(lemon)      # For ::coord_capped_cart()
 
 # BEAST reconstruction (MCC tree), pruned to Schoeneae,
 # with ancestral area probabilities for nodes (from DEC analysis):
-Schoeneae_tree <- read.beast("BioGeoBEARS/tr_w_ancestral_areas2.tre")
+Schoeneae_tree <- read.beast("BioGeoBEARS/tr_w_ancestral_areas.tre")
 
 # Biogeographical coding for extant species (used in DEC analysis):
 Schoeneae_DEC_areas <- read_delim(
