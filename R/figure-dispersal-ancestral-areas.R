@@ -30,6 +30,26 @@ Schoeneae_DEC_areas <- read_delim(
 Schoeneae_tree@phylo <-
   force.ultrametric(Schoeneae_tree@phylo, method = "extend")
 
+Schoeneae_tree <- drop.tip(Schoeneae_tree, c(
+  "Capeobolus_brevicaulis",
+  "Cyathocoma_hexandra",
+  "Costularia_leucocarpa",
+  "Oreobolus_pectinatus",
+  "Chamaedendron_fragilis",
+  "Caustis_blakei",
+  "Evandra_aristata",
+  "Tetraria_borneensis",
+  "Tetrariopsis_octandra",
+  "Morelotia_gahniiformis",
+  "Xyroschoenus_hornei",
+  "Tetraria_fasciata",
+  "Ammothryon_grandiflorum",
+  "Chaetospora_curvifolia",
+  "Tricostularia_pauciflora",
+  "Gymnoschoenus_sphaerocephalus",
+  "Reedia_spathacea"
+))
+
 # Make node-data (with AAR) long-form for side-by-side plotting at nodes
 Schoeneae_tree@data <- Schoeneae_tree@data %>%
   mutate(regions = str_split(state, "_")) %>%
@@ -95,12 +115,12 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_only %>%
 
 # To make the tiles etc. in the region panel easier to position
 # (on the same scale as the tree) and then make narrower
-my_scale_factor <-  5
+my_scale_factor <- 7
 
 # Tidy region data nicely and include x-axis position's column
 Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
   gather(area, present, -species) %>%
-  filter(species != "Schoenus_adnatus") %>%
+  filter(species %in% Schoeneae_tree@phylo$tip.label) %>%
   mutate(
     species = factor(species, levels =
       get_tips_in_ape_plot_order(Schoeneae_tree@phylo)
@@ -187,7 +207,6 @@ Schoeneae_tree_plot <-
   geom_tiplab(
     aes(label = label %>%
       str_replace("Schoenus_", "S._") %>%
-      str_replace("Gymnoschoenus_", "G._") %>%  # (otherwise very long name!)
       str_replace("_", " ") %>%
       {paste0('italic(\"', ., '\")')}
     ),
