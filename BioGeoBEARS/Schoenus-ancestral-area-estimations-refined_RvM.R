@@ -207,56 +207,37 @@ tr_w_ancestral_areas <- tr %>%
 # Save tree with data as BEAST-style NEXUS-file
 treeio::write.beast(tr_w_ancestral_areas, "tr_w_ancestral_areas.tre")
 
+# Summarise the probabilities of being in each of the 9 regions
+# across all 466 combinations of regions
+states_relative_probs_for_nodes2 <- states_relative_probs_for_nodes[, 1:10]
+states <- colnames(states_relative_probs_for_nodes)
+for (area in areas) {
+  for (i in 1:nrow(states_relative_probs_for_nodes2)) {
+    # Select only the state-combinations (= columns) that contain this area
+    states_with_this_area <- str_detect(states, area)
+    # Sum the relative probabilities across those states
+    # (for the ith node)
+    states_relative_probs_for_nodes2[i, area] <- sum(
+      states_relative_probs_for_nodes[i, states_with_this_area]
+    )
+  }
+}
 
+# Tidy this summarised state probability matrix
+states_relative_probs_for_nodes2_tidy <- states_relative_probs_for_nodes2 %>%
+  as_tibble(rownames = "node") %>%
+  gather(state, relative_prob, -node) %>%
+  group_by(node) %>%
+  # Only keep the most probable state
+  arrange(node, desc(relative_prob)) %>%
+  slice(1) %>%
+  mutate(node = as.numeric(node))
 
-
-
-
-# Check that as.treedata() didn't break the phylogeny?
-tr2 <- as.phylo(tr_w_ancestral_areas@phylo)
-tr2$node.label <- NULL
-plotTree(tr2$edge.length)
-write.tree(tr2, "foo.tre")
-tr3 <- read.tree("foo.tre")
-plotTree(tr3)
-# Nope!
-
-tr_w_ancestral_areas2 <- tr3 %>%
-  force.ultrametric(method = "extend") %>%
+# Combine this summarised node ancestral area data with phylogeny proper
+tr_w_ancestral_areas2 <- tr %>%
   as_tibble() %>%
-  full_join(states_relative_probs_for_nodes_tidy) %>%
+  full_join(states_relative_probs_for_nodes2_tidy) %>%
   as.treedata()
 
-# FIXME:
-#tree_plot <- ggtree(tr_w_ancestral_areas2)
-#ggsave("WIP.pdf", tree_plot, width = 10, height = 10)
-
-# Try plotting with phytools::/ape::/base::?
-
-my_palette <- scales::brewer_pal(palette = "Paired")(
-  n = length(c(
-    "Cape",
-    "Africa",
-    "Western Australia",
-    "Australia",
-    "New Zealand",
-    "Neotropics",
-    "Pacific",
-    "Tropical Asia",
-    "Holarctic"
-  ))
-)
-# Darken purple
-my_palette[[9]] <- "#AB71C7"
-
-op <- par()
-par(mar = c(0, 0, 0, 0))
-pdf("WIP.pdf", width = 10, height = 10)
-plot(ladderize(tr3), cex = 0.5)
-nodelabels(
-  pie = as.matrix(states_relative_probs_for_nodes),
-  piecol = my_palette,  # FIXME: palette too small, no. states != no. regions
-  cex = 0.5
-)
-dev.off()
-par(op)
+# Save tree with data as BEAST-style NEXUS-file
+treeio::write.beast(tr_w_ancestral_areas, "tr_w_ancestral_areas2.tre")
