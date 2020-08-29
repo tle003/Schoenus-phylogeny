@@ -122,7 +122,7 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
 # Make data for grey and white blocks for timescale-background of tree
 my_panel_grid <- Schoeneae_tree@phylo %>%
   get_tips_in_ape_plot_order() %>%
-  map_dfr(~ tibble(
+  map_dfr(~tibble(
     x       = label_positions - 5,
     species = .x,
     alpha   = c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
@@ -155,9 +155,9 @@ Schoeneae_tree_plot <-
   # Add time axis
   theme_tree2() +
   scale_x_continuous(
-    limits   = c(-15, tree_height + 28),  # 28 is the min needed to fit labels
-    breaks   = label_positions,
-    labels   = -my_labels
+    limits = c(-15, tree_height + 28),  # 28 is the min needed to fit labels
+    breaks = label_positions,
+    labels = -my_labels
   ) +
   # Remove empty space above, below tree
   scale_y_continuous(
@@ -165,7 +165,7 @@ Schoeneae_tree_plot <-
     expand = c(0, 0)
   ) +
   # Remove extra line at right of time axes
-  coord_capped_cart(bottom = "right", top = "right") +
+  coord_capped_cart(bottom = "right") +
   theme(axis.title.x = element_blank())
 
 my_palette <- scales::brewer_pal(palette = "Paired")(
