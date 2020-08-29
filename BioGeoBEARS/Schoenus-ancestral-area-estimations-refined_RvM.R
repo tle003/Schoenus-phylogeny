@@ -233,6 +233,12 @@ states_relative_probs_for_nodes2_tidy <- states_relative_probs_for_nodes2 %>%
   slice(1) %>%
   mutate(node = as.numeric(node))
 
+# Save tidied state probability matrix
+write.csv(
+  states_relative_probs_for_nodes2_tidy,
+  "ancestral_areas_relative_probs_tidy2.csv"
+)
+
 # Combine this summarised node ancestral area data with phylogeny proper
 tr_w_ancestral_areas2 <- tr %>%
   as_tibble() %>%
