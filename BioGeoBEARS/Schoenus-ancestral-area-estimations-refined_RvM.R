@@ -204,6 +204,7 @@ tr_w_ancestral_areas <- tr %>%
   full_join(states_relative_probs_for_nodes_tidy) %>%
   as.treedata()
 
+# Save tree with data as BEAST-style NEXUS-file
 treeio::write.beast(tr_w_ancestral_areas, "tr_w_ancestral_areas.tre")
 
 
