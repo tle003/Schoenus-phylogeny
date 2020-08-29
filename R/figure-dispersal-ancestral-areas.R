@@ -10,6 +10,7 @@ library(treeio)     # For ::read.beast()
 library(jntools)    # For ::get_tips_in_ape_plot_order()
                     # (Installed with remotes::install_github("joelnitta/jntools"))
 library(lemon)      # For ::coord_capped_cart()
+library(ggstance)   # For ggstance::position_dodgev()
 
 # Import data ------------------------------------------------------------------
 
@@ -29,9 +30,35 @@ Schoeneae_DEC_areas <- read_delim(
 Schoeneae_tree@phylo <-
   force.ultrametric(Schoeneae_tree@phylo, method = "extend")
 
-# TODO(?):
-#Schoeneae_tree@data <- Schoeneae_tree@data %>%
-#  mutate(state = ifelse(relative_prob >= 0.5, state, NA))
+# Make node-data (with AAR) long-form for side-by-side plotting at nodes
+Schoeneae_tree@data <- Schoeneae_tree@data %>%
+  mutate(regions = str_split(state, "_")) %>%
+  select(node, regions) %>%
+  unnest() %>%
+  mutate(regions =
+    case_when(
+      regions == "C" ~ "Cape",
+      regions == "F" ~ "Africa",
+      regions == "W" ~ "Western Australia",
+      regions == "A" ~ "Australia",
+      regions == "Z" ~ "New Zealand",
+      regions == "N" ~ "Neotropics",
+      regions == "P" ~ "Pacific",
+      regions == "T" ~ "Tropical Asia",
+      regions == "H" ~ "Holarctic"
+    ) %>%
+    factor(levels = c(
+      "Cape",
+      "Africa",
+      "Western Australia",
+      "Australia",
+      "New Zealand",
+      "Neotropics",
+      "Pacific",
+      "Tropical Asia",
+      "Holarctic"
+    ))
+  )
 
 # X-axis scaling things:
 # (for both tree's time-axis labels and
@@ -168,32 +195,13 @@ Schoeneae_tree_plot <-
     size   = 2.5,
     offset = 3
   ) +
-  geom_nodepoint(size = 3, shape = 15, aes(
-    colour = state#{
-    #  case_when(
-    #    state == "C" ~ "Cape",
-    #    state == "F" ~ "Africa",
-    #    state == "W" ~ "Western Australia",
-    #    state == "A" ~ "Australia",
-    #    state == "Z" ~ "New Zealand",
-    #    state == "N" ~ "Neotropics",
-    #    state == "P" ~ "Pacific",
-    #    state == "T" ~ "Tropical Asia",
-    #    state == "H" ~ "Holarctic"
-    #  ) %>%
-    #  factor(levels = c(
-    #    "Cape",
-    #    "Africa",
-    #    "Western Australia",
-    #    "Australia",
-    #    "New Zealand",
-    #    "Neotropics",
-    #    "Pacific",
-    #    "Tropical Asia",
-    #    "Holarctic"
-    #  ))
-    #}
-  )) +
+  # Plot side-by-side AAR at nodes
+  geom_nodepoint(
+    aes(colour = regions),
+    position = position_dodgev(height = 1.5),
+    size = 3, shape = 15
+  ) +
+  scale_colour_manual(values = my_palette, drop = FALSE) +
   # Add time axis
   theme_tree2() +
   scale_x_continuous(
@@ -206,11 +214,6 @@ Schoeneae_tree_plot <-
     limits = c(0, Ntip(Schoeneae_tree@phylo) + 1),
     expand = c(0, 0)
   ) +
-  #scale_colour_manual(
-  #  name   = "Region",
-  #  values = my_palette,
-  #  drop   = FALSE
-  #) +
   # Remove extra line at right of time axes
   coord_capped_cart(bottom = "right") +
   theme(axis.title.x = element_blank())
