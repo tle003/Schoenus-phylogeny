@@ -347,21 +347,21 @@ plot(Schoeneae_DEC_areas_plot2)
 ggsave(
   "figures/Schoeneae_DEC_areas_plot.pdf",
   Schoeneae_DEC_areas_plot,
-  width = 10, height = 13
+  width = 15, height = 13
 )
 ggsave(
   "figures/Schoeneae_DEC_areas_plot.png",
   Schoeneae_DEC_areas_plot,
-  width = 10, height = 13, dpi= 300
+  width = 15, height = 13, dpi= 300
 )
 
 ggsave(
   "figures/Schoeneae_DEC_areas_plot2.pdf",
   Schoeneae_DEC_areas_plot2,
-  width = 10, height = 13
+  width = 15, height = 13
 )
 ggsave(
   "figures/Schoeneae_DEC_areas_plot2.png",
   Schoeneae_DEC_areas_plot2,
-  width = 10, height = 13, dpi= 300
+  width = 15, height = 13, dpi= 300
 )
