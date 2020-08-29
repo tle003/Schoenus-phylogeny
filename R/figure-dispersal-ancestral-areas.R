@@ -24,6 +24,8 @@ Schoeneae_DEC_areas <- read_delim(
   delim = " "
 )
 
+fynbos_kwonga <- read_csv("data/fynbos-kwonga.csv")
+
 # Tidy data --------------------------------------------------------------------
 
 # Extend tips that didn't reach time 0
@@ -117,8 +119,15 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_only %>%
 # (on the same scale as the tree) and then make narrower
 my_scale_factor <- 7
 
+colnames(fynbos_kwonga) <- c("species", "fynbos", "kwonga")
+fynbos_kwonga <- fynbos_kwonga %>%
+  mutate(species = species %>%
+    str_replace(" ", "_") %>%
+    factor(levels = get_tips_in_ape_plot_order(Schoeneae_tree@phylo)
+  ))
 # Tidy region data nicely and include x-axis position's column
 Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
+  full_join(fynbos_kwonga) %>%
   gather(area, present, -species) %>%
   filter(species %in% Schoeneae_tree@phylo$tip.label) %>%
   mutate(
@@ -127,28 +136,32 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
     ),
     x = case_when(
       # TODO: refactor
-      area == "C" ~ (label_positions[[1]] / my_scale_factor) - 12.5,
-      area == "F" ~ (label_positions[[2]] / my_scale_factor) - 12.5,
-      area == "W" ~ (label_positions[[3]] / my_scale_factor) - 12.5,
-      area == "A" ~ (label_positions[[4]] / my_scale_factor) - 12.5,
-      area == "Z" ~ (label_positions[[5]] / my_scale_factor) - 12.5,
-      area == "N" ~ (label_positions[[6]] / my_scale_factor) - 12.5,
-      area == "P" ~ (label_positions[[7]] / my_scale_factor) - 12.5,
-      area == "T" ~ (label_positions[[8]] / my_scale_factor) - 12.5,
-      area == "H" ~ ((tree_height + 10)   / my_scale_factor) - 12.5
+      area == "C"      ~ (label_positions[[1]] / my_scale_factor) - 12.5,
+      area == "F"      ~ (label_positions[[2]] / my_scale_factor) - 12.5,
+      area == "W"      ~ (label_positions[[3]] / my_scale_factor) - 12.5,
+      area == "A"      ~ (label_positions[[4]] / my_scale_factor) - 12.5,
+      area == "Z"      ~ (label_positions[[5]] / my_scale_factor) - 12.5,
+      area == "N"      ~ (label_positions[[6]] / my_scale_factor) - 12.5,
+      area == "P"      ~ (label_positions[[7]] / my_scale_factor) - 12.5,
+      area == "T"      ~ (label_positions[[8]] / my_scale_factor) - 12.5,
+      area == "H"      ~ ((tree_height + 10)   / my_scale_factor) - 12.5,
+      area == "fynbos" ~ ((tree_height + 100)   / my_scale_factor) - 12.5,
+      area == "kwonga" ~ ((tree_height + 110)   / my_scale_factor) - 12.5,
     ),
     area =
       # TODO: functionalise
       case_when(
-        area == "C" ~ "Cape",
-        area == "F" ~ "Africa",
-        area == "W" ~ "Western Australia",
-        area == "A" ~ "Australia",
-        area == "Z" ~ "New Zealand",
-        area == "N" ~ "Neotropics",
-        area == "P" ~ "Pacific",
-        area == "T" ~ "Tropical Asia",
-        area == "H" ~ "Holarctic"
+        area == "C"      ~ "Cape",
+        area == "F"      ~ "Africa",
+        area == "W"      ~ "Western Australia",
+        area == "A"      ~ "Australia",
+        area == "Z"      ~ "New Zealand",
+        area == "N"      ~ "Neotropics",
+        area == "P"      ~ "Pacific",
+        area == "T"      ~ "Tropical Asia",
+        area == "H"      ~ "Holarctic",
+        area == "fynbos" ~ "Fynbos",
+        area == "kwonga" ~ "Kwonga"
       ) %>%
       factor(levels = c(
         "Cape",
@@ -159,7 +172,9 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
         "Neotropics",
         "Pacific",
         "Tropical Asia",
-        "Holarctic"
+        "Holarctic",
+        "Fynbos",
+        "Kwonga"
       )),
     present = as.logical(present)
   )
@@ -194,6 +209,7 @@ my_palette <- scales::brewer_pal(palette = "Paired")(
 )
 # Darken purple
 my_palette[[9]] <- "#AB71C7"
+my_palette <- c(my_palette, "grey70", "black")
 
 Schoeneae_tree_plot <-
   ggtree(Schoeneae_tree, ladderize = TRUE) +
@@ -203,7 +219,7 @@ Schoeneae_tree_plot <-
     aes(x, species, alpha = alpha),
     fill = "black"
   ) +
-  scale_alpha_manual(values = c(0, 0.1), guide = FALSE) +
+  scale_alpha_manual(values = c(0, 0.05), guide = FALSE) +
   geom_tiplab(
     aes(label = label %>%
       str_replace("Schoenus_", "S._") %>%
@@ -248,7 +264,7 @@ Schoeneae_tree_plot2 <-
     aes(x, species, alpha = alpha),
     fill = "black"
   ) +
-  scale_alpha_manual(values = c(0, 0.1)) +
+  scale_alpha_manual(values = c(0, 0.05)) +
   geom_tiplab(
     aes(label = label %>%
       str_replace("Schoenus_", "S._") %>%
@@ -304,7 +320,9 @@ Schoeneae_DEC_areas_plot <-
         "Neotropics FALSE",        "Neotropics TRUE",
         "Pacific FALSE",           "Pacific TRUE",
         "Tropical Asia FALSE",     "Tropical Asia TRUE",
-        "Holarctic FALSE",         "Holarctic TRUE"
+        "Holarctic FALSE",         "Holarctic TRUE",
+        "Fynbos FALSE",            "Fynbos TRUE",
+        "Kwonga FALSE",            "Kwonga TRUE"
       ))
     ),
     width = 10 / my_scale_factor
@@ -332,13 +350,15 @@ Schoeneae_DEC_areas_plot2 <-
         "Neotropics FALSE",        "Neotropics TRUE",
         "Pacific FALSE",           "Pacific TRUE",
         "Tropical Asia FALSE",     "Tropical Asia TRUE",
-        "Holarctic FALSE",         "Holarctic TRUE"
+        "Holarctic FALSE",         "Holarctic TRUE",
+        "Fynbos FALSE",            "Fynbos TRUE",
+        "Kwonga FALSE",            "Kwonga TRUE"
       ))
     ),
     width = 10 / my_scale_factor
   ) +
   scale_fill_manual(values = my_palette2) +
-  scale_colour_manual(values = rep(NA, times = 9)) +
+  scale_colour_manual(values = rep(NA, times = 11)) +
   theme(
     strip.text      = element_blank(),
     legend.position = "none"
