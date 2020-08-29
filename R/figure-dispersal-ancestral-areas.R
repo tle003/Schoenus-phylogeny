@@ -117,6 +117,20 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
     present = as.logical(present)
   )
 
+Schoeneae_DEC_areas_tidy %>%
+  filter(present, species %in% c("Schoenus_tenellus", "Schoenus_sculptus")) %>%
+  select(species, area)
+
+Schoeneae_tree %>%
+  as_tibble() %>%
+  filter(node == {
+    Schoeneae_tree %>%
+    as_tibble() %>%
+    filter(label %in% c("Schoenus_tenellus", "Schoenus_sculptus")) %>%
+    pull(parent) %>%
+    unique()
+  })
+
 # Plots ------------------------------------------------------------------------
 
 # Make data for grey and white blocks for timescale-background of tree
