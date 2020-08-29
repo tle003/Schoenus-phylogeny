@@ -154,54 +154,52 @@ library(ggtree)
 # where res = results_DEC
 # where results_DEC = "results_DEC_constrained.rds"
 
-states_relative_probs_for_nodes <- as.data.frame(
+nodes_state_probs <- as.data.frame(
   resmod$ML_marginal_prob_each_state_at_branch_top_AT_node
 )
 
 # Remove the tip-nodes from the matrix
-states_relative_probs_for_nodes <-  states_relative_probs_for_nodes[
-  -(1:Ntip(tr)),
-]
+nodes_state_probs <-  nodes_state_probs[-(1:Ntip(tr)), ]
 
 # Check:
-Nnode(tr) == nrow(states_relative_probs_for_nodes)
+Nnode(tr) == nrow(nodes_state_probs)
 
-nstates <- ncol(states_relative_probs_for_nodes)
+nstates <- ncol(nodes_state_probs)
 
 # Replace column names in state probability matrix with state names
 for (i in 1:nstates) {
-  colnames(states_relative_probs_for_nodes)[[i]] <- paste(collapse = "_",
+  colnames(nodes_state_probs)[[i]] <- paste(collapse = "_",
     areas[states_list_0based[[i]] + 1]  # because 9x areas indexed 0:8
   )
 }
-colnames(states_relative_probs_for_nodes)[[1]] <- "na"
+colnames(nodes_state_probs)[[1]] <- "na"
 
 # Save state probability matrix
 write.csv(
-  states_relative_probs_for_nodes,
+  nodes_state_probs,
   "ancestral_areas_relative_probs.csv"
 )
 
 # Tidy state probability matrix
-states_relative_probs_for_nodes_tidy <- states_relative_probs_for_nodes %>%
+nodes_state_probs_tidy <- nodes_state_probs %>%
   as_tibble(rownames = "node") %>%
-  gather(state, relative_prob, -node) %>%
+  gather(state, prob, -node) %>%
   group_by(node) %>%
   # Only keep the most probable state
-  arrange(node, desc(relative_prob)) %>%
+  arrange(node, desc(prob)) %>%
   slice(1) %>%
   mutate(node = as.numeric(node))
 
 # Save tidied state probability matrix
 write.csv(
-  states_relative_probs_for_nodes_tidy,
+  nodes_state_probs_tidy,
   "ancestral_areas_relative_probs_tidy.csv"
 )
 
 # Combine node ancestral area data with phylogeny proper
 tr_w_ancestral_areas <- tr %>%
   as_tibble() %>%
-  full_join(states_relative_probs_for_nodes_tidy) %>%
+  full_join(nodes_state_probs_tidy) %>%
   as.treedata()
 
 # Save tree with data as BEAST-style NEXUS-file
@@ -209,40 +207,40 @@ treeio::write.beast(tr_w_ancestral_areas, "tr_w_ancestral_areas.tre")
 
 # Summarise the probabilities of being in each of the 9 regions
 # across all 466 combinations of regions
-states_relative_probs_for_nodes2 <- states_relative_probs_for_nodes[, 1:10]
-states <- colnames(states_relative_probs_for_nodes)
+nodes_state_probs2 <- nodes_state_probs[, 1:10]
+states <- colnames(nodes_state_probs)
 for (area in areas) {
-  for (i in 1:nrow(states_relative_probs_for_nodes2)) {
+  for (i in 1:nrow(nodes_state_probs2)) {
     # Select only the state-combinations (= columns) that contain this area
     states_with_this_area <- str_detect(states, area)
     # Sum the relative probabilities across those states
     # (for the ith node)
-    states_relative_probs_for_nodes2[i, area] <- sum(
-      states_relative_probs_for_nodes[i, states_with_this_area]
+    nodes_state_probs2[i, area] <- sum(
+      nodes_state_probs[i, states_with_this_area]
     )
   }
 }
 
 # Tidy this summarised state probability matrix
-states_relative_probs_for_nodes2_tidy <- states_relative_probs_for_nodes2 %>%
+nodes_state_probs2_tidy <- nodes_state_probs2 %>%
   as_tibble(rownames = "node") %>%
-  gather(state, relative_prob, -node) %>%
+  gather(state, prob, -node) %>%
   group_by(node) %>%
   # Only keep the most probable state
-  arrange(node, desc(relative_prob)) %>%
+  arrange(node, desc(prob)) %>%
   slice(1) %>%
   mutate(node = as.numeric(node))
 
 # Save tidied state probability matrix
 write.csv(
-  states_relative_probs_for_nodes2_tidy,
+  nodes_state_probs2_tidy,
   "ancestral_areas_relative_probs_tidy2.csv"
 )
 
 # Combine this summarised node ancestral area data with phylogeny proper
 tr_w_ancestral_areas2 <- tr %>%
   as_tibble() %>%
-  full_join(states_relative_probs_for_nodes2_tidy) %>%
+  full_join(nodes_state_probs2_tidy) %>%
   as.treedata()
 
 # Save tree with data as BEAST-style NEXUS-file
