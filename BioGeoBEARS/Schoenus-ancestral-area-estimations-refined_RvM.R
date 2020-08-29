@@ -155,7 +155,7 @@ library(ggtree)
 # where results_DEC = "results_DEC_constrained.rds"
 
 states_relative_probs_for_nodes <- as.data.frame(
-  resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPASS
+  resmod$ML_marginal_prob_each_state_at_branch_top_AT_node
 )
 
 # Remove the tip-nodes from the matrix
