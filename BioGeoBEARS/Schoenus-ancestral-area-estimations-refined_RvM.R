@@ -246,4 +246,4 @@ tr_w_ancestral_areas2 <- tr %>%
   as.treedata()
 
 # Save tree with data as BEAST-style NEXUS-file
-treeio::write.beast(tr_w_ancestral_areas, "tr_w_ancestral_areas2.tre")
+treeio::write.beast(tr_w_ancestral_areas2, "tr_w_ancestral_areas2.tre")
