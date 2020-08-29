@@ -59,15 +59,15 @@ tipranges
 
 
 BSM_inputs_fn = "BSM_inputs_file.Rdata"
-runInputsSlow = TRUE
-if (runInputsSlow)
-    {
-    stochastic_mapping_inputs_list = get_inputs_for_stochastic_mapping(res=res)
-    save(stochastic_mapping_inputs_list, file=BSM_inputs_fn)
-    } else {
+#runInputsSlow = TRUE
+#if (runInputsSlow)
+#    {
+#    stochastic_mapping_inputs_list = get_inputs_for_stochastic_mapping(res=res)
+#    save(stochastic_mapping_inputs_list, file=BSM_inputs_fn)
+#    } else {
     # Loads to "stochastic_mapping_inputs_list"
     load(BSM_inputs_fn)
-    } # END if (runInputsSlow)
+#    } # END if (runInputsSlow)
 
 # Check inputs (doesn't work the same on unconstr)
 names(stochastic_mapping_inputs_list)
@@ -76,16 +76,16 @@ stochastic_mapping_inputs_list$COO_weights_columnar
 stochastic_mapping_inputs_list$unconstr
 set.seed(seed=as.numeric(Sys.time()))
 
-runBSMslow = TRUE
-if (runBSMslow == TRUE)
-    {
-    # Saves to: RES_clado_events_tables.Rdata
-    # Saves to: RES_ana_events_tables.Rdata
-    BSM_output = runBSM(res, stochastic_mapping_inputs_list=stochastic_mapping_inputs_list, maxnum_maps_to_try=150, nummaps_goal=100, maxtries_per_branch=40000, save_after_every_try=TRUE, savedir=getwd(), seedval=12345, wait_before_save=0.01)
-
-    RES_clado_events_tables = BSM_output$RES_clado_events_tables
-    RES_ana_events_tables = BSM_output$RES_ana_events_tables
-    } else {
+#runBSMslow = TRUE
+#if (runBSMslow == TRUE)
+#    {
+#    # Saves to: RES_clado_events_tables.Rdata
+#    # Saves to: RES_ana_events_tables.Rdata
+#    BSM_output = runBSM(res, stochastic_mapping_inputs_list=stochastic_mapping_inputs_list, maxnum_maps_to_try=150, nummaps_goal=100, maxtries_per_branch=40000, save_after_every_try=TRUE, savedir=getwd(), seedval=12345, wait_before_save=0.01)
+#
+#    RES_clado_events_tables = BSM_output$RES_clado_events_tables
+#    RES_ana_events_tables = BSM_output$RES_ana_events_tables
+#    } else {
     # Load previously saved...
 
     # Loads to: RES_clado_events_tables
@@ -95,7 +95,7 @@ if (runBSMslow == TRUE)
     BSM_output = NULL
     BSM_output$RES_clado_events_tables = RES_clado_events_tables
     BSM_output$RES_ana_events_tables = RES_ana_events_tables
-    } # END if (runBSMslow == TRUE)
+#    } # END if (runBSMslow == TRUE)
 
 
 
@@ -136,12 +136,12 @@ ana_events_table = ana_events_tables[[1]]
 master_table_cladogenetic_events = clado_events_tables[[1]]
 resmod = stochastic_map_states_into_res(res=res, master_table_cladogenetic_events=master_table_cladogenetic_events, stratified=stratified)
 
-plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), label.offset=0.5, plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=FALSE, show.tip.label=TRUE)
+#plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), label.offset=0.5, plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=FALSE, show.tip.label=TRUE)
 
 # Paint on the branch states
-paint_stochastic_map_branches(res=resmod, master_table_cladogenetic_events=master_table_cladogenetic_events, colors_list_for_states=colors_list_for_states, lwd=4, lty=par("lty"), root.edge=TRUE, stratified=stratified)
+#paint_stochastic_map_branches(res=resmod, master_table_cladogenetic_events=master_table_cladogenetic_events, colors_list_for_states=colors_list_for_states, lwd=4, lty=par("lty"), root.edge=TRUE, stratified=stratified)
 
-plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=TRUE, show.tip.label=TRUE)
+#plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=TRUE, show.tip.label=TRUE)
 
 # [RvM] Save-out ancestral areas' relative probs at nodes ----------------------
 # (Written by RvM)
