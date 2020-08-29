@@ -132,7 +132,90 @@ my_panel_grid <- Schoeneae_tree@phylo %>%
     as.numeric()
   )
 
+my_palette <- scales::brewer_pal(palette = "Paired")(
+  n = length(c(
+    "Cape",
+    "Africa",
+    "Western Australia",
+    "Australia",
+    "New Zealand",
+    "Neotropics",
+    "Pacific",
+    "Tropical Asia",
+    "Holarctic"
+  ))
+)
+# Darken purple
+my_palette[[9]] <- "#AB71C7"
+
 Schoeneae_tree_plot <-
+  ggtree(Schoeneae_tree, ladderize = TRUE) +
+  geom_rootedge(rootedge = 5) +
+  geom_tile(
+    data = my_panel_grid,
+    aes(x, species, alpha = alpha),
+    fill = "black"
+  ) +
+  scale_alpha_manual(values = c(0, 0.1), guide = FALSE) +
+  geom_tiplab(
+    aes(label = label %>%
+      str_replace("Schoenus_", "S._") %>%
+      str_replace("Gymnoschoenus_", "G._") %>%  # (otherwise very long name!)
+      str_replace("_", " ") %>%
+      {paste0('italic(\"', ., '\")')}
+    ),
+    parse  = TRUE,
+    size   = 2.5,
+    offset = 3
+  ) +
+  geom_nodepoint(size = 3, shape = 15, aes(
+    colour = state#{
+    #  case_when(
+    #    state == "C" ~ "Cape",
+    #    state == "F" ~ "Africa",
+    #    state == "W" ~ "Western Australia",
+    #    state == "A" ~ "Australia",
+    #    state == "Z" ~ "New Zealand",
+    #    state == "N" ~ "Neotropics",
+    #    state == "P" ~ "Pacific",
+    #    state == "T" ~ "Tropical Asia",
+    #    state == "H" ~ "Holarctic"
+    #  ) %>%
+    #  factor(levels = c(
+    #    "Cape",
+    #    "Africa",
+    #    "Western Australia",
+    #    "Australia",
+    #    "New Zealand",
+    #    "Neotropics",
+    #    "Pacific",
+    #    "Tropical Asia",
+    #    "Holarctic"
+    #  ))
+    #}
+  )) +
+  # Add time axis
+  theme_tree2() +
+  scale_x_continuous(
+    limits = c(-15, tree_height + 28),  # 28 is the min needed to fit labels
+    breaks = label_positions,
+    labels = -my_labels
+  ) +
+  # Remove empty space above, below tree
+  scale_y_continuous(
+    limits = c(0, Ntip(Schoeneae_tree@phylo) + 1),
+    expand = c(0, 0)
+  ) +
+  #scale_colour_manual(
+  #  name   = "Region",
+  #  values = my_palette,
+  #  drop   = FALSE
+  #) +
+  # Remove extra line at right of time axes
+  coord_capped_cart(bottom = "right") +
+  theme(axis.title.x = element_blank())
+
+Schoeneae_tree_plot2 <-
   ggtree(Schoeneae_tree, ladderize = TRUE) +
   geom_rootedge(rootedge = 5) +
   geom_tile(
@@ -168,13 +251,6 @@ Schoeneae_tree_plot <-
   coord_capped_cart(bottom = "right") +
   theme(axis.title.x = element_blank())
 
-my_palette <- scales::brewer_pal(palette = "Paired")(
-  n = length(unique(
-    Schoeneae_DEC_areas_tidy$area
-  ))
-)
-# Darken purple
-my_palette[[9]] <- "#ab71c7"
 my_palette2 <- vector("character", length = 2*length(my_palette))
 for (i in 1:length(my_palette)) {
   pos2 <- 2*i
@@ -205,26 +281,51 @@ Schoeneae_DEC_areas_plot <-
     ),
     width = 10 / my_scale_factor
   ) +
+  scale_fill_manual(values = rep(NA, times = length(my_palette2)), guide = FALSE) +
+  theme(strip.text = element_blank())
+
+Schoeneae_DEC_areas_plot2 <-
+  facet_plot(Schoeneae_tree_plot2,
+    geom = "geom_tile",
+    data = Schoeneae_DEC_areas_tidy,
+    panel = "DEC areas",
+    aes(
+      x = x,
+      colour = area,
+      fill = factor(paste(area, !present), levels = c(
+        "Cape FALSE",              "Cape TRUE",
+        "Africa FALSE",            "Africa TRUE",
+        "Western Australia FALSE", "Western Australia TRUE",
+        "Australia FALSE",         "Australia TRUE",
+        "New Zealand FALSE",       "New Zealand TRUE",
+        "Neotropics FALSE",        "Neotropics TRUE",
+        "Pacific FALSE",           "Pacific TRUE",
+        "Tropical Asia FALSE",     "Tropical Asia TRUE",
+        "Holarctic FALSE",         "Holarctic TRUE"
+      ))
+    ),
+    width = 10 / my_scale_factor
+  ) +
   scale_fill_manual(values = my_palette2, guide = FALSE) +
   scale_colour_manual(values = rep(NA, times = 9)) +
-  guides(colour = guide_legend(
-    title = "Region",
-    override.aes = list(fill = my_palette)
-  )) +
   theme(strip.text = element_blank())
 
 # Manually remove region panel's "time"-axis
-Schoeneae_DEC_areas_plot <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot)
+Schoeneae_DEC_areas_plot  <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot)
+Schoeneae_DEC_areas_plot2 <- gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot2)
 #plot(Schoeneae_DEC_areas_plot)
 #str(Schoeneae_DEC_areas_plot, max.level = 1)
 #Schoeneae_DEC_areas_plot$grobs[[1]]
-Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[7]] <- zeroGrob()
+Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[7]]  <- zeroGrob()
+Schoeneae_DEC_areas_plot2$grobs[[1]]$grobs[[7]] <- zeroGrob()
 
 # Manually remove grey and white blocks from region panel
-Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[3]]$children[[6]] <-  zeroGrob()
+Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[3]]$children[[6]]  <- zeroGrob()
+Schoeneae_DEC_areas_plot2$grobs[[1]]$grobs[[3]]$children[[6]] <- zeroGrob()
 
 # Check:
 plot(Schoeneae_DEC_areas_plot)
+plot(Schoeneae_DEC_areas_plot2)
 
 # Save plot --------------------------------------------------------------------
 
@@ -236,5 +337,16 @@ ggsave(
 ggsave(
   "figures/Schoeneae_DEC_areas_plot.png",
   Schoeneae_DEC_areas_plot,
+  width = 10, height = 13, dpi= 300
+)
+
+ggsave(
+  "figures/Schoeneae_DEC_areas_plot2.pdf",
+  Schoeneae_DEC_areas_plot2,
+  width = 10, height = 13
+)
+ggsave(
+  "figures/Schoeneae_DEC_areas_plot2.png",
+  Schoeneae_DEC_areas_plot2,
   width = 10, height = 13, dpi= 300
 )
