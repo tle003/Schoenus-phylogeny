@@ -13,8 +13,9 @@ library(lemon)      # For ::coord_capped_cart()
 
 # Import data ------------------------------------------------------------------
 
-# BEAST reconstruction (MCC tree):
-MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
+# BEAST reconstruction (MCC tree), pruned to Schoeneae,
+# with ancestral area probabilities for nodes (from DEC analysis):
+Schoeneae_tree <- read.beast("BioGeoBEARS/tr_w_ancestral_areas2.tre")
 
 # Biogeographical coding for extant species (used in DEC analysis):
 Schoeneae_DEC_areas <- read_delim(
@@ -22,26 +23,20 @@ Schoeneae_DEC_areas <- read_delim(
   delim = " "
 )
 
-# Ancestral area probabilities for nodes (from DEC analysis):
-ancestral_areas <- read_csv("BioGeoBEARS/ancestral_areas_relative_probs_tidy.csv")
-
 # Tidy data --------------------------------------------------------------------
 
 # Extend tips that didn't reach time 0
-MCC_tree@phylo <- force.ultrametric(MCC_tree@phylo, method = "extend")
+Schoeneae_tree@phylo <-
+  force.ultrametric(Schoeneae_tree@phylo, method = "extend")
 
-# Extract Schoeneae from MCC tree
-Schoeneae_MRCA_node <- MCC_tree@phylo %>%
-  getMRCA(c(
-    .$tip.label[str_detect(.$tip.label, "Schoenus")],
-    "Gymnoschoenus_sphaerocephalus"
-  ))
-Schoeneae_tree <- extract.clade(MCC_tree@phylo, Schoeneae_MRCA_node)
+# TODO(?):
+#Schoeneae_tree@data <- Schoeneae_tree@data %>%
+#  mutate(state = ifelse(relative_prob >= 0.5, state, NA))
 
 # X-axis scaling things:
 # (for both tree's time-axis labels and
 # region-tiles' x-axis being on that same scale)
-tree_height <- max(nodeHeights(Schoeneae_tree))
+tree_height <- max(nodeHeights(Schoeneae_tree@phylo))
 my_labels <- c(70, 60, 50, 40, 30, 20, 10, 0)
 label_positions <- tree_height - my_labels
 
@@ -80,7 +75,9 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
   gather(area, present, -species) %>%
   filter(species != "Schoenus_adnatus") %>%
   mutate(
-    species = factor(species, levels = get_tips_in_ape_plot_order(Schoeneae_tree)),
+    species = factor(species, levels =
+      get_tips_in_ape_plot_order(Schoeneae_tree@phylo)
+    ),
     x = case_when(
       # TODO: refactor
       area == "C" ~ (label_positions[[1]] / my_scale_factor) - 12.5,
@@ -123,7 +120,7 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
 # Plots ------------------------------------------------------------------------
 
 # Make data for grey and white blocks for timescale-background of tree
-my_panel_grid <- Schoeneae_tree %>%
+my_panel_grid <- Schoeneae_tree@phylo %>%
   get_tips_in_ape_plot_order() %>%
   map_dfr(~ tibble(
     x       = label_positions - 5,
@@ -131,7 +128,7 @@ my_panel_grid <- Schoeneae_tree %>%
     alpha   = c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
   )) %>%
   mutate(species = species %>%
-    factor(levels = get_tips_in_ape_plot_order(Schoeneae_tree)) %>%
+    factor(levels = get_tips_in_ape_plot_order(Schoeneae_tree@phylo)) %>%
     as.numeric()
   )
 
@@ -163,7 +160,10 @@ Schoeneae_tree_plot <-
     labels   = -my_labels
   ) +
   # Remove empty space above, below tree
-  scale_y_continuous(limits = c(0, Ntip(Schoeneae_tree) + 1), expand = c(0, 0)) +
+  scale_y_continuous(
+    limits = c(0, Ntip(Schoeneae_tree@phylo) + 1),
+    expand = c(0, 0)
+  ) +
   # Remove extra line at right of time axes
   coord_capped_cart(bottom = "right", top = "right") +
   theme(axis.title.x = element_blank())
