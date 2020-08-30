@@ -28,6 +28,8 @@ dispersal_SDs   %<>% df2matrix()
 dispersal_means[dispersal_means <= 0.5] <- 0
 dispersal_means[(dispersal_means - dispersal_SDs) <= 0.5] <- 0
 
+sort(unique(as.vector(dispersal_means)))
+
 dispersal_means %>%
   as_tbl_graph() %>%
   ggraph(layout = "linear", #tribble(
@@ -59,14 +61,14 @@ dispersal_means %>%
     geom_edge_arc2(
       aes(edge_width = weight %>%
         {case_when(
-          . >= 17  ~ "17.4",
-          . >=  8  ~  "8.4",
-          TRUE     ~  "< 5"
+          . >= 17  ~   "17.3",
+          . >=  7  ~    "7.9",
+          TRUE     ~ "<= 4"
         )} %>%
         factor(levels = c(
-           "< 5",
-           "8.4",
-          "17.4"
+          "<= 4",
+             "7.9",
+            "17.3"
         ))
       ),
       start_cap = circle(10, "points"),
@@ -102,16 +104,13 @@ dispersal <-
   filter(mean_n_dispersal_events > 0)
 ggplot(dispersal) +
   aes(x = to, y = from, size = mean_n_dispersal_events) +
-  geom_point(na.rm = TRUE) +
+  geom_point() +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 ggplot(dispersal) +
-  aes(x = from, y = mean_n_dispersal_events, colour = to, group = to) +
+  aes(x = from, y = mean_n_dispersal_events, colour = to, group = to, ) +
   geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5) +
-  geom_point(
-    position = position_dodge(width = 0.5),
-    na.rm = TRUE
-  ) +
+  geom_point(position = position_dodge(width = 0.5)) +
   geom_errorbar(
     aes(
       ymin = mean_n_dispersal_events - SD_dispersal_events,
@@ -121,6 +120,6 @@ ggplot(dispersal) +
     position = position_dodge(width = 0.5),
     na.rm = TRUE
   ) +
-  scale_colour_brewer(palette = "Paired") +
+  scale_colour_brewer(palette = "Paired", drop = FALSE) +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
