@@ -37,7 +37,7 @@ library(phytools)
 # the same settings will be used for get_inputs_for_stochastic_mapping().
 #######################################################
 #Read in data
-results_DEC<-readRDS(file = "results_DEC_constrained.rds")
+results_DEC<-readRDS(file = "results_DEC_constrained-reparamaterization.rds")
 results_DEC$inputs$wd <- getwd()  # [Rvm]
 results_DEC$inputs$geogfn <- "Schoeneae-DEC-9areas.txt"  # [Rvm]
 results_DEC$inputs$trfn <- "Schoeneae_tree_ultrametric.tre"  # [Rvm]
@@ -59,15 +59,15 @@ tipranges
 
 
 BSM_inputs_fn = "BSM_inputs_file.Rdata"
-#runInputsSlow = TRUE
-#if (runInputsSlow)
-#    {
-#    stochastic_mapping_inputs_list = get_inputs_for_stochastic_mapping(res=res)
-#    save(stochastic_mapping_inputs_list, file=BSM_inputs_fn)
-#    } else {
+runInputsSlow = TRUE
+if (runInputsSlow)
+    {
+    stochastic_mapping_inputs_list = get_inputs_for_stochastic_mapping(res=res)
+    save(stochastic_mapping_inputs_list, file=BSM_inputs_fn)
+    } else {
     # Loads to "stochastic_mapping_inputs_list"
     load(BSM_inputs_fn)
-#    } # END if (runInputsSlow)
+    } # END if (runInputsSlow)
 
 # Check inputs (doesn't work the same on unconstr)
 names(stochastic_mapping_inputs_list)
@@ -76,16 +76,16 @@ stochastic_mapping_inputs_list$COO_weights_columnar
 stochastic_mapping_inputs_list$unconstr
 set.seed(seed=as.numeric(Sys.time()))
 
-#runBSMslow = TRUE
-#if (runBSMslow == TRUE)
-#    {
-#    # Saves to: RES_clado_events_tables.Rdata
-#    # Saves to: RES_ana_events_tables.Rdata
-#    BSM_output = runBSM(res, stochastic_mapping_inputs_list=stochastic_mapping_inputs_list, maxnum_maps_to_try=150, nummaps_goal=100, maxtries_per_branch=40000, save_after_every_try=TRUE, savedir=getwd(), seedval=12345, wait_before_save=0.01)
-#
-#    RES_clado_events_tables = BSM_output$RES_clado_events_tables
-#    RES_ana_events_tables = BSM_output$RES_ana_events_tables
-#    } else {
+runBSMslow = TRUE
+if (runBSMslow == TRUE)
+    {
+    # Saves to: RES_clado_events_tables.Rdata
+    # Saves to: RES_ana_events_tables.Rdata
+    BSM_output = runBSM(res, stochastic_mapping_inputs_list=stochastic_mapping_inputs_list, maxnum_maps_to_try=150, nummaps_goal=100, maxtries_per_branch=40000, save_after_every_try=TRUE, savedir=getwd(), seedval=12345, wait_before_save=0.01)
+
+    RES_clado_events_tables = BSM_output$RES_clado_events_tables
+    RES_ana_events_tables = BSM_output$RES_ana_events_tables
+    } else {
     # Load previously saved...
 
     # Loads to: RES_clado_events_tables
@@ -95,7 +95,7 @@ set.seed(seed=as.numeric(Sys.time()))
     BSM_output = NULL
     BSM_output$RES_clado_events_tables = RES_clado_events_tables
     BSM_output$RES_ana_events_tables = RES_ana_events_tables
-#    } # END if (runBSMslow == TRUE)
+    } # END if (runBSMslow == TRUE)
 
 
 

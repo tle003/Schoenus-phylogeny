@@ -95,7 +95,7 @@ Schoenus_sublaxus 000000001
 Schoenus_submarginalis 000001000
 Schoenus_submicrostachyus 000000001
 Schoenus_tendo 000000100
-Schoenus_tenellus 000001000
+Schoenus_tenellus 000000001
 Schoenus_thedae 000000001
 Schoenus_trachycarpus 000000001
 Schoenus_triticoides 000001000
