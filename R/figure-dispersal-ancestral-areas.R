@@ -300,7 +300,7 @@ for (i in 1:length(my_palette)) {
   pos2 <- 2*i
   pos1 <- pos2 - 1
   my_palette2[[pos1]] <- my_palette[[i]]
-  my_palette2[[pos2]] <- "white"
+  my_palette2[[pos2]] <- "grey95"
 }
 
 Schoeneae_DEC_areas_plot <-
@@ -355,10 +355,11 @@ Schoeneae_DEC_areas_plot2 <-
         "Kwonga FALSE",            "Kwonga TRUE"
       ))
     ),
-    width = 10 / my_scale_factor
+    width = 10 / my_scale_factor,
+    size = 0.33
   ) +
   scale_fill_manual(values = my_palette2) +
-  scale_colour_manual(values = rep(NA, times = 11)) +
+  scale_colour_manual(values = rep("white", times = 11)) +
   theme(
     strip.text      = element_blank(),
     legend.position = "none"
