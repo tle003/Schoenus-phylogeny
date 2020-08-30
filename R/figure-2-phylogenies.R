@@ -87,7 +87,7 @@ Schoenus_MCC_plot <-
   scale_x_continuous(name = "Ma",
     limits = c(-5, 68),
     breaks = label_positions,
-    labels = my_labels
+    labels = -my_labels
   ) +
   # Remove empty space above, below tree
   scale_y_continuous(
@@ -120,7 +120,7 @@ Schoenus_posterior_plot <-
   theme_tree2() +
   scale_x_reverse(name = "Ma",
     breaks = label_positions,
-    labels = c(80, 70, 60, my_labels)
+    labels = -c(80, 70, 60, my_labels)
   ) +
   # Remove empty space above, below tree
   scale_y_continuous(
