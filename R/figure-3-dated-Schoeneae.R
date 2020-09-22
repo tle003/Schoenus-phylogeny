@@ -13,7 +13,7 @@ library(strap)    # For ::geoscalePhylo()
 
 # Import data ------------------------------------------------------------------
 
-MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
+MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6-calib-st6.tre")
 
 subtribes <- read_csv("data/Schoeneae-subtribes.csv")
 
@@ -73,7 +73,7 @@ Schoeneae_tree2 <- Schoeneae_tree
 Schoeneae_tree2@phylo$tip.label <- paste0("'",
   Schoeneae_tree2@phylo$tip.label,
 "'")
-write.beast(Schoeneae_tree2, "data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12_Schoeneae.tre")
+write.beast(Schoeneae_tree2, "data/phylogenies/Cyperaceae-all-taxa-6-calib-st6_Schoeneae.tre")
 
 Schoeneae_tree3 <- Schoeneae_tree
 Schoeneae_tree3@phylo$root.time <- max(nodeHeights(Schoeneae_tree3@phylo))
