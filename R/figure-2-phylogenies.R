@@ -15,7 +15,7 @@ library(lemon)      # For ::coord_capped_cart()
 
 # Import data ------------------------------------------------------------------
 
-MCC_tree <- treeio::read.beast("data/phylogenies/Cyperaceae-all-taxa-6calib-max-clad-AUG12.tre")
+MCC_tree <- treeio::read.beast("data/phylogenies/Cyperaceae-all-taxa-6-calib-st6.tre")
 posterior_sample <- read.tree("data/phylogenies/Cyperaceae.trees.100.trees")
 
 # Tidy data --------------------------------------------------------------------
