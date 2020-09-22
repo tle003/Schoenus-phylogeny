@@ -138,13 +138,13 @@ Schoenus_tree_plots <- Schoenus_MCC_plot + Schoenus_posterior_plot +
 # Save plots -------------------------------------------------------------------
 
 ggsave(
-  "figures/Schoenus_tree_plots.pdf",
+  "figures/Schoenus-phy-bio-Fig2-RvM.pdf",
   Schoenus_tree_plots,
   width = 10, height = 12
 )
 
 ggsave(
-  "figures/Schoenus_tree_plots.png",
+  "figures/Schoenus-phy-bio-Fig2-RvM.png",
   Schoenus_tree_plots,
   width = 10, height = 12, dpi = 300
 )

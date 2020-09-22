@@ -24,12 +24,12 @@ maps <-
 # Save plot --------------------------------------------------------------------
 
 ggsave(
-  "figures/01-maps.pdf",
+  "figures/Schoenus-phy-bio-Fig1-RvM.pdf",
   maps,
   width = 7, height = 7
 )
 ggsave(
-  "figures/01-maps.png",
+  "figures/Schoenus-phy-bio-Fig1-RvM.png",
   maps,
   width = 7, height = 7, dpi = 300
 )
