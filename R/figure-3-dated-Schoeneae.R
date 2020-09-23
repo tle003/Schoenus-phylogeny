@@ -625,7 +625,7 @@ Cyperaceae_tree_plot <-
 
 # .... Annotations -------------------------------------------------------------
 
-clade_label_offset <- 25
+clade_label_offset <- 20
 clade_bar_extension <- 0.2
 
 # Label other Schoeneae subtribes
