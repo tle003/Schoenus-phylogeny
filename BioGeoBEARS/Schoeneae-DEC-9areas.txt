@@ -1,4 +1,4 @@
-136 9 (H N T P F C Z A W)
+135 9 (H N T P F C Z A W)
 Schoenus_acuminatus 000000001
 Schoenus_albovaginatus 000001000
 Schoenus_andinus 010000000
@@ -97,7 +97,6 @@ Schoenus_submicrostachyus 000000001
 Schoenus_tendo 000000100
 Schoenus_tenellus 000000001
 Schoenus_thedae 000000001
-Schoenus_trachycarpus 000000001
 Schoenus_triticoides 000001000
 Schoenus_unispiculatus 000000001
 Schoenus_vaginatus 000000010
