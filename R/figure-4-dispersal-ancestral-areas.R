@@ -143,10 +143,7 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
       area == "Z"      ~ (label_positions[[5]] / my_scale_factor) - 12.5,
       area == "N"      ~ (label_positions[[6]] / my_scale_factor) - 12.5,
       area == "P"      ~ (label_positions[[7]] / my_scale_factor) - 12.5,
-      area == "T"      ~ (label_positions[[8]] / my_scale_factor) - 12.5,
-      area == "H"      ~ ((tree_height + 10)   / my_scale_factor) - 12.5,
-      area == "fynbos" ~ ((tree_height + 100)   / my_scale_factor) - 12.5,
-      area == "kwonga" ~ ((tree_height + 110)   / my_scale_factor) - 12.5,
+      area == "T"      ~ (label_positions[[8]] / my_scale_factor) - 12.5
     ),
     area =
       # TODO: functionalise
@@ -159,9 +156,7 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
         area == "N"      ~ "Neotropics",
         area == "P"      ~ "Pacific",
         area == "T"      ~ "Tropical Asia",
-        area == "H"      ~ "Holarctic",
-        area == "fynbos" ~ "Fynbos",
-        area == "kwonga" ~ "Kwonga"
+        area == "H"      ~ "Holarctic"
       ) %>%
       factor(levels = c(
         "Cape",
@@ -172,9 +167,7 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
         "Neotropics",
         "Pacific",
         "Tropical Asia",
-        "Holarctic",
-        "Fynbos",
-        "Kwonga"
+        "Holarctic"
       )),
     present = as.logical(present)
   )
@@ -310,7 +303,7 @@ Schoeneae_DEC_areas_plot <-
     panel = "DEC areas",
     aes(
       x = x,
-      colour = area,
+      #colour = area,
       fill = factor(paste(area, !present), levels = c(
         "Cape FALSE",              "Cape TRUE",
         "Africa FALSE",            "Africa TRUE",
@@ -320,9 +313,7 @@ Schoeneae_DEC_areas_plot <-
         "Neotropics FALSE",        "Neotropics TRUE",
         "Pacific FALSE",           "Pacific TRUE",
         "Tropical Asia FALSE",     "Tropical Asia TRUE",
-        "Holarctic FALSE",         "Holarctic TRUE",
-        "Fynbos FALSE",            "Fynbos TRUE",
-        "Kwonga FALSE",            "Kwonga TRUE"
+        "Holarctic FALSE",         "Holarctic TRUE"
       ))
     ),
     width = 10 / my_scale_factor
