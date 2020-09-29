@@ -128,16 +128,11 @@ plotTree(
 axisPhylo()
 title(xlab = "Ma")
 nodelabels(
-  pie    = relprobs_matrix[nodes, ],
-  piecol = colors_list_for_states,
-  cex    = 0.5
+  text = MLstates[nodes],
+  node = nodes,
+  bg   = cols_byNode[nodes],
+  cex  = 0.5
 )
-#nodelabels(
-#  pie    = probs3,
-#  node   = nodes,
-#  piecol = newcols,
-#  cex    = 0.5
-#)
 tiplabels(
   text   = MLstates[tips],
   tip    = tips,
