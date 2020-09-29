@@ -1,6 +1,4 @@
-## Title:  Schoeneae ancestoral areas - refined
-### Name: Tammy Elliott
-### Date: June 18, 2020
+# Tammy Elliott & Ruan van Mazijk, 2020
 
 # [RvM] Setup ------------------------------------------------------------------
 
