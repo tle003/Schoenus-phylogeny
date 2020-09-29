@@ -13,8 +13,8 @@ library(tidygraph)
 
 # Import data ------------------------------------------------------------------
 
-dispersal_means <- read_csv("data/dispersal_means.csv")
-dispersal_SDs   <- read_csv("data/dispersal_SDs.csv")
+dispersal_means <- read_csv("data/all_dispersals_counts_fromto_means.txt")
+dispersal_SDs   <- read_csv("data/all_dispersals_counts_fromto_sds.txt")
 
 df2matrix <- function(df) {
   dispersal_matrix <- as.matrix(df[, -1])
@@ -45,30 +45,43 @@ dispersal_means %>%
     #0.75, 0.25, "Western Australia")
   ) +
     geom_node_point(
-      aes(colour = {factor(name, levels = c(
-        "Cape",
-        "Africa",
-        "Western Australia",
-        "Australia",
-        "New Zealand",
-        "Neotropics",
-        "Pacific",
-        "Tropical Asia",
-        "Holarctic"
-      ))}),
+      aes(colour = {
+        case_when(
+          name == "C"      ~ "Cape",
+          name == "F"      ~ "Africa",
+          name == "W"      ~ "Western Australia",
+          name == "A"      ~ "Australia",
+          name == "Z"      ~ "New Zealand",
+          name == "N"      ~ "Neotropics",
+          name == "P"      ~ "Pacific",
+          name == "T"      ~ "Tropical Asia",
+          name == "H"      ~ "Holarctic"
+          ) %>%
+        factor(levels = c(
+          "Cape",
+          "Africa",
+          "Western Australia",
+          "Australia",
+          "New Zealand",
+          "Neotropics",
+          "Pacific",
+          "Tropical Asia",
+          "Holarctic"
+        ))
+      }),
       size = 5
     ) +
     geom_edge_arc2(
       aes(edge_width = weight %>%
         {case_when(
-          . >= 17  ~   "17.3",
-          . >=  7  ~    "7.9",
+          . >= 16  ~   "16.05",
+          . >=  7  ~    "7.30",
           TRUE     ~ "<= 4"
         )} %>%
         factor(levels = c(
           "<= 4",
-             "7.9",
-            "17.3"
+             "7.30",
+            "16.05"
         ))
       ),
       start_cap = circle(10, "points"),
