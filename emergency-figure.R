@@ -157,4 +157,3 @@ plot_BioGeoBEARS_results(results_DEC,
     np(system.file("extdata/a_scripts", package = "BioGeoBEARS"))
 )
 dev.off()
-
