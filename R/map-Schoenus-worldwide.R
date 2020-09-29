@@ -23,9 +23,10 @@ colnames(Schoenus_worldwide)[1:4] <- c(
   "source",
   "in_phylogeny"
 )
+Schoenus_worldwide <- Schoenus_worldwide[Schoenus_worldwide$species != "Schoenus trachycarpus", ]
 
 # Give species names as rownames
-rownames(Schoenus_worldwide) <- Schoenus_worldwide$Species
+rownames(Schoenus_worldwide) <- Schoenus_worldwide$species
 
 # Calculate rowsums to get a vector with values per region
 Schoenus_worldwide_sums <- as.data.frame(colSums(

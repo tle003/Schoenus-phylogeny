@@ -37,12 +37,12 @@ occ %>%
 
 occ_tidy <- occ %>%
   # Remove genus-only records
-  filter(rank != "genus") %>%
+  filter(rank != "genus", species != "Schoenus trachycarpus") %>%
   # Remove records without GPS coordinates
   filter(!is.na(latitude) & !is.na(longitude)) %>%
   # Take species-level of all records
   # (i.e. sub-specific taxa are treated as occ. of its species)
-  select(species, latitude, longitude)
+  dplyr::select(species, latitude, longitude)
 # Have a look
 occ_tidy
 #ggplot(occ_tidy) +
