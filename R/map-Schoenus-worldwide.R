@@ -106,9 +106,9 @@ TDWG_level3_df_tidy <- TDWG_level3_df %>%
       richness <= 11 ~ "2-11",
       richness <= 21 ~ "12-21",
       richness == 45 ~ "45",
-      richness == 62 ~ "62"
+      richness == 61 ~ "61"
     ) %>%
-    factor(levels = c("62", "45", "12-21", "2-11", "1"))
+    factor(levels = c("61", "45", "12-21", "2-11", "1"))
   )
 
 # Plot maps --------------------------------------------------------------------
