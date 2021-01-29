@@ -115,7 +115,7 @@ TDWG_level3_df_tidy <- TDWG_level3_df %>%
 # Set ggplot2 theme
 theme_set(theme_bw() + theme(panel.grid = element_blank()))
 
-worldwide_plot <- ggplot() +
+richness_map <- ggplot() +
   geom_polygon(data = TDWG_level3_df_tidy,
     aes(x = long, y = lat, group = group, fill = richness, alpha = richness),
     colour = "grey30",
@@ -149,7 +149,7 @@ worldwide_plot <- ggplot() +
     legend.text.align = 1
   )
 
-proportion_sampled_plot <- ggplot() +
+proportion_sampled_map <- ggplot() +
   geom_polygon(
     data = TDWG_level3_df %>%
       mutate(prop_in_phylogeny = ifelse(Count == 0, NA, prop_in_phylogeny)) %>%

@@ -16,8 +16,8 @@ library(patchwork)  # Figure panelling
 # Panel the figures using patchwork syntax(!) ----------------------------------
 
 maps <-
-  worldwide_plot /
-  proportion_sampled_plot /
+  richness_map /
+  proportion_sampled_map /
   (south_africa_plot | oceania_plot) +
   plot_layout(heights = c(1, 1, 0.75))
 
