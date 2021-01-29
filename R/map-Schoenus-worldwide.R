@@ -158,7 +158,8 @@ richness_map <- ggplot() +
 proportion_sampled_map <- ggplot() +
   geom_polygon(data = TDWG_level3_df_tidy_proportion_sampled,
     aes(x = long, y = lat, group = group, fill = prop_in_phylogeny),
-    colour = "grey30", size = 0.1
+    colour = "grey30",
+    size = 0.1
   ) +
   annotate("text", label = "B", x = -180, y = 85, hjust = 1) +
   coord_equal() +
