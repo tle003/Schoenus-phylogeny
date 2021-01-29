@@ -94,7 +94,7 @@ TDWG_level3 <- fortify(TDWG, region = "LEVEL3_COD")
 TDWG_level3_df <- merge(TDWG_level3, TDWG_level3_df, by = "id", all = TRUE)
 
 # Tidy data some more
-TDWG_level3_df_tidy <- TDWG_level3_df %>%
+TDWG_level3_df_tidy_richness <- TDWG_level3_df %>%
   as_tibble() %>%
   dplyr::select(long, lat, group, Count) %>%
   rename(richness = Count) %>%
@@ -122,7 +122,7 @@ TDWG_level3_df_tidy_proportion_sampled <- TDWG_level3_df %>%
 theme_set(theme_bw() + theme(panel.grid = element_blank()))
 
 richness_map <- ggplot() +
-  geom_polygon(data = TDWG_level3_df_tidy,
+  geom_polygon(data = TDWG_level3_df_tidy_richness,
     aes(x = long, y = lat, group = group, fill = richness, alpha = richness),
     colour = "grey30",
     size   = 0.1
