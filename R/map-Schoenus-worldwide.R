@@ -109,6 +109,12 @@ TDWG_level3_df_tidy <- TDWG_level3_df %>%
     ) %>%
     factor(levels = c("61", "46", "11-21", "2-10", "1"))
   )
+TDWG_level3_df_tidy_proportion_sampled <- TDWG_level3_df %>%
+  as_tibble() %>%
+  dplyr::select(long, lat, group, Count, prop_in_phylogeny) %>%
+  rename(richness = Count) %>%
+  mutate(prop_in_phylogeny = ifelse(richness == 0, NA, prop_in_phylogeny)) %>%
+  mutate(prop_in_phylogeny = prop_in_phylogeny * 100)
 
 # Plot maps --------------------------------------------------------------------
 
@@ -150,10 +156,7 @@ richness_map <- ggplot() +
   )
 
 proportion_sampled_map <- ggplot() +
-  geom_polygon(
-    data = TDWG_level3_df %>%
-      mutate(prop_in_phylogeny = ifelse(Count == 0, NA, prop_in_phylogeny)) %>%
-      mutate(prop_in_phylogeny = prop_in_phylogeny * 100),
+  geom_polygon(data = TDWG_level3_df_tidy_proportion_sampled,
     aes(x = long, y = lat, group = group, fill = prop_in_phylogeny),
     colour = "grey30", size = 0.1
   ) +
