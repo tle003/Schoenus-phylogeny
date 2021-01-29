@@ -93,12 +93,13 @@ colnames(TDWG_level3_df)[[4]] <- "Count"
 TDWG_level3 <- fortify(TDWG, region = "LEVEL3_COD")
 TDWG_level3_df <- merge(TDWG_level3, TDWG_level3_df, by = "id", all = TRUE)
 
-# Tidy data some more
+# Tidy data some more for plotting
 TDWG_level3_df_tidy_richness <- TDWG_level3_df %>%
   as_tibble() %>%
   dplyr::select(long, lat, group, Count) %>%
   rename(richness = Count) %>%
   mutate(richness = ifelse(richness == 0, NA, richness)) %>%
+  # Discretise richness values
   mutate(richness =
     case_when(
       richness ==  1 ~ "1",
@@ -113,6 +114,7 @@ TDWG_level3_df_tidy_proportion_sampled <- TDWG_level3_df %>%
   as_tibble() %>%
   dplyr::select(long, lat, group, Count, prop_in_phylogeny) %>%
   rename(richness = Count) %>%
+  # Tidy sampling proportion values
   mutate(prop_in_phylogeny = ifelse(richness == 0, NA, prop_in_phylogeny)) %>%
   mutate(prop_in_phylogeny = prop_in_phylogeny * 100)
 
