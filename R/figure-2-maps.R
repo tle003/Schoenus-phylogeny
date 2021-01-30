@@ -23,11 +23,13 @@ maps <-
 
 # Save plot --------------------------------------------------------------------
 
+# As PDF
 ggsave(
   "figures/Schoenus-phy-bio-Fig2-RvM.pdf",
   maps,
   width = 7, height = 7
 )
+# As PNG
 ggsave(
   "figures/Schoenus-phy-bio-Fig2-RvM.png",
   maps,
