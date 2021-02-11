@@ -142,7 +142,7 @@ Begin taxa;
 		Schoenus_scabripes
 		Schoenus_sculptus
 		Schoenus_selinae
-		Schoenus_sesquispiculus
+		Schoenus_sesquispicula
 		Schoenus_sparteus
 		Schoenus_subaphyllus
 		Schoenus_subbarbatus
@@ -167,9 +167,9 @@ Begin taxa;
 		Scleria_rugosa
 		Sumatroscirpus_rupestris
 		Tetraria_borneensis
-		Tetraria_capillaris
+		Netrostylis_capillaris
 		Tetraria_fasciata
-		Tetrariopsis_octandra
+		Morelotia_octandra
 		Trianoptiles_capensis
 		Tricostularia_pauciflora
 		Xyroschoenus_hornei
@@ -317,7 +317,7 @@ Begin trees;
 		137 Schoenus_scabripes,
 		138 Schoenus_sculptus,
 		139 Schoenus_selinae,
-		140 Schoenus_sesquispiculus,
+		140 Schoenus_sesquispicula,
 		141 Schoenus_sparteus,
 		142 Schoenus_subaphyllus,
 		143 Schoenus_subbarbatus,
@@ -342,9 +342,9 @@ Begin trees;
 		162 Scleria_rugosa,
 		163 Sumatroscirpus_rupestris,
 		164 Tetraria_borneensis,
-		165 Tetraria_capillaris,
+		165 Netrostylis_capillaris,
 		166 Tetraria_fasciata,
-		167 Tetrariopsis_octandra,
+		167 Morelotia_octandra,
 		168 Trianoptiles_capensis,
 		169 Tricostularia_pauciflora,
 		170 Xyroschoenus_hornei
