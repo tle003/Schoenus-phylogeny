@@ -68,6 +68,19 @@ tree_height <- max(nodeHeights(Schoenus_MCC@phylo))
 my_labels <- c(50, 40, 30, 20, 10, 0)
 label_positions <- tree_height - my_labels
 
+Schoenus_MCC@data <- Schoenus_MCC@data %>%
+  mutate(PP_category =
+    case_when(
+      posterior >= 0.99 ~ ">= 0.99 to 1.00",
+      posterior >= 0.90 ~ ">= 0.90 to < 0.99",
+      posterior <  0.90 ~ "< 0.90"
+    ) %>%
+    factor(levels = c(
+      ">= 0.99 to 1.00",
+      ">= 0.90 to < 0.99",
+      "< 0.90"
+    )))
+
 Schoenus_MCC_plot <-
   ggtree(Schoenus_MCC, ladderize = FALSE) +  # (already ladderized above!)
   geom_rootedge(rootedge = 5) +
@@ -77,12 +90,15 @@ Schoenus_MCC_plot <-
     size = 2.5,
     offset = 2
   ) +
-  geom_nodepoint(aes(fill = posterior), pch = 21, size = 2.5) +
-  scale_fill_gradient(name = "PP",
-    na.value  = "white", low = "white", high = "darkgreen",
-    limits = c(0.9, 1),
-    breaks = c(0.9, 0.95, 1.0),
-    labels = c(expression(phantom(x) < "0.90"), "0.95", "1.00")
+  geom_nodepoint(aes(fill = PP_category), pch = 21, size = 2.5) +
+  scale_fill_manual(name = "PP",
+    na.value  = "white",
+    values = c("darkgreen", "lightgreen", "white"),
+    labels = c(
+      expression(phantom(x) >= "0.99 to 1.00"),
+      expression(phantom(x) >= "0.90 to < 0.99"),
+      expression(phantom(x) < "0.90")
+    )
   ) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
