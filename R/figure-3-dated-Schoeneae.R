@@ -13,7 +13,7 @@ library(strap)    # For ::geoscalePhylo()
 
 # Import data ------------------------------------------------------------------
 
-MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6-calib-st6.tre")
+MCC_tree <- read.beast("data/phylogenies/Cyperaceae-all-taxa-6-calib-st6-Dec26.tre")
 
 subtribes <- read_csv("data/Schoeneae-subtribes.csv")
 
