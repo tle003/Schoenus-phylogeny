@@ -80,8 +80,9 @@ Schoenus_MCC_plot <-
   geom_nodepoint(aes(fill = posterior), pch = 21, size = 2.5) +
   scale_fill_gradient(name = "PP",
     na.value  = "white", low = "white", high = "darkgreen",
-    limits = c(0.5, 1),
-    labels = c(expression(phantom(x) <= 50), "0.6", "0.7", "0.8", "0.9", "1.0")
+    limits = c(0.9, 1),
+    breaks = c(0.9, 0.95, 1.0),
+    labels = c(expression(phantom(x) < "0.90"), "0.95", "1.00")
   ) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
