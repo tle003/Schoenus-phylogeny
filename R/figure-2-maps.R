@@ -16,20 +16,22 @@ library(patchwork)  # Figure panelling
 # Panel the figures using patchwork syntax(!) ----------------------------------
 
 maps <-
-  worldwide_plot /
-  proportion_sampled_plot /
+  richness_map /
+  proportion_sampled_map /
   (south_africa_plot | oceania_plot) +
   plot_layout(heights = c(1, 1, 0.75))
 
 # Save plot --------------------------------------------------------------------
 
+# As PDF
 ggsave(
-  "figures/Schoenus-phy-bio-Fig1-RvM.pdf",
+  "figures/Schoenus-phy-bio-Fig2-RvM.pdf",
   maps,
   width = 7, height = 7
 )
+# As PNG
 ggsave(
-  "figures/Schoenus-phy-bio-Fig1-RvM.png",
+  "figures/Schoenus-phy-bio-Fig2-RvM.png",
   maps,
   width = 7, height = 7, dpi = 300
 )

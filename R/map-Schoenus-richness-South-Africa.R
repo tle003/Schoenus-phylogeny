@@ -26,9 +26,32 @@ border_world<- readOGR("data/shapefiles/World_Continents/v10/continent.gdb/")
 # Set ggplot2 theme
 theme_set(theme_bw() + theme(panel.grid = element_blank()))
 
+# Note, the panels of Figure 2 are as follows:
+#
+#     A--------------------\
+#     |                    |
+#     | richness           |
+#     |                    |
+#     \--------------------/
+#     B--------------------\
+#     |                    |
+#     | proportion sampled |
+#     |                    |
+#     \--------------------/
+#     C--------\ D---------\
+#     |        | |         |
+#     | S Afr  | | W Aus   |
+#     |        | |         |
+#     \--------/ \---------/
+#
+# Consequently, will omit the legend for C (shared with D)
+
+# Panel C
 south_africa_plot <- ggplot(richness) +
+  # Plot coloured tiles representing QDGC-scale richness
   aes(QDGC_lon, QDGC_lat, fill = richness) +
   geom_tile() +
+  # Plot African and South African borders
   geom_polygon(
     data = border_world,
     aes(x = long, y = lat, group = group),
@@ -39,7 +62,15 @@ south_africa_plot <- ggplot(richness) +
     aes(x = long, y = lat, group = group),
     fill = NA, colour = "grey30", size = 0.15
   ) +
+  # Panel label
   annotate("text", label = "C", x = 17, y = -23) +
+  # Colour scheme customisation
+  scale_fill_viridis_c(
+    direction = -1,
+    breaks = c(5, 15, 25, 34),
+    limits = c(0, 34)
+  ) +
+  # Lat/lon scale customisation
   coord_equal(xlim = c(16, 33), ylim = c(-36, -22)) +
   scale_x_continuous(
     breaks = c(20, 25, 30),
@@ -49,14 +80,8 @@ south_africa_plot <- ggplot(richness) +
     breaks = c(-25, -30, -35),
     labels = scales::label_math(expr = .x*"º")
   ) +
-  scale_fill_viridis_c(
-    direction = -1,
-    breaks = c(5, 15, 25, 34),
-    limits = c(0, 34)
-  ) +
   theme(
-    axis.title.x      = element_blank(),
-    axis.title.y      = element_blank(),
-    legend.position   = "none",
-    legend.text.align = 1
+    axis.title.x    = element_blank(),
+    axis.title.y    = element_blank(),
+    legend.position = "none"  # Omit the legend
   )

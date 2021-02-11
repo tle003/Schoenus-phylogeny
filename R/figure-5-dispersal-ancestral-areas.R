@@ -179,7 +179,7 @@ Schoeneae_DEC_areas_tidy <- Schoeneae_DEC_areas_tidy %>%
     present = as.logical(present)
   )
 
-# Plots ------------------------------------------------------------------------
+# Plot -------------------------------------------------------------------------
 
 # Make data for grey and white blocks for timescale-background of tree
 my_panel_grid <- Schoeneae_tree@phylo %>%

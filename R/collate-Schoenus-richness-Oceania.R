@@ -37,7 +37,7 @@ occ %>%
 
 occ_tidy <- occ %>%
   # Remove genus-only records
-  filter(rank != "genus", species != "Schoenus trachycarpus") %>%
+  filter(rank != "genus") %>%
   # Remove records without GPS coordinates
   filter(!is.na(latitude) & !is.na(longitude)) %>%
   # Take species-level of all records
