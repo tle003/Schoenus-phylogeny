@@ -50,6 +50,10 @@ for (i in seq_along(posterior_sample)) {
     Schoenus_posterior[[i]]$tip.label,
     "Schoenus_", "S. "
   )
+  Schoenus_posterior[[i]]$tip.label <- str_replace(
+    Schoenus_posterior[[i]]$tip.label,
+    "sesquispiculus", "sesquispicula"
+  )
 }
 # Convert list of pruned trees to multiphylo
 Schoenus_posterior_multiphylo <- Schoenus_posterior[[1]]
