@@ -162,11 +162,11 @@ Schoenus_tree_plots <- Schoenus_MCC_plot + Schoenus_posterior_plot +
 ggsave(
   "figures/Schoenus-phy-bio-Fig4-RvM.pdf",
   Schoenus_tree_plots,
-  width = 10, height = 12
+  width = 10, height = 10
 )
 
 ggsave(
   "figures/Schoenus-phy-bio-Fig4-RvM.png",
   Schoenus_tree_plots,
-  width = 10, height = 12, dpi = 300
+  width = 10, height = 10, dpi = 300
 )
