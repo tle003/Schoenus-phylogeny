@@ -50,6 +50,7 @@ for (i in seq_along(posterior_sample)) {
     Schoenus_posterior[[i]]$tip.label,
     "Schoenus_", "S. "
   )
+  # Amend one species' name in tree set
   Schoenus_posterior[[i]]$tip.label <- str_replace(
     Schoenus_posterior[[i]]$tip.label,
     "sesquispiculus", "sesquispicula"
@@ -65,13 +66,7 @@ for (i in 2:length(Schoenus_posterior)) {
 }
 Schoenus_posterior <- Schoenus_posterior_multiphylo
 
-# Plots ------------------------------------------------------------------------
-
-# X-axis scaling things:
-tree_height <- max(nodeHeights(Schoenus_MCC@phylo))
-my_labels <- c(50, 40, 30, 20, 10, 0)
-label_positions <- tree_height - my_labels
-
+# Derive discrete PP bins as tree data
 Schoenus_MCC@data <- Schoenus_MCC@data %>%
   mutate(PP_category =
     case_when(
@@ -85,6 +80,13 @@ Schoenus_MCC@data <- Schoenus_MCC@data %>%
       "< 0.8"
     ))
   )
+
+# Plots ------------------------------------------------------------------------
+
+# X-axis scaling things:
+tree_height <- max(nodeHeights(Schoenus_MCC@phylo))
+my_labels <- c(50, 40, 30, 20, 10, 0)
+label_positions <- tree_height - my_labels
 
 Schoenus_MCC_plot <-
   ggtree(Schoenus_MCC, ladderize = FALSE) +  # (already ladderized above!)
