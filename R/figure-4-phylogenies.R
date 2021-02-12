@@ -75,15 +75,16 @@ label_positions <- tree_height - my_labels
 Schoenus_MCC@data <- Schoenus_MCC@data %>%
   mutate(PP_category =
     case_when(
-      posterior >= 0.99 ~ ">= 0.99 to 1.00",
-      posterior >= 0.90 ~ ">= 0.90 to < 0.99",
-      posterior <  0.90 ~ "< 0.90"
+      posterior >= 0.9 ~ ">= 0.9 to 1.0",
+      posterior >= 0.8 ~ ">= 0.8 to < 0.9",
+      posterior <  0.8 ~ "< 0.8"
     ) %>%
     factor(levels = c(
-      ">= 0.99 to 1.00",
-      ">= 0.90 to < 0.99",
-      "< 0.90"
-    )))
+      ">= 0.9 to 1.0",
+      ">= 0.8 to < 0.9",
+      "< 0.8"
+    ))
+  )
 
 Schoenus_MCC_plot <-
   ggtree(Schoenus_MCC, ladderize = FALSE) +  # (already ladderized above!)
@@ -99,9 +100,9 @@ Schoenus_MCC_plot <-
     na.value  = "white",
     values = c("darkgreen", "lightgreen", "white"),
     labels = c(
-      expression(phantom(x) >= "0.99 to 1.00"),
-      expression(phantom(x) >= "0.90 to < 0.99"),
-      expression(phantom(x) < "0.90")
+      expression(phantom(x) >= "0.9 to 1.0"),
+      expression(phantom(x) >= "0.8 to < 0.9"),
+      expression(phantom(x) <  "0.8")
     )
   ) +
   theme_tree2() +
