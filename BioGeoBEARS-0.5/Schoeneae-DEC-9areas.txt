@@ -119,7 +119,7 @@ Neesenbeckia_punctoria 000001000
 Ptilothrix_deusta 000000010
 Chaetospora_curvifolia 000000001
 Ammothryon_grandiflorum 000000001
-Tetraria_capillaris 000000111
+Netrostylis_capillaris 000000111
 Tricostularia_pauciflora 000000010
 Caustis_blakei 000000010
 Oreobolus_pectinatus 000000100
