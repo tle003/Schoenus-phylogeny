@@ -25,13 +25,13 @@ maps <-
 
 # As PDF
 ggsave(
-  "figures/Schoenus-phy-bio-Fig2-RvM.pdf",
+  "figures/Schoenus-phy-bio-Fig3-RvM.pdf",
   maps,
   width = 7, height = 7
 )
 # As PNG
 ggsave(
-  "figures/Schoenus-phy-bio-Fig2-RvM.png",
+  "figures/Schoenus-phy-bio-Fig3-RvM.png",
   maps,
   width = 7, height = 7, dpi = 300
 )
