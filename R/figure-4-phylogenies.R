@@ -15,8 +15,8 @@ library(lemon)      # For ::coord_capped_cart()
 
 # Import data ------------------------------------------------------------------
 
-MCC_tree <- treeio::read.beast("data/phylogenies/Cyperaceae-all-taxa-6-calib-st6.tre")
-posterior_sample <- read.tree("data/phylogenies/Cyperaceae.trees.100.trees")
+MCC_tree <- treeio::read.beast("data/phylogenies/Cyperaceae-all-taxa-6-calib-st6-Dec26.tre")
+posterior_sample <- read.tree("data/phylogenies/Schoenus.trees.100.trees")
 
 # Tidy data --------------------------------------------------------------------
 
@@ -50,6 +50,11 @@ for (i in seq_along(posterior_sample)) {
     Schoenus_posterior[[i]]$tip.label,
     "Schoenus_", "S. "
   )
+  # Amend one species' name in tree set
+  Schoenus_posterior[[i]]$tip.label <- str_replace(
+    Schoenus_posterior[[i]]$tip.label,
+    "sesquispiculus", "sesquispicula"
+  )
 }
 # Convert list of pruned trees to multiphylo
 Schoenus_posterior_multiphylo <- Schoenus_posterior[[1]]
@@ -60,6 +65,21 @@ for (i in 2:length(Schoenus_posterior)) {
   )
 }
 Schoenus_posterior <- Schoenus_posterior_multiphylo
+
+# Derive discrete PP bins as tree data
+Schoenus_MCC@data <- Schoenus_MCC@data %>%
+  mutate(PP_category =
+    case_when(
+      posterior >= 0.9 ~ ">= 0.9 to 1.0",
+      posterior >= 0.8 ~ ">= 0.8 to < 0.9",
+      posterior <  0.8 ~ "< 0.8"
+    ) %>%
+    factor(levels = c(
+      ">= 0.9 to 1.0",
+      ">= 0.8 to < 0.9",
+      "< 0.8"
+    ))
+  )
 
 # Plots ------------------------------------------------------------------------
 
@@ -77,11 +97,15 @@ Schoenus_MCC_plot <-
     size = 2.5,
     offset = 2
   ) +
-  geom_nodepoint(aes(fill = posterior), pch = 21, size = 2.5) +
-  scale_fill_gradient(name = "PP",
-    na.value  = "white", low = "white", high = "darkgreen",
-    limits = c(0.5, 1),
-    labels = c(expression(phantom(x) <= 50), "0.6", "0.7", "0.8", "0.9", "1.0")
+  geom_nodepoint(aes(fill = PP_category), pch = 21, size = 2.5) +
+  scale_fill_manual(name = "PP",
+    na.value  = "white",
+    values = c("darkgreen", "lightgreen", "white"),
+    labels = c(
+      expression(phantom(x) >= "0.9 to 1.0"),
+      expression(phantom(x) >= "0.8 to < 0.9"),
+      expression(phantom(x) <  "0.8")
+    )
   ) +
   theme_tree2() +
   scale_x_continuous(name = "Ma",
@@ -140,11 +164,11 @@ Schoenus_tree_plots <- Schoenus_MCC_plot + Schoenus_posterior_plot +
 ggsave(
   "figures/Schoenus-phy-bio-Fig4-RvM.pdf",
   Schoenus_tree_plots,
-  width = 10, height = 12
+  width = 10, height = 10
 )
 
 ggsave(
   "figures/Schoenus-phy-bio-Fig4-RvM.png",
   Schoenus_tree_plots,
-  width = 10, height = 12, dpi = 300
+  width = 10, height = 10, dpi = 300
 )
