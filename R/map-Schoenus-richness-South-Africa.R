@@ -1,7 +1,7 @@
 # Map Schoenus (Cyperaceae, Tribe Schoeneae) species richness in
 # quarter degree grid cells in South Africa
 
-# Ruan van Mazijk, 2020
+# Ruan van Mazijk, 2021
 
 # Load packages ----------------------------------------------------------------
 

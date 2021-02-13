@@ -1,7 +1,7 @@
 # Arrange Schoenus (Cyperaceae, Tribe Schoeneae) species richness and
 # sampling effort maps (worlwide, in South Africa, Australia and New Zealand)
 
-# Ruan van Mazijk, 2020
+# Ruan van Mazijk, 2021
 
 # Run other scripts  -----------------------------------------------------------
 
