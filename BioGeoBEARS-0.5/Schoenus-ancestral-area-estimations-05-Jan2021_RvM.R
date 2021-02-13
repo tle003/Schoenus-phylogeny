@@ -308,7 +308,7 @@ system(cmdstr)
 results_DEC<-readRDS(file = "results_DEC_constrained-constrained05-Jan2021.rds")
 results_DEC$inputs$wd <- getwd()  # [Rvm]
 results_DEC$inputs$geogfn <- "Schoeneae-DEC-9areas.txt"  # [Rvm]
-results_DEC$inputs$trfn <- "Schoeneae_tree_ultrametric.tre"  # [Rvm]
+results_DEC$inputs$trfn <- "Schoeneae_tree_ultrametric-Jan2021.tre"  # [Rvm]
 res<-results_DEC
 
 tree_file_name <- np("Schoeneae_tree_ultrametric-Jan2021.tre")  # [RvM]
