@@ -27,7 +27,7 @@ library(phytools)
 #devtools::install_github(repo="nmatzke/BioGeoBEARS", INSTALL_opts="--byte-compile")
 
 #set working directory
-setwd("/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/follow-up-analyses/BioGeoBEARS-0.5")
+setwd("BioGeoBEARS-0.5")  # [RvM]
 getwd()
 
 
@@ -36,7 +36,7 @@ getwd()
 #Check timeperiods file
 timeperiods<-read.table("timeperiods.txt")
 dispersal.multipliers<-read.table("dispersal_multipliers-nums.txt",header = TRUE, fill = TRUE)
-#Write .txt file 
+#Write .txt file
 #write.table(Schoenus.cont, file = "Schoenus.cont.txt", quote=F)
 
 
@@ -61,24 +61,24 @@ max(rowSums(dfnums_to_numeric(tipranges@df)))
 #    "Diplacrum_caricinum","Hypolytrum_africanum","Exochogyne_amazonica","Calyptrocarya_glomerulata","Trianoptiles_capensis"))
 #is.ultrametric(Schoeneae_tree_prelim)
 #Make tree ultrametric
-#Schoeneae_tree_ultrametric<-force.ultrametric(Schoeneae_tree_prelim) 
+#Schoeneae_tree_ultrametric<-force.ultrametric(Schoeneae_tree_prelim)
 #is.ultrametric(Schoeneae_tree_ultrametric)
 #Save tree file
 #write.tree(Schoeneae_tree_ultrametric, file = "/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/RAxML-msc-sangor-prelim/Bayesian-results-Jan2021/Longer_runs/Schoeneae_tree_ultrametric-Jan2021.tre", append = FALSE,
  #         digits = 10)
 
 #Read tree
-Schoeneae_tree_ultrametric<-read.tree("/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/RAxML-msc-sangor-prelim/Bayesian-results-Jan2021/Longer_runs/Schoeneae_tree_ultrametric-Jan2021.tre")
+Schoeneae_tree_ultrametric<-read.tree("Schoeneae_tree_ultrametric-Jan2021.tre")  # [RvM]
 
 #Impose mimimum branch lengths
-#Schoeneae_tree_min_branch<-impose_min_brlen(Schoeneae_tree_ultrametric, min_brlen = 0.01, leave_BL0_terminals = TRUE, 
-#    direct_ancestor_brlen = 1e-07, printlevel = 2) 
+#Schoeneae_tree_min_branch<-impose_min_brlen(Schoeneae_tree_ultrametric, min_brlen = 0.01, leave_BL0_terminals = TRUE,
+#    direct_ancestor_brlen = 1e-07, printlevel = 2)
 
 #######################################################
 # This is the example Newick file for Hawaiian Schoeneae
 # (from Ree & Smith 2008)
 # "trfn" = "tree file name"
-trfn = "/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/RAxML-msc-sangor-prelim/Bayesian-results-Jan2021/Longer_runs/Schoeneae_tree_ultrametric-Jan2021.tre"
+trfn = "Schoeneae_tree_ultrametric-Jan2021.tre"  # [RvM]
 
 # Look at the raw Newick file:
 moref(trfn)
@@ -107,8 +107,8 @@ numstates_from_numareas(numareas=10, maxareas=2, include_null_range=TRUE)
 ######################
 #DEC analysis
 
-#Read tree; 
-tree_file_name <- np("/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/RAxML-msc-sangor-prelim/Bayesian-results-Jan2021/Longer_runs/Schoeneae_tree_ultrametric-Jan2021.tre")
+#Read tree;
+tree_file_name <- np("Schoeneae_tree_ultrametric-Jan2021.tre")  # [RvM]
 tree_file_name
 
 tr <- read.tree(tree_file_name)
@@ -133,7 +133,7 @@ prt(tree)
 # since the program has to exponentiate a matrix of e.g. 600x600.  Often the computer
 # will just sit there and crunch, and never get through the calculation of the first
 # likelihood.
-# 
+#
 # (this is also what is usually happening when LAGRANGE hangs: you have too many states!)
 #
 # To check the number of states for a given number of ranges, try:
@@ -175,9 +175,9 @@ BioGeoBEARS_run_object$speedup = TRUE          # shorcuts to speed ML search; us
 BioGeoBEARS_run_object$use_optimx = "GenSA"    # if FALSE, use optim() instead of optimx()
 BioGeoBEARS_run_object$num_cores_to_use = 8
 # (use more cores to speed it up; this requires
-# library(parallel) and/or library(snow). The package "parallel" 
-# is now default on Macs in R 3.0+, but apparently still 
-# has to be typed on some Windows machines. Note: apparently 
+# library(parallel) and/or library(snow). The package "parallel"
+# is now default on Macs in R 3.0+, but apparently still
+# has to be typed on some Windows machines. Note: apparently
 # parallel works on Mac command-line R, but not R.app.
 # BioGeoBEARS checks for this and resets to 1
 # core with R.app)
@@ -205,7 +205,7 @@ BioGeoBEARS_run_object$on_NaN_error = -1e50    # returns very low lnL if paramet
 BioGeoBEARS_run_object$speedup = TRUE          # shorcuts to speed ML search; use FALSE if worried (e.g. >3 params)
 BioGeoBEARS_run_object$use_optimx = "GenSA"    # if FALSE, use optim() instead of optimx()
 BioGeoBEARS_run_object$num_cores_to_use = 1
-BioGeoBEARS_run_object$force_sparse = FALSE 
+BioGeoBEARS_run_object$force_sparse = FALSE
 
 # Good default settings to get ancestral states
 BioGeoBEARS_run_object$return_condlikes_table = TRUE
@@ -221,20 +221,20 @@ BioGeoBEARS_run_object
 # This contains the model object
 BioGeoBEARS_run_object$BioGeoBEARS_model_object
 
-# This table contains the parameters of the model 
+# This table contains the parameters of the model
 BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table
 
 # Run this to check inputs. Read the error messages if you get them!
 check_BioGeoBEARS_run(BioGeoBEARS_run_object)
 
-# For a slow analysis, run once, then set runslow=FALSE to just 
+# For a slow analysis, run once, then set runslow=FALSE to just
 # load the saved result.
 #runslow = TRUE
 #resfn = "Schoeneae_DEC_M0_unconstrained_v1.Rdata"
 #if (runslow)
     #{
     #res = bears_optim_run(BioGeoBEARS_run_object)
-    #res    
+    #res
 
     #save(res, file=resfn)
     #resDEC = res
@@ -261,7 +261,7 @@ results_DEC<-readRDS(file = "results_DEC_constrained-constrained05-Jan2021.rds")
 #Plot ancestral states
 #Plot the DEC and DEC+J models
 
-tree_file_name <- np("/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/RAxML-msc-sangor-prelim/Bayesian-results-Jan2021/Longer_runs/Schoeneae_tree_ultrametric-Jan2021.tre")
+tree_file_name <- np("Schoeneae_tree_ultrametric-Jan2021.tre")  # [RvM]
 tree_file_name
 
 tr <- read.tree(tree_file_name)
@@ -296,7 +296,7 @@ system(cmdstr)
 
 ######################################################
 # Get the inputs for Biogeographical Stochastic Mapping
-# Note: this can be slow for large state spaces and trees, since 
+# Note: this can be slow for large state spaces and trees, since
 # the independent likelihoods for each branch are being pre-calculated
 # E.g., for 10 areas, this requires calculation of a 1024x1024 matrix
 # for each branch.  On a tree with ~800 tips and thus ~1600 branches, this was about 1.6 gigs
@@ -306,9 +306,12 @@ system(cmdstr)
 #######################################################
 #Read in data
 results_DEC<-readRDS(file = "results_DEC_constrained-constrained05-Jan2021.rds")
+results_DEC$inputs$wd <- getwd()  # [Rvm]
+results_DEC$inputs$geogfn <- "Schoeneae-DEC-9areas.txt"  # [Rvm]
+results_DEC$inputs$trfn <- "Schoeneae_tree_ultrametric.tre"  # [Rvm]
 res<-results_DEC
 
-tree_file_name <- np("/Users/tammy/PostDoc/Smuts/Schoeneae/Phylogeny/manuscript/RAxML-msc-sangor-prelim/Bayesian-results-Jan2021/Longer_runs/Schoeneae_tree_ultrametric-Jan2021.tre")
+tree_file_name <- np("Schoeneae_tree_ultrametric-Jan2021.tre")  # [RvM]
 tree_file_name
 
 tr <- read.tree(tree_file_name)
@@ -322,26 +325,27 @@ tipranges <- getranges_from_LagrangePHYLIP(lgdata_fn=geo_file_name)
 tipranges
 
 
+# [Rvm]
+#BSM_inputs_fn = "BSM_inputs_file.Rdata"
+#runInputsSlow = TRUE
+#if (runInputsSlow)
+#    {
+#    stochastic_mapping_inputs_list = get_inputs_for_stochastic_mapping(res=res)
+#    save(stochastic_mapping_inputs_list, file=BSM_inputs_fn)
+#    } else {
+#    # Loads to "stochastic_mapping_inputs_list"
+#    load(BSM_inputs_fn)
+#    } # END if (runInputsSlow)
+#
+## Check inputs (doesn't work the same on unconstr)
+#names(stochastic_mapping_inputs_list)
+#stochastic_mapping_inputs_list$phy2
+#stochastic_mapping_inputs_list$COO_weights_columnar
+#stochastic_mapping_inputs_list$unconstr
+#set.seed(seed=as.numeric(Sys.time()))
+# [/Rvm]
 
-BSM_inputs_fn = "BSM_inputs_file.Rdata"
-runInputsSlow = TRUE
-if (runInputsSlow)
-    {
-    stochastic_mapping_inputs_list = get_inputs_for_stochastic_mapping(res=res)
-    save(stochastic_mapping_inputs_list, file=BSM_inputs_fn)
-    } else {
-    # Loads to "stochastic_mapping_inputs_list"
-    load(BSM_inputs_fn)
-    } # END if (runInputsSlow)
-
-# Check inputs (doesn't work the same on unconstr)
-names(stochastic_mapping_inputs_list)
-stochastic_mapping_inputs_list$phy2
-stochastic_mapping_inputs_list$COO_weights_columnar
-stochastic_mapping_inputs_list$unconstr
-set.seed(seed=as.numeric(Sys.time()))
-
-runBSMslow = TRUE
+runBSMslow = FALSE  # [RvM]
 if (runBSMslow == TRUE)
     {
     # Saves to: RES_clado_events_tables.Rdata
@@ -406,307 +410,85 @@ ana_events_table = ana_events_tables[[1]]
 ############################################
 # Open a PDF
 ############################################
-pdffn = paste0("DEC", "Schoeneae_single_stochastic_map_n1.pdf")
-pdf(file=pdffn, width=6, height=6)
+#pdffn = paste0("DEC", "Schoeneae_single_stochastic_map_n1.pdf")  # [RvM]
+#pdf(file=pdffn, width=6, height=6)  # [RvM]
 
 # Convert the BSM into a modified res object
 master_table_cladogenetic_events = clado_events_tables[[1]]
 resmod = stochastic_map_states_into_res(res=res, master_table_cladogenetic_events=master_table_cladogenetic_events, stratified=stratified)
 
-plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), label.offset=0.5, plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=FALSE, show.tip.label=TRUE)
+#plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), label.offset=0.5, plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=FALSE, show.tip.label=TRUE)  # [RvM]
 
 # Paint on the branch states
-paint_stochastic_map_branches(res=resmod, master_table_cladogenetic_events=master_table_cladogenetic_events, colors_list_for_states=colors_list_for_states, lwd=4, lty=par("lty"), root.edge=TRUE, stratified=stratified)
+#paint_stochastic_map_branches(res=resmod, master_table_cladogenetic_events=master_table_cladogenetic_events, colors_list_for_states=colors_list_for_states, lwd=4, lty=par("lty"), root.edge=TRUE, stratified=stratified)  # [RvM]
 
-plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=TRUE, show.tip.label=TRUE)
+#plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=TRUE, show.tip.label=TRUE)  # [RvM]
 
 ############################################
 # Close PDF
 ############################################
-dev.off()
-cmdstr = paste("open ", pdffn, sep="")
-system(cmdstr)
+#dev.off()  # [RvM]
+#cmdstr = paste("open ", pdffn, sep="")  # [RvM]
+#system(cmdstr)  # [RvM]
 
+# [RvM] Save-out ancestral areas' relative probs at nodes ----------------------
+# (Written by RvM)
 
-############################################
-# Open a PDF: pie
-############################################
-pdffn = paste0("DEC", "Schoeneae_single_stochastic_map_n1-pie.pdf")
-pdf(file=pdffn, width=6, height=6)
+library(tidyverse)
+library(tidytree)
+library(ggtree)
 
-# Convert the BSM into a modified res object
-master_table_cladogenetic_events = clado_events_tables[[1]]
-resmod = stochastic_map_states_into_res(res=res, master_table_cladogenetic_events=master_table_cladogenetic_events, stratified=stratified)
+# NOTE: resmod = stochastic_map_states_into_res(res)
+# where res = results_DEC
+# where results_DEC = "results_DEC_constrained.rds"
 
-plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"),  plotwhat="pie",  tipcex=0.3, statecex=0.3, splitcex=0.35, titlecex=0.8, plotsplits=TRUE,cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=FALSE, show.tip.label=TRUE)
+nodes_state_probs <- as.data.frame(
+  resmod$ML_marginal_prob_each_state_at_branch_top_AT_node
+)
 
-# Paint on the branch states
-paint_stochastic_map_branches(res=resmod, master_table_cladogenetic_events=master_table_cladogenetic_events, colors_list_for_states=colors_list_for_states, lwd=1, lty=par("lty"), root.edge=TRUE, stratified=stratified)
+# Remove the tip-nodes from the matrix
+nodes_state_probs <-  nodes_state_probs[-(1:Ntip(tr)), ]
 
-plot_BioGeoBEARS_results(results_object=resmod, analysis_titletxt="Stochastic map", addl_params=list("j"), plotwhat="pie", tipcex=0.3, statecex=0.3, splitcex=0.35, titlecex=0.8, plotsplits=TRUE,cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, skiptree=TRUE, show.tip.label=TRUE)
+# Check:
+Nnode(tr) == nrow(nodes_state_probs)
 
-############################################
-# Close PDF
-############################################
-dev.off()
-cmdstr = paste("open ", pdffn, sep="")
-system(cmdstr)
+nstates <- ncol(nodes_state_probs)
 
-#Get values for nodes
-master_table_cladogenetic_events$nodes 
-
-
-
-
-#######################################################
-# Plot all 50 stochastic maps to PDF
-#######################################################
-# Setup
-include_null_range = include_null_range
-areanames = areanames
-areas = areanames
-max_range_size = 6
-states_list_0based = rcpp_areas_list_to_states_list(areas=areas, maxareas=max_range_size, include_null_range=include_null_range)
-colors_list_for_states = get_colors_for_states_list_0based(areanames=areanames, states_list_0based=states_list_0based, max_range_size=max_range_size, plot_null_range=TRUE)
-scriptdir = np(system.file("extdata/a_scripts", package="BioGeoBEARS"))
-stratified = stratified
-
-# Loop through the maps and plot to PDF
-pdffn = paste0(model_name, "_", length(clado_events_tables), "BSMs_v1.pdf")
-pdf(file=pdffn, width=6, height=6)
-
-nummaps_goal = 1000
-for (i in 1:nummaps_goal)
-    {
-    clado_events_table = clado_events_tables[[i]]
-    analysis_titletxt = paste0("DEC", " - Stochastic Map #", i, "/", nummaps_goal)
-    plot_BSM(results_object=res, clado_events_table=clado_events_table, stratified=stratified, analysis_titletxt=analysis_titletxt, addl_params=list("j"), label.offset=0.5, plotwhat="text", cornercoords_loc=scriptdir, root.edge=TRUE, colors_list_for_states=colors_list_for_states, show.tip.label=TRUE, include_null_range=include_null_range)
-    } # END for (i in 1:nummaps_goal)
-
-dev.off()
-cmdstr = paste("open ", pdffn, sep="")
-system(cmdstr)
-
-#######################################################
-# Summarize stochastic map tables
-#######################################################
-length(clado_events_tables)
-length(ana_events_tables)
-
-head(clado_events_tables[[1]][,-20])
-tail(clado_events_tables[[1]][,-20])
-
-head(ana_events_tables[[1]])
-tail(ana_events_tables[[1]])
-
-areanames = names(tipranges@df)
-actual_names = areanames
-actual_names
-
-# Get the dmat and times (if any)
-dmat_times = get_dmat_times_from_res(res=res, numstates=NULL)
-dmat_times
-
-# Extract BSM output
-clado_events_tables = BSM_output$RES_clado_events_tables
-ana_events_tables = BSM_output$RES_ana_events_tables
-
-#Extract only Schoenus data; change to 100 in future
-clado_events_tablesAlt = list()
-
-for (i in 1:1000){
-clado_events_tablesAlt[[i]] = clado_events_tables[[i]][c(6:114,143:250),]}
-
-clado_events_tables = clado_events_tablesAlt
-
-
-
-ana_events_tablesAlt = list()
-
-for (i in 1:1000){
-ana_events_tablesAlt[[i]] = ana_events_tables[[i]][c(6:114,143:250),]}
-
-ana_events_tables = ana_events_tablesAlt
-
-
-
-
-
-
-# Simulate the source areas
-BSMs_w_sourceAreas = simulate_source_areas_ana_clado(res, clado_events_tables, ana_events_tables, areanames)
-clado_events_tables = BSMs_w_sourceAreas$clado_events_tables
-ana_events_tables = BSMs_w_sourceAreas$ana_events_tables
-
-# Count all anagenetic and cladogenetic events
-counts_list = count_ana_clado_events(clado_events_tables, ana_events_tables, areanames, actual_names)
-
-summary_counts_BSMs = counts_list$summary_counts_BSMs
-print(conditional_format_table(summary_counts_BSMs))
-
-
-
-
-
-
-
-#My histogram
-## from: https://logfc.wordpress.com/2017/03/15/adding-figure-labels-a-b-c-in-the-top-left-corner-of-the-plotting-region/
-
-fig_label <- function(text, region="figure", pos="topleft", cex=NULL, ...) {
- 
-  region <- match.arg(region, c("figure", "plot", "device"))
-  pos <- match.arg(pos, c("topleft", "top", "topright", 
-                          "left", "center", "right", 
-                          "bottomleft", "bottom", "bottomright"))
- 
-  if(region %in% c("figure", "device")) {
-    ds <- dev.size("in")
-    # xy coordinates of device corners in user coordinates
-    x <- grconvertX(c(0, ds[1]), from="in", to="user")
-    y <- grconvertY(c(0, ds[2]), from="in", to="user")
- 
-    # fragment of the device we use to plot
-    if(region == "figure") {
-      # account for the fragment of the device that 
-      # the figure is using
-      fig <- par("fig")
-      dx <- (x[2] - x[1])
-      dy <- (y[2] - y[1])
-      x <- x[1] + dx * fig[1:2]
-      y <- y[1] + dy * fig[3:4]
-    } 
-  }
- 
-  # much simpler if in plotting region
-  if(region == "plot") {
-    u <- par("usr")
-    x <- u[1:2]
-    y <- u[3:4]
-  }
- 
-  sw <- strwidth(text, cex=cex) * 60/100
-  sh <- strheight(text, cex=cex) * 60/100
- 
-  x1 <- switch(pos,
-    topleft     =x[1] + sw, 
-    left        =x[1] + sw,
-    bottomleft  =x[1] + sw,
-    top         =(x[1] + x[2])/2,
-    center      =(x[1] + x[2])/2,
-    bottom      =(x[1] + x[2])/2,
-    topright    =x[2] - sw,
-    right       =x[2] - sw,
-    bottomright =x[2] - sw)
- 
-  y1 <- switch(pos,
-    topleft     =y[2] - sh,
-    top         =y[2] - sh,
-    topright    =y[2] - sh,
-    left        =(y[1] + y[2])/2,
-    center      =(y[1] + y[2])/2,
-    right       =(y[1] + y[2])/2,
-    bottomleft  =y[1] + sh,
-    bottom      =y[1] + sh,
-    bottomright =y[1] + sh)
- 
-  old.par <- par(xpd=NA)
-  on.exit(par(old.par))
- 
-  text(x1, y1, text, cex=cex, ...)
-  return(invisible(c(x,y)))
+# Replace column names in state probability matrix with state names
+for (i in 1:nstates) {
+  colnames(nodes_state_probs)[[i]] <- paste(collapse = "_",
+    areas[states_list_0based[[i]] + 1]  # because 9x areas indexed 0:8
+  )
 }
+colnames(nodes_state_probs)[[1]] <- "na"
 
+# Save state probability matrix
+write.csv(
+  nodes_state_probs,
+  "ancestral_areas_relative_probs.csv"
+)
 
+# Tidy state probability matrix
+nodes_state_probs_tidy <- nodes_state_probs %>%
+  as_tibble(rownames = "node") %>%
+  gather(state, prob, -node) %>%
+  group_by(node) %>%
+  # Only keep the most probable state
+  arrange(node, desc(prob)) %>%
+  slice(1) %>%
+  mutate(node = as.numeric(node))
 
-hist_event_counts_alt<-
-function (counts_list, pdffn = "hist_event_counts_DIVA.pdf", col = "grey70") 
-{
-    title_cex = 1
-    counts_tmp = c(counts_list$founder_totals_list, counts_list$ana_totals_list, 
-        counts_list$subsetSymp_totals_list, counts_list$vicariance_totals_list, 
-        counts_list$sympatry_totals_list)
-    xmax = max(counts_tmp)
-    xlims = c(0, max(pretty(counts_tmp)))
-    count_names = seq(xlims[1], xlims[2])
-    numBSMs = length(counts_list$all_totals_list)
-    pdffn = pdffn
-    pdf(file = pdffn, width = 8, height = 6)
-    par(mfrow = c(2, 2))
-    par(mar = c(3, 4, 2, 1))
-    ylabel = paste0("Freq. in ", numBSMs, " BSMs")
-    mp = barplot(table2(counts_list$ana_totals_list, xlims = xlims), 
-        xlab = NULL, ylab = NULL, main = "", col = col)
-    axis(side = 1, at = mp, labels = count_names, tick = FALSE, 
-        line = -0.75, cex.axis = 0.8)
-    mtext(text = "# anagenetic dispersal", side = 2, cex = 0.8, line = 2.5)
-    mtext(text = paste0("Event counts in each of 1000 BSMs"), side = 1, cex = 0.7, line = 1.25)
-    fig_label("A", cex=1.5) 
-    mp = barplot(table2(counts_list$sympatry_totals_list, xlims = xlims), 
-        xlab = NULL, ylab = NULL, main = "", col = col)
-    axis(side = 1, at = mp, labels = count_names, tick = FALSE, 
-        line = -0.75, cex.axis = 0.8)
-    mtext(text = "# narrow sympatry", side = 2, cex = 0.8, line = 2.5)
-    mtext(text = paste0("Event counts in each of 1000 BSMs"), side = 1, cex = 0.7, line = 1.25)
-    fig_label("B", cex=1.5) 
-    mp = barplot(table2(counts_list$subsetSymp_totals_list, xlims = xlims), 
-        xlab = NULL, ylab = NULL, main = "", col = col)
-    axis(side = 1, at = mp, labels = count_names, tick = FALSE, 
-        line = -0.75, cex.axis = 0.8)
-    mtext(text = "# subset sympatry", side = 2, cex = 0.8, line = 2.5)
-    fig_label("C", cex=1.5) 
-    mtext(text = paste0("Event counts in each of 1000 BSMs"), side = 1, cex = 0.7, line = 1.25)
-    mp = barplot(table2(counts_list$vicariance_totals_list, xlims = xlims), 
-        xlab = NULL, ylab = NULL, main = "", col = col)
-    axis(side = 1, at = mp, labels = count_names, tick = FALSE, 
-        line = -0.75, cex.axis = 0.8)
-    mtext(text = "# vicariance", side = 2, cex = 0.8, line = 2.5)
-   
-    mtext(text = paste0("Event counts in each of 1000 BSMs"), side = 1, cex = 0.7, line = 1.25)
-    fig_label("D", cex=1.5) 
+# Save tidied state probability matrix
+write.csv(
+  nodes_state_probs_tidy,
+  "ancestral_areas_relative_probs_tidy.csv"
+)
 
-    dev.off()
-    cmdstr = paste0("open ", pdffn)
-    system(cmdstr)
-}
+# Combine node ancestral area data with phylogeny proper
+tr_w_ancestral_areas <- tr %>%
+  as_tibble() %>%
+  full_join(nodes_state_probs_tidy) %>%
+  as.treedata()
 
-
-# Histogram of event counts
-hist_event_counts_alt(counts_list, pdffn=paste0("DIVA", "Schoenus_histograms_of_event_counts.pdf"))
-
-
-#######################################################
-# Print counts to files
-#######################################################
-tmpnames = names(counts_list)
-cat("\n\nWriting tables* of counts to tab-delimited text files:\n(* = Tables have dimension=2 (rows and columns). Cubes (dimension 3) and lists (dimension 1) will not be printed to text files.) \n\n")
-for (i in 1:length(tmpnames))
-    {
-    cmdtxt = paste0("item = counts_list$", tmpnames[i])
-    eval(parse(text=cmdtxt))
-
-    # Skip cubes
-    if (length(dim(item)) != 2)
-        {
-        next()
-        }
-
-    outfn = paste0(tmpnames[i], ".txt")
-    if (length(item) == 0)
-        {
-        cat(outfn, " -- NOT written, *NO* events recorded of this type", sep="")
-        cat("\n")
-        } else {
-        cat(outfn)
-        cat("\n")
-        write.table(conditional_format_table(item), file=outfn, quote=FALSE, sep="\t", col.names=TRUE, row.names=TRUE)
-        } # END if (length(item) == 0)
-    } # END for (i in 1:length(tmpnames))
-cat("...done.\n")
-
-#######################################################
-# Check that ML ancestral state/range probabilities and
-# the mean of the BSMs approximately line up
-#######################################################
-library(MultinomialCI)    # For 95% CIs on BSM counts
-check_ML_vs_BSM(res, clado_events_tables, "DIVA", tr=NULL, plot_each_node=FALSE, linreg_plot=TRUE, MultinomialCI=TRUE)
+# Save tree with data as BEAST-style NEXUS-file
+treeio::write.beast(tr_w_ancestral_areas, "tr_w_ancestral_areas.tre")
