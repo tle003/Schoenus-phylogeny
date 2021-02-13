@@ -245,7 +245,7 @@ check_BioGeoBEARS_run(BioGeoBEARS_run_object)
  #   }
 
 #Run analysis
-results_DEC <- bears_optim_run(BioGeoBEARS_run_object)
+#results_DEC <- bears_optim_run(BioGeoBEARS_run_object)  # [RvM]
 
 #saveRDS(results_DEC, file = "results_DEC_constrained.rds")
 #saveRDS(results_DEC, file = "results_DEC_constrained-reparamaterization.rds")
