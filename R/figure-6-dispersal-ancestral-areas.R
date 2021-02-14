@@ -16,7 +16,7 @@ library(ggstance)   # For ggstance::position_dodgev()
 
 # BEAST reconstruction (MCC tree), pruned to Schoeneae,
 # with ancestral area probabilities for nodes (from DEC analysis):
-Schoeneae_tree <- read.beast("BioGeoBEARS/tr_w_ancestral_areas.tre")
+Schoeneae_tree <- read.beast("BioGeoBEARS-0.5/tr_w_ancestral_areas.tre")
 
 # Biogeographical coding for extant species (used in DEC analysis):
 Schoeneae_DEC_areas <- read_delim(
@@ -310,7 +310,6 @@ Schoeneae_DEC_areas_plot <-
     panel = "DEC areas",
     aes(
       x = x,
-      colour = area,
       fill = factor(paste(area, !present), levels = c(
         "Cape FALSE",              "Cape TRUE",
         "Africa FALSE",            "Africa TRUE",
@@ -379,8 +378,20 @@ Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[3]]$children[[6]]  <- zeroGrob()
 Schoeneae_DEC_areas_plot2$grobs[[1]]$grobs[[3]]$children[[6]] <- zeroGrob()
 
 # Check:
-plot(Schoeneae_DEC_areas_plot)
-plot(Schoeneae_DEC_areas_plot2)
+#plot(Schoeneae_DEC_areas_plot)
+#plot(Schoeneae_DEC_areas_plot2)
+
+#Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[3]] <- zeroGrob()
+#Schoeneae_DEC_areas_plot2$grobs[[1]]$grobs[[2]] <- zeroGrob()
+#
+#Schoeneae_DEC_areas_plot_foo <- Schoeneae_DEC_areas_plot
+#Schoeneae_DEC_areas_plot_foo$grobs[[1]]$grobs <- Schoeneae_DEC_areas_plot_foo$grobs[[1]]$grobs[c(1, 2, 10, 11, 16, #17, 19)]
+#plot(gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot_foo$grobs[[1]]))
+#
+#,
+#    Schoeneae_DEC_areas_plot2$grobs[[1]]$grobs[c(1,    3)]
+#  )
+#)
 
 # Save plot --------------------------------------------------------------------
 
