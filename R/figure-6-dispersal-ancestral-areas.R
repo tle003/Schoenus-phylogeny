@@ -20,7 +20,7 @@ Schoeneae_tree <- read.beast("BioGeoBEARS-0.5/tr_w_ancestral_areas.tre")
 
 # Biogeographical coding for extant species (used in DEC analysis):
 Schoeneae_DEC_areas <- read_delim(
-  "BioGeoBEARS-0.5/Schoeneae-DEC-9areas.txt",
+  "data/occurence-data/Schoeneae-DEC-9areas.txt",
   delim = " "
 )
 
