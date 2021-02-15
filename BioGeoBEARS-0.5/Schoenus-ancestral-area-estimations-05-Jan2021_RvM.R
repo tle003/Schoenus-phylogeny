@@ -279,9 +279,9 @@ pdf(pdffn, width=6, height=6)
 analysis_titletxt = "DEC on Schoeneae"
 
 scriptdir = np(system.file("extdata/a_scripts", package="BioGeoBEARS"))
-res2 = plot_BioGeoBEARS_results(results_DEC, analysis_titletxt, addl_params=list("j"), plotwhat="text",
-label.offset=0.45, tipcex=0.4, statecex=0.4, splitcex=0.35, titlecex=0.8, plotsplits=TRUE,
-cornercoords_loc=scriptdir, include_null_range=TRUE, tr=tr, tipranges=tipranges)
+#res2 = plot_BioGeoBEARS_results(results_DEC, analysis_titletxt, addl_params=list("j"), plotwhat="text",
+#label.offset=0.45, tipcex=0.4, statecex=0.4, splitcex=0.35, titlecex=0.8, plotsplits=TRUE,
+#cornercoords_loc=scriptdir, include_null_range=TRUE, tr=tr, tipranges=tipranges)
 
 plot_BioGeoBEARS_results(results_DEC, analysis_titletxt, addl_params=list("j"), plotwhat="pie",
 label.offset=0.45, tipcex=0.4, statecex=0.4, splitcex=0.35, titlecex=0.8, plotsplits=TRUE,
@@ -326,23 +326,23 @@ tipranges
 
 
 # [Rvm]
-#BSM_inputs_fn = "BSM_inputs_file.Rdata"
-#runInputsSlow = TRUE
-#if (runInputsSlow)
-#    {
-#    stochastic_mapping_inputs_list = get_inputs_for_stochastic_mapping(res=res)
-#    save(stochastic_mapping_inputs_list, file=BSM_inputs_fn)
-#    } else {
-#    # Loads to "stochastic_mapping_inputs_list"
-#    load(BSM_inputs_fn)
-#    } # END if (runInputsSlow)
-#
-## Check inputs (doesn't work the same on unconstr)
-#names(stochastic_mapping_inputs_list)
-#stochastic_mapping_inputs_list$phy2
-#stochastic_mapping_inputs_list$COO_weights_columnar
-#stochastic_mapping_inputs_list$unconstr
-#set.seed(seed=as.numeric(Sys.time()))
+BSM_inputs_fn = "BSM_inputs_file.Rdata"
+runInputsSlow = FALSE  # [RvM]
+if (runInputsSlow)
+    {
+    stochastic_mapping_inputs_list = get_inputs_for_stochastic_mapping(res=res)
+    save(stochastic_mapping_inputs_list, file=BSM_inputs_fn)
+    } else {
+    # Loads to "stochastic_mapping_inputs_list"
+    load(BSM_inputs_fn)
+    } # END if (runInputsSlow)
+
+# Check inputs (doesn't work the same on unconstr)
+names(stochastic_mapping_inputs_list)
+stochastic_mapping_inputs_list$phy2
+stochastic_mapping_inputs_list$COO_weights_columnar
+stochastic_mapping_inputs_list$unconstr
+set.seed(seed=as.numeric(Sys.time()))
 # [/Rvm]
 
 runBSMslow = FALSE  # [RvM]
@@ -354,6 +354,7 @@ if (runBSMslow == TRUE)
 
     RES_clado_events_tables = BSM_output$RES_clado_events_tables
     RES_ana_events_tables = BSM_output$RES_ana_events_tables
+    beepr::beep(3)  # [RvM]
     } else {
     # Load previously saved...
 
@@ -434,6 +435,10 @@ resmod = stochastic_map_states_into_res(res=res, master_table_cladogenetic_event
 # [RvM] Save-out ancestral areas' relative probs at nodes ----------------------
 # (Written by RvM)
 
+if (getwd() == "/Users/ruanvanmazijk/Schoenus-phylogeny") {
+  setwd("BioGeoBEARS-0.5/")
+}
+
 library(tidyverse)
 library(tidytree)
 library(ggtree)
@@ -442,13 +447,35 @@ library(ggtree)
 # where res = results_DEC
 # where results_DEC = "results_DEC_constrained.rds"
 
+purrr::map(resmod, dim)
+Ntip(tr) + Nnode(tr)
 nodes_state_probs <- as.data.frame(
   resmod$ML_marginal_prob_each_state_at_branch_top_AT_node
 )
+#nodes_state_probs <- as.data.frame(
+#  resmod$final_all_condlikes_of_each_state
+#)
+#dim(nodes_state_probs)
+#nodes_state_probs[270:282, 1:10]
+
+#resmod$relative_probs_of_each_state_at_branch_bottom_below_node_DOWNPASS[1:10, 1:10]
+#resmod$relative_probs_of_each_state_at_branch_top_AT_node_DOWNPASS[1:10, 1:10]
+
+#heatmap(resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPASS,   Rowv = NA, Colv = NA)
+#heatmap(resmod$relative_probs_of_each_state_at_branch_top_AT_node_DOWNPASS, Rowv = NA, Colv = NA)
+#heatmap(resmod$ML_marginal_prob_each_state_at_branch_top_AT_node,           Rowv = NA, Colv = NA)
+#heatmap(resmod$ML_marginal_prob_each_state_at_branch_bottom_below_node,     Rowv = NA, Colv = NA)
 
 # Remove the tip-nodes from the matrix
 nodes_state_probs <-  nodes_state_probs[-(1:Ntip(tr)), ]
 
+sort(unique(as.vector(as.matrix(nodes_state_probs))), decreasing = TRUE)[1:10]
+sort(unique(as.vector(as.matrix(resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPASS))),         decreasing = TRUE)[1:10]
+sort(unique(as.vector(as.matrix(resmod$relative_probs_of_each_state_at_branch_bottom_below_node_UPPASS))),   decreasing = TRUE)[1:10]
+sort(unique(as.vector(as.matrix(resmod$ML_marginal_prob_each_state_at_branch_bottom_below_node))),           decreasing = TRUE)[1:10]
+sort(unique(as.vector(as.matrix(resmod$ML_marginal_prob_each_state_at_branch_top_AT_node))),                 decreasing = TRUE)[1:10]
+sort(unique(as.vector(as.matrix(resmod$relative_probs_of_each_state_at_branch_bottom_below_node_DOWNPASS))), decreasing = TRUE)[1:10]
+sort(unique(as.vector(as.matrix(resmod$relative_probs_of_each_state_at_branch_top_AT_node_DOWNPASS))),       decreasing = TRUE)[1:10]
 # Check:
 Nnode(tr) == nrow(nodes_state_probs)
 
@@ -459,6 +486,12 @@ for (i in 1:nstates) {
   colnames(nodes_state_probs)[[i]] <- paste(collapse = "_",
     areas[states_list_0based[[i]] + 1]  # because 9x areas indexed 0:8
   )
+}
+if (any(str_detect(rownames(nodes_state_probs), "X\\."))) {
+  rownames(nodes_state_probs) <- str_remove(rownames(nodes_state_probs), "X\\.")
+}
+if ("root_row" %in% rownames(nodes_state_probs)) {
+  rownames(nodes_state_probs)[[1]] <- as.numeric(rownames(nodes_state_probs)[[2]]) - 1
 }
 colnames(nodes_state_probs)[[1]] <- "na"
 
@@ -492,3 +525,7 @@ tr_w_ancestral_areas <- tr %>%
 
 # Save tree with data as BEAST-style NEXUS-file
 treeio::write.beast(tr_w_ancestral_areas, "tr_w_ancestral_areas.tre")
+
+if (getwd() == "/Users/ruanvanmazijk/Schoenus-phylogeny/BioGeoBEARS-0.5") {
+  setwd("..")
+}
