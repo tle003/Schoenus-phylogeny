@@ -70,14 +70,16 @@ Schoenus_posterior <- Schoenus_posterior_multiphylo
 Schoenus_MCC@data <- Schoenus_MCC@data %>%
   mutate(PP_category =
     case_when(
-      posterior >= 0.9 ~ ">= 0.9 to 1.0",
-      posterior >= 0.8 ~ ">= 0.8 to < 0.9",
-      posterior <  0.8 ~ "< 0.8"
+      posterior >= 0.95 ~ ">= 0.95 to 1.00",
+      posterior >= 0.85 ~ ">= 0.85 to < 0.95",
+      posterior >= 0.50 ~ ">= 0.50 to < 0.85",
+      posterior <  0.50 ~ "< 0.50"
     ) %>%
     factor(levels = c(
-      ">= 0.9 to 1.0",
-      ">= 0.8 to < 0.9",
-      "< 0.8"
+      ">= 0.95 to 1.00",
+      ">= 0.85 to < 0.95",
+      ">= 0.50 to < 0.85",
+      "< 0.50"
     ))
   )
 
@@ -99,12 +101,13 @@ Schoenus_MCC_plot <-
   ) +
   geom_nodepoint(aes(fill = PP_category), pch = 21, size = 2.5) +
   scale_fill_manual(name = "PP",
-    na.value  = "white",
-    values = c("darkgreen", "lightgreen", "white"),
+    na.value = "white",
+    values = c(darken("darkgreen", 0.65), "springgreen4", "lightgreen", "white"),
     labels = c(
-      expression(phantom(x) >= "0.9 to 1.0"),
-      expression(phantom(x) >= "0.8 to < 0.9"),
-      expression(phantom(x) <  "0.8")
+      expression(phantom(x) >= "0.95 to 1.00"),
+      expression(phantom(x) >= "0.85 to < 0.95"),
+      expression(phantom(x) >= "0.50 to < 0.85"),
+      expression(phantom(x) <  "0.50")
     )
   ) +
   theme_tree2() +
