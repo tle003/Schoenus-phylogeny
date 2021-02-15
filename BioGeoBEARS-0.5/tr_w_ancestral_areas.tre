@@ -1,0 +1,283 @@
+#NEXUS
+[R-package treeio, Mon Feb 15 13:45:40 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 135;
+	TAXLABELS
+		Anthelepis_paludosa
+		Gahnia_tristis
+		Cyathochaeta_avenacea
+		Mesomelaena_tetragona
+		Ptilothrix_deusta
+		Schoenus_obtusifolius
+		Schoenus_bifidus
+		Schoenus_clandestinus
+		Schoenus_breviculmis
+		Schoenus_deformis
+		Schoenus_subflavus
+		Schoenus_moorei
+		Schoenus_unispiculatus
+		Schoenus_armeria
+		Schoenus_griffinianus
+		Schoenus_subbarbatus
+		Schoenus_fluitans
+		Schoenus_discifer
+		Schoenus_plumosus
+		Schoenus_tenellus
+		Schoenus_sculptus
+		Schoenus_latelaminatus
+		Schoenus_sparteus
+		Schoenus_humilis
+		Schoenus_brevifolius
+		Schoenus_subfascicularis
+		Schoenus_melanostachys
+		Schoenus_tendo
+		Schoenus_pleiostemoneus
+		Schoenus_racemosus
+		Schoenus_vaginatus
+		Schoenus_laevigatus
+		Schoenus_sesquispiculus
+		Schoenus_ericetorum
+		Schoenus_ornithopodioides
+		Schoenus_imberbis
+		Schoenus_minutulus
+		Schoenus_kennyi
+		Schoenus_subaphyllus
+		Schoenus_caespititius
+		Schoenus_sublateralis
+		Schoenus_villosus
+		Schoenus_neocaledonicus
+		Schoenus_lanatus
+		Schoenus_indutus
+		Schoenus_sublaxus
+		Schoenus_acuminatus
+		Schoenus_calostachyus
+		Schoenus_rigens
+		Schoenus_brevisetis
+		Schoenus_lepidosperma
+		Schoenus_efoliatus
+		Schoenus_multiglumis
+		Schoenus_calcatus
+		Schoenus_scabripes
+		Schoenus_insolitus
+		Schoenus_nigricans
+		Schoenus_ferrugineus
+		Schoenus_carsei
+		Schoenus_falcatus
+		Schoenus_andinus
+		Schoenus_nitens
+		Schoenus_submicrostachyus
+		Schoenus_pictus
+		Schoenus_pseudoloreus
+		Schoenus_albovaginatus
+		Schoenus_aureus
+		Schoenus_compar
+		Schoenus_arenicola
+		Schoenus_comparoides
+		Schoenus_megacarpus
+		Schoenus_triticoides
+		Schoenus_crassus
+		Schoenus_brunnescens
+		Schoenus_compactus
+		Schoenus_calceolus
+		Schoenus_quartziticus
+		Schoenus_bolusii
+		Schoenus_loreus
+		Schoenus_australis
+		Schoenus_limosus
+		Schoenus_crassiculmis
+		Schoenus_ligulatus
+		Schoenus_graciliculmis
+		Schoenus_exilis
+		Schoenus_cuspidatus
+		Schoenus_submarginalis
+		Schoenus_galpinii
+		Schoenus_graminifolius
+		Schoenus_auritus
+		Schoenus_dregeanus
+		Schoenus_selinae
+		Schoenus_quadrangularis
+		Schoenus_rigidus
+		Schoenus_crinitus
+		Schoenus_lucidus
+		Schoenus_neovillosus
+		Schoenus_gracillimus
+		Schoenus_complanatus
+		Schoenus_pygmaeus
+		Schoenus_centralis
+		Schoenus_calyptratus
+		Schoenus_yarrabensis
+		Schoenus_apogon
+		Schoenus_lymansmithii
+		Schoenus_pauciflorus
+		Schoenus_pennisetis
+		Schoenus_maschalinus
+		Schoenus_nanus
+		Schoenus_thedae
+		Schoenus_badius
+		Schoenus_variicellae
+		Schoenus_odontocarpus
+		Schoenus_antarcticus
+		Tetraria_borneensis
+		Caustis_blakei
+		Evandra_aristata
+		Costularia_leucocarpa
+		Capeobolus_brevicaulis
+		Cyathocoma_hexandra
+		Oreobolus_pectinatus
+		Chamaedendron_fragilis
+		Lepidosperma_longitudinale
+		Netrostylis_capillaris
+		Neesenbeckia_punctoria
+		Machaerina_rubiginosa
+		Chaetospora_curvifolia
+		Tricostularia_pauciflora
+		Tetraria_fasciata
+		Morelotia_gahniiformis
+		Tetrariopsis_octandra
+		Xyroschoenus_hornei
+		Ammothryon_grandiflorum
+		Reedia_spathacea
+		Gymnoschoenus_sphaerocephalus
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Anthelepis_paludosa,
+		2	Gahnia_tristis,
+		3	Cyathochaeta_avenacea,
+		4	Mesomelaena_tetragona,
+		5	Ptilothrix_deusta,
+		6	Schoenus_obtusifolius,
+		7	Schoenus_bifidus,
+		8	Schoenus_clandestinus,
+		9	Schoenus_breviculmis,
+		10	Schoenus_deformis,
+		11	Schoenus_subflavus,
+		12	Schoenus_moorei,
+		13	Schoenus_unispiculatus,
+		14	Schoenus_armeria,
+		15	Schoenus_griffinianus,
+		16	Schoenus_subbarbatus,
+		17	Schoenus_fluitans,
+		18	Schoenus_discifer,
+		19	Schoenus_plumosus,
+		20	Schoenus_tenellus,
+		21	Schoenus_sculptus,
+		22	Schoenus_latelaminatus,
+		23	Schoenus_sparteus,
+		24	Schoenus_humilis,
+		25	Schoenus_brevifolius,
+		26	Schoenus_subfascicularis,
+		27	Schoenus_melanostachys,
+		28	Schoenus_tendo,
+		29	Schoenus_pleiostemoneus,
+		30	Schoenus_racemosus,
+		31	Schoenus_vaginatus,
+		32	Schoenus_laevigatus,
+		33	Schoenus_sesquispiculus,
+		34	Schoenus_ericetorum,
+		35	Schoenus_ornithopodioides,
+		36	Schoenus_imberbis,
+		37	Schoenus_minutulus,
+		38	Schoenus_kennyi,
+		39	Schoenus_subaphyllus,
+		40	Schoenus_caespititius,
+		41	Schoenus_sublateralis,
+		42	Schoenus_villosus,
+		43	Schoenus_neocaledonicus,
+		44	Schoenus_lanatus,
+		45	Schoenus_indutus,
+		46	Schoenus_sublaxus,
+		47	Schoenus_acuminatus,
+		48	Schoenus_calostachyus,
+		49	Schoenus_rigens,
+		50	Schoenus_brevisetis,
+		51	Schoenus_lepidosperma,
+		52	Schoenus_efoliatus,
+		53	Schoenus_multiglumis,
+		54	Schoenus_calcatus,
+		55	Schoenus_scabripes,
+		56	Schoenus_insolitus,
+		57	Schoenus_nigricans,
+		58	Schoenus_ferrugineus,
+		59	Schoenus_carsei,
+		60	Schoenus_falcatus,
+		61	Schoenus_andinus,
+		62	Schoenus_nitens,
+		63	Schoenus_submicrostachyus,
+		64	Schoenus_pictus,
+		65	Schoenus_pseudoloreus,
+		66	Schoenus_albovaginatus,
+		67	Schoenus_aureus,
+		68	Schoenus_compar,
+		69	Schoenus_arenicola,
+		70	Schoenus_comparoides,
+		71	Schoenus_megacarpus,
+		72	Schoenus_triticoides,
+		73	Schoenus_crassus,
+		74	Schoenus_brunnescens,
+		75	Schoenus_compactus,
+		76	Schoenus_calceolus,
+		77	Schoenus_quartziticus,
+		78	Schoenus_bolusii,
+		79	Schoenus_loreus,
+		80	Schoenus_australis,
+		81	Schoenus_limosus,
+		82	Schoenus_crassiculmis,
+		83	Schoenus_ligulatus,
+		84	Schoenus_graciliculmis,
+		85	Schoenus_exilis,
+		86	Schoenus_cuspidatus,
+		87	Schoenus_submarginalis,
+		88	Schoenus_galpinii,
+		89	Schoenus_graminifolius,
+		90	Schoenus_auritus,
+		91	Schoenus_dregeanus,
+		92	Schoenus_selinae,
+		93	Schoenus_quadrangularis,
+		94	Schoenus_rigidus,
+		95	Schoenus_crinitus,
+		96	Schoenus_lucidus,
+		97	Schoenus_neovillosus,
+		98	Schoenus_gracillimus,
+		99	Schoenus_complanatus,
+		100	Schoenus_pygmaeus,
+		101	Schoenus_centralis,
+		102	Schoenus_calyptratus,
+		103	Schoenus_yarrabensis,
+		104	Schoenus_apogon,
+		105	Schoenus_lymansmithii,
+		106	Schoenus_pauciflorus,
+		107	Schoenus_pennisetis,
+		108	Schoenus_maschalinus,
+		109	Schoenus_nanus,
+		110	Schoenus_thedae,
+		111	Schoenus_badius,
+		112	Schoenus_variicellae,
+		113	Schoenus_odontocarpus,
+		114	Schoenus_antarcticus,
+		115	Tetraria_borneensis,
+		116	Caustis_blakei,
+		117	Evandra_aristata,
+		118	Costularia_leucocarpa,
+		119	Capeobolus_brevicaulis,
+		120	Cyathocoma_hexandra,
+		121	Oreobolus_pectinatus,
+		122	Chamaedendron_fragilis,
+		123	Lepidosperma_longitudinale,
+		124	Netrostylis_capillaris,
+		125	Neesenbeckia_punctoria,
+		126	Machaerina_rubiginosa,
+		127	Chaetospora_curvifolia,
+		128	Tricostularia_pauciflora,
+		129	Tetraria_fasciata,
+		130	Morelotia_gahniiformis,
+		131	Tetrariopsis_octandra,
+		132	Xyroschoenus_hornei,
+		133	Ammothryon_grandiflorum,
+		134	Reedia_spathacea,
+		135	Gymnoschoenus_sphaerocephalus
+	;
+	TREE * UNTITLED = [&R] ((((1:52.83921077,((2:27.00501118,3:27.00501118)[&state=H_N_W,prob=1]:10.80863001,(4:14.12646199,5:14.12646199)[&state=A_W,prob=1]:23.6871792)[&state=A_W,prob=1]:15.02556958)[&state=W,prob=1]:5.747445112,((56:43.01884888,((6:24.44076754,(7:16.49559172,(12:11.6935851,((8:7.343975887,9:7.343975887)[&state=A_W,prob=1]:2.015914843,(10:0.5161869599,11:0.5161869599)[&state=A_W,prob=1]:8.843703771)[&state=W,prob=1]:2.333694365)[&state=A_W,prob=1]:4.802006624)[&state=W,prob=1]:7.94517582)[&state=W,prob=1]:12.76352344,((43:27.93167352,(((((13:9.334086226,14:9.334086226)[&state=W,prob=1]:4.225310789,(15:3.72892673,16:3.72892673)[&state=W,prob=1]:9.830470284)[&state=W,prob=1]:6.237608331,((22:10.60248923,(17:9.356834122,(18:8.233602969,(19:5.68743026,(20:3.889962729,21:3.889962729)[&state=W,prob=1]:1.797467531)[&state=W,prob=1]:2.546172709)[&state=A_W,prob=1]:1.123231154)[&state=A,prob=1]:1.245655109)[&state=A,prob=1]:2.346064731,(23:5.128463621,24:5.128463621)[&state=T_A_W,prob=1]:7.820090341)[&state=A_W,prob=1]:6.848451383)[&state=W,prob=1]:3.121197941,(25:15.11059416,(26:12.97882131,(27:7.860158982,28:7.860158982)[&state=Z_A,prob=1]:5.118662328)[&state=Z_A_W,prob=1]:2.131772854)[&state=A_W,prob=1]:7.807609123)[&state=W,prob=1]:2.64017597,(42:23.163055,((29:13.57280867,(30:7.61533644,31:7.61533644)[&state=A,prob=1]:5.957472231)[&state=A_W,prob=1]:7.586582136,(((32:10.31180808,33:10.31180808)[&state=A_W,prob=1]:5.757508839,((37:10.45389977,(34:4.942267865,(35:2.753899601,36:2.753899601)[&state=A,prob=1]:2.188368264)[&state=A,prob=1]:5.511631906)[&state=A_W,prob=1]:2.387447151,(38:9.478501848,39:9.478501848)[&state=A,prob=1]:3.362845074)[&state=A_W,prob=1]:3.227969998)[&state=A_W,prob=1]:3.147060232,(40:12.84454273,41:12.84454273)[&state=W,prob=1]:6.371834424)[&state=W,prob=1]:1.943013653)[&state=A_W,prob=1]:2.003664194)[&state=A_W,prob=1]:2.395324257)[&state=W,prob=1]:2.373294266)[&state=W,prob=1]:2.196181909,(((46:8.647154165,(44:5.102523272,45:5.102523272)[&state=W,prob=1]:3.544630893)[&state=W,prob=1]:13.99517458,(50:17.83353072,(47:15.42847338,(48:10.65766411,49:10.65766411)[&state=A_W,prob=1]:4.770809276)[&state=W,prob=1]:2.405057337)[&state=W,prob=1]:4.808798021)[&state=W,prob=1]:3.718687752,(55:16.10742764,(51:9.906096454,(54:2.655971928,(52:1.575005642,53:1.575005642)[&state=W,prob=1]:1.080966285)[&state=W,prob=1]:7.250124526)[&state=A_W,prob=1]:6.201331191)[&state=A_W,prob=1]:10.25358885)[&state=W,prob=1]:3.766838938)[&state=W,prob=1]:7.076435552)[&state=W,prob=1]:5.814557894)[&state=W,prob=1]:9.72471883,(((57:0.3276601598,58:0.3276601598)[&state=H_N_T_F_C,prob=1]:23.08774777,(59:12.48379549,60:12.48379549)[&state=A,prob=1]:10.93161243)[&state=H_N_T_A,prob=1]:21.32666019,((61:30.6789613,((62:12.6489174,63:12.6489174)[&state=T_Z_A_W,prob=1]:12.75200571,((64:14.65420386,((67:10.28529872,(65:5.094599977,66:5.094599977)[&state=C,prob=1]:5.190698747)[&state=C,prob=1]:2.989758981,((68:9.787281565,(69:6.394537724,70:6.394537724)[&state=C,prob=1]:3.392743841)[&state=C,prob=1]:0.6562965557,(71:7.848897453,72:7.848897453)[&state=C,prob=1]:2.594680668)[&state=C,prob=1]:2.831479583)[&state=C,prob=1]:1.379146152)[&state=C,prob=1]:5.330052683,((((73:5.525510888,(76:3.972433397,(74:1.336328011,75:1.336328011)[&state=C,prob=1]:2.636105386)[&state=C,prob=1]:1.553077491)[&state=C,prob=1]:5.75576802,(84:8.890525974,(77:6.843983145,(83:4.991009776,(78:3.868309905,(79:2.838412259,(82:1.780943603,(80:0.8551614352,81:0.8551614352)[&state=F_C,prob=1]:0.9257821679)[&state=C,prob=1]:1.057468656)[&state=C,prob=1]:1.029897645)[&state=C,prob=1]:1.122699872)[&state=C,prob=1]:1.852973369)[&state=C,prob=1]:2.046542829)[&state=C,prob=1]:2.390752934)[&state=C,prob=1]:1.680942296,(85:10.47961327,(90:9.322404796,((86:3.178688995,87:3.178688995)[&state=C,prob=1]:4.289487715,(88:5.731033782,89:5.731033782)[&state=C,prob=1]:1.737142928)[&state=C,prob=1]:1.854228086)[&state=C,prob=1]:1.157208471)[&state=C,prob=1]:2.482607937)[&state=C,prob=1]:5.188581034,(91:17.54565622,(((94:8.185931033,(92:2.773265182,93:2.773265182)[&state=C,prob=1]:5.412665851)[&state=C,prob=1]:2.835377985,(95:8.425283036,(96:4.796899402,97:4.796899402)[&state=C,prob=1]:3.628383634)[&state=C,prob=1]:2.596025982)[&state=C,prob=1]:2.350439683,(98:9.96421069,99:9.96421069)[&state=C,prob=1]:3.40753801)[&state=C,prob=1]:4.173907516)[&state=C,prob=1]:0.605146022)[&state=C,prob=1]:1.8334543)[&state=C,prob=1]:5.416666567)[&state=T_C_Z_A_W,prob=1]:5.278038195)[&state=N_A_W,prob=1]:6.410491054,(114:32.51167263,(((100:5.030665674,101:5.030665674)[&state=A,prob=1]:6.055330814,(102:6.715470178,(103:5.073150317,104:5.073150317)[&state=H_Z_A_W,prob=1]:1.642319862)[&state=H_Z_A_W,prob=1]:4.37052631)[&state=H_Z_A_W,prob=1]:13.67000017,(105:22.6393871,((108:13.47247303,(106:4.564274843,107:4.564274843)[&state=Z_W,prob=1]:8.908198191)[&state=A_W,prob=1]:7.065531301,((109:4.799979007,110:4.799979007)[&state=W,prob=1]:11.82292286,(111:12.43166664,(112:4.055597974,113:4.055597974)[&state=W,prob=1]:8.376068664)[&state=W,prob=1]:4.191235226)[&state=W,prob=1]:3.915102473)[&state=W,prob=1]:2.101382763)[&state=N_W,prob=1]:2.116609559)[&state=N_W,prob=1]:7.755675969)[&state=N,prob=1]:4.577779728)[&state=N,prob=1]:7.652615763)[&state=N,prob=1]:8.001499589)[&state=N_W,prob=1]:5.843088173)[&state=W,prob=1]:2.5105346,((117:23.17815248,(115:18.20522011,116:18.20522011)[&state=T_Z_A,prob=1]:4.972932374)[&state=T_Z_A_W,prob=1]:29.55772206,(122:14.96307448,(121:10.45998765,(118:9.205768053,(119:5.155336742,120:5.155336742)[&state=C,prob=1]:4.050431311)[&state=F_C,prob=1]:1.254219594)[&state=F_C_Z,prob=1]:4.503086831)[&state=P_F_C_Z,prob=1]:37.77280006)[&state=C_Z_W,prob=1]:8.361315941)[&state=C_W,prob=1]:3.341258835,((126:26.50249281,(123:22.0150259,(124:13.82747819,125:13.82747819)[&state=C_Z_A_W,prob=1]:8.187547702)[&state=C_Z_A_W,prob=1]:4.487466911)[&state=C_Z_A_W,prob=1]:29.92943203,(((127:23.85680241,128:23.85680241)[&state=A_W,prob=1]:5.683215251,(133:21.54023223,(129:16.64932629,(132:12.5785354,(130:6.236440326,131:6.236440326)[&state=P_W,prob=1]:6.342095072)[&state=P_F_W,prob=1]:4.070790896)[&state=P_W,prob=1]:4.890905939)[&state=P_W,prob=1]:7.99978543)[&state=A_W,prob=1]:22.91910125,(134:18.47730807,135:18.47730807)[&state=A_W,prob=1]:33.98181084)[&state=W,prob=1]:3.972805929)[&state=A_W,prob=1]:8.006524476)[&state=C_A_W,prob=1];
+END;
