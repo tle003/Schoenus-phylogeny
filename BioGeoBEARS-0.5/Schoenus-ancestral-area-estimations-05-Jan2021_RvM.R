@@ -326,26 +326,26 @@ tipranges
 
 
 # [Rvm]
-#BSM_inputs_fn = "BSM_inputs_file.Rdata"
-#runInputsSlow = TRUE
-#if (runInputsSlow)
-#    {
-#    stochastic_mapping_inputs_list = get_inputs_for_stochastic_mapping(res=res)
-#    save(stochastic_mapping_inputs_list, file=BSM_inputs_fn)
-#    } else {
-#    # Loads to "stochastic_mapping_inputs_list"
-#    load(BSM_inputs_fn)
-#    } # END if (runInputsSlow)
-#
-## Check inputs (doesn't work the same on unconstr)
-#names(stochastic_mapping_inputs_list)
-#stochastic_mapping_inputs_list$phy2
-#stochastic_mapping_inputs_list$COO_weights_columnar
-#stochastic_mapping_inputs_list$unconstr
-#set.seed(seed=as.numeric(Sys.time()))
+BSM_inputs_fn = "BSM_inputs_file.Rdata"
+runInputsSlow = TRUE
+if (runInputsSlow)
+    {
+    stochastic_mapping_inputs_list = get_inputs_for_stochastic_mapping(res=res)
+    save(stochastic_mapping_inputs_list, file=BSM_inputs_fn)
+    } else {
+    # Loads to "stochastic_mapping_inputs_list"
+    load(BSM_inputs_fn)
+    } # END if (runInputsSlow)
+
+# Check inputs (doesn't work the same on unconstr)
+names(stochastic_mapping_inputs_list)
+stochastic_mapping_inputs_list$phy2
+stochastic_mapping_inputs_list$COO_weights_columnar
+stochastic_mapping_inputs_list$unconstr
+set.seed(seed=as.numeric(Sys.time()))
 # [/Rvm]
 
-runBSMslow = FALSE  # [RvM]
+runBSMslow = TRUE
 if (runBSMslow == TRUE)
     {
     # Saves to: RES_clado_events_tables.Rdata
@@ -354,6 +354,7 @@ if (runBSMslow == TRUE)
 
     RES_clado_events_tables = BSM_output$RES_clado_events_tables
     RES_ana_events_tables = BSM_output$RES_ana_events_tables
+    beepr::beep(3)  # [RvM]
     } else {
     # Load previously saved...
 
@@ -442,13 +443,24 @@ library(ggtree)
 # where res = results_DEC
 # where results_DEC = "results_DEC_constrained.rds"
 
+purrr::map(resmod, dim)
+Ntip(tr) + Nnode(tr)
 nodes_state_probs <- as.data.frame(
   resmod$ML_marginal_prob_each_state_at_branch_top_AT_node
 )
 
+#resmod$relative_probs_of_each_state_at_branch_bottom_below_node_DOWNPASS[1:10, 1:10]
+#resmod$relative_probs_of_each_state_at_branch_top_AT_node_DOWNPASS[1:10, 1:10]
+
+#heatmap(resmod$relative_probs_of_each_state_at_branch_top_AT_node_UPPASS,   Rowv = NA, Colv = NA)
+#heatmap(resmod$relative_probs_of_each_state_at_branch_top_AT_node_DOWNPASS, Rowv = NA, Colv = NA)
+#heatmap(resmod$ML_marginal_prob_each_state_at_branch_top_AT_node,           Rowv = NA, Colv = NA)
+#heatmap(resmod$ML_marginal_prob_each_state_at_branch_bottom_below_node,     Rowv = NA, Colv = NA)
+
 # Remove the tip-nodes from the matrix
 nodes_state_probs <-  nodes_state_probs[-(1:Ntip(tr)), ]
 
+sort(unique(as.vector(as.matrix(nodes_state_probs))), decreasing = TRUE)[1:10]
 # Check:
 Nnode(tr) == nrow(nodes_state_probs)
 
@@ -460,6 +472,8 @@ for (i in 1:nstates) {
     areas[states_list_0based[[i]] + 1]  # because 9x areas indexed 0:8
   )
 }
+#rownames(nodes_state_probs) <- str_remove(rownames(nodes_state_probs), "X\\.")
+#rownames(nodes_state_probs)[[1]] <- as.numeric(rownames(nodes_state_probs)[[2]]) - 1
 colnames(nodes_state_probs)[[1]] <- "na"
 
 # Save state probability matrix
