@@ -74,14 +74,14 @@ dispersal_means %>%
     geom_edge_arc2(
       aes(edge_width = weight %>%
         {case_when(
-          . >= 16  ~   "16.05",
-          . >=  7  ~    "7.30",
-          TRUE     ~ "<= 3.50"
+          . >= 17  ~   "17.43",
+          . >=  8  ~    "8.65",
+          TRUE     ~ "<= 4.62"
         )} %>%
         factor(levels = c(
-          "<= 3.50",
-             "7.30",
-            "16.05"
+          "<= 4.62",
+             "8.65",
+            "17.43"
         ))
       ),
       start_cap = circle(10, "points"),
