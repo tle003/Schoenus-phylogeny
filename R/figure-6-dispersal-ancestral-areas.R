@@ -16,7 +16,7 @@ library(ggstance)   # For ggstance::position_dodgev()
 
 # BEAST reconstruction (MCC tree), pruned to Schoeneae,
 # with ancestral area probabilities for nodes (from DEC analysis):
-Schoeneae_tree <- read.beast("BioGeoBEARS/tr_w_ancestral_areas.tre")
+#Schoeneae_tree <- read.beast("BioGeoBEARS-0.5/tr_w_ancestral_areas.tre")
 
 # Biogeographical coding for extant species (used in DEC analysis):
 Schoeneae_DEC_areas <- read_delim(
@@ -25,6 +25,21 @@ Schoeneae_DEC_areas <- read_delim(
 )
 
 fynbos_kwonga <- read_csv("data/fynbos-kwonga.csv")
+
+tr <- read.tree("BioGeoBEARS-0.5/Schoeneae_tree_ultrametric-Jan2021.tre")
+nodes = (length(ladderize(tr, right = FALSE)$tip.label) + 1):
+        (length(ladderize(tr, right = FALSE)$tip.label) + ladderize(tr, right = FALSE)$Nnode)
+nodes_state_probs_tidy <- read_csv("BioGeoBEARS-0.5/ancestral_areas_relative_probs_tidy.csv")
+nodes_state_probs_tidy <- nodes_state_probs_tidy %>%
+  select(-X1, -prob) %>%
+  filter(node %in% nodes)
+MLstates <- read_csv("BioGeoBEARS-0.5/MLstates.csv")
+MLstates <- MLstates %>%
+  filter(node %in% nodes)
+Schoeneae_tree <- tr %>%
+  as_tibble() %>%
+  full_join(MLstates) %>%
+  as.treedata()
 
 # Tidy data --------------------------------------------------------------------
 
@@ -54,7 +69,7 @@ Schoeneae_tree <- drop.tip(Schoeneae_tree, c(
 
 # Make node-data (with AAR) long-form for side-by-side plotting at nodes
 Schoeneae_tree@data <- Schoeneae_tree@data %>%
-  mutate(regions = str_split(state, "_")) %>%
+  mutate(regions = str_split(state, pattern = "")) %>%
   select(node, regions) %>%
   unnest() %>%
   mutate(regions =
@@ -310,7 +325,6 @@ Schoeneae_DEC_areas_plot <-
     panel = "DEC areas",
     aes(
       x = x,
-      colour = area,
       fill = factor(paste(area, !present), levels = c(
         "Cape FALSE",              "Cape TRUE",
         "Africa FALSE",            "Africa TRUE",
@@ -379,8 +393,20 @@ Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[3]]$children[[6]]  <- zeroGrob()
 Schoeneae_DEC_areas_plot2$grobs[[1]]$grobs[[3]]$children[[6]] <- zeroGrob()
 
 # Check:
-plot(Schoeneae_DEC_areas_plot)
-plot(Schoeneae_DEC_areas_plot2)
+#plot(Schoeneae_DEC_areas_plot)
+#plot(Schoeneae_DEC_areas_plot2)
+
+#Schoeneae_DEC_areas_plot$grobs[[1]]$grobs[[3]] <- zeroGrob()
+#Schoeneae_DEC_areas_plot2$grobs[[1]]$grobs[[2]] <- zeroGrob()
+#
+#Schoeneae_DEC_areas_plot_foo <- Schoeneae_DEC_areas_plot
+#Schoeneae_DEC_areas_plot_foo$grobs[[1]]$grobs <- Schoeneae_DEC_areas_plot_foo$grobs[[1]]$grobs[c(1, 2, 10, 11, 16, #17, 19)]
+#plot(gridExtra::arrangeGrob(Schoeneae_DEC_areas_plot_foo$grobs[[1]]))
+#
+#,
+#    Schoeneae_DEC_areas_plot2$grobs[[1]]$grobs[c(1,    3)]
+#  )
+#)
 
 # Save plot --------------------------------------------------------------------
 
