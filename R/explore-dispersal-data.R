@@ -47,16 +47,16 @@ dispersal_means %>%
     geom_node_point(
       aes(colour = {
         case_when(
-          name == "C"      ~ "Cape",
-          name == "F"      ~ "Africa",
-          name == "W"      ~ "Western Australia",
-          name == "A"      ~ "Australia",
-          name == "Z"      ~ "New Zealand",
-          name == "N"      ~ "Neotropics",
-          name == "P"      ~ "Pacific",
-          name == "T"      ~ "Tropical Asia",
-          name == "H"      ~ "Holarctic"
-          ) %>%
+          name == "C" ~ "Cape",
+          name == "F" ~ "Africa",
+          name == "W" ~ "Western Australia",
+          name == "A" ~ "Australia",
+          name == "Z" ~ "New Zealand",
+          name == "N" ~ "Neotropics",
+          name == "P" ~ "Pacific",
+          name == "T" ~ "Tropical Asia",
+          name == "H" ~ "Holarctic"
+        ) %>%
         factor(levels = c(
           "Cape",
           "Africa",
