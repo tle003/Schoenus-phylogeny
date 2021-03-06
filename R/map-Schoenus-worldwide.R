@@ -14,6 +14,8 @@ library(tidyverse)  # Data wrangling, figures
 Schoenus_worldwide <- read.csv("data/occurence-data/Schoenus-worldwide-TDWG.csv")
 
 TDWG <- readOGR("~/wgsrpd/level3", layer = "level3", stringsAsFactors = FALSE)
+# NOTE: this requires an external repo's data
+# (namely the TDWG areas from the WGSRPD)
 
 # Tidy data --------------------------------------------------------------------
 
